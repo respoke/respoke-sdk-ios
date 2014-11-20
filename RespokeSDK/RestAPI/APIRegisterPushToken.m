@@ -9,9 +9,13 @@
 #import "APIRegisterPushToken.h"
 
 #define RESPOKE_PUSH_SERVER_URL @"http://192.168.1.65:3000"
+#define LAST_VALID_PUSH_TOKEN_KEY @"LAST_VALID_PUSH_TOKEN_KEY"
 
 
-@implementation APIRegisterPushToken
+@implementation APIRegisterPushToken {
+    NSString *tokenHexString;
+}
+
 
 - (NSString*)hexifyData:(NSData *)data
 {
@@ -36,13 +40,25 @@
 {
     self.baseURL = RESPOKE_PUSH_SERVER_URL;
     urlEndpoint = @"/v1/register";
-    NSString *tokenHexString = [self hexifyData:self.token];
+    tokenHexString = [self hexifyData:self.token];
     
     if (tokenHexString.length > 0)
     {
         NSError *error;
-        NSDictionary *messageDict = @{@"app_id": [NSNumber numberWithInteger:1], @"name" : self.endpointID, @"service": [NSNumber numberWithInteger:1], @"token" : tokenHexString};
-        
+        NSString *lastKnownPushToken = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_VALID_PUSH_TOKEN_KEY];
+            
+        NSMutableDictionary *messageDict = [NSMutableDictionary dictionary];
+        [messageDict setObject:[NSNumber numberWithInteger:1] forKey:@"app_id"];
+        [messageDict setObject:self.endpointIDArray forKey:@"names"];
+        [messageDict setObject:[NSNumber numberWithInteger:1] forKey:@"service"];
+        [messageDict setObject:tokenHexString forKey:@"token"];
+
+        if (lastKnownPushToken && ![lastKnownPushToken isEqualToString:tokenHexString])
+        {
+            // If the push token for this device has changed since the last valid token was retrieved, also send the old one to the registration API so that it can clean up unused tokens from it's database
+            [messageDict setObject:lastKnownPushToken forKey:@"old_token"];
+        }
+
         if ([NSJSONSerialization isValidJSONObject:messageDict])
         {
             jsonParams = [NSJSONSerialization dataWithJSONObject:messageDict options:0 error:&error];
@@ -74,6 +90,9 @@
 
     if (self.success)
     {
+        [[NSUserDefaults standardUserDefaults] setObject:tokenHexString forKey:LAST_VALID_PUSH_TOKEN_KEY];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
         self.successHandler();
     }
     else

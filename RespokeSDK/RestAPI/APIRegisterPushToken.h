@@ -17,7 +17,7 @@
 @property NSData *token;
 
 
-@property NSString *endpointID;
+@property NSArray *endpointIDArray;
 
 
 @end

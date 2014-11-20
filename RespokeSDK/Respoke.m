@@ -112,7 +112,7 @@
     if (pushToken)
     {
         // A push notification token has already been recorded, so notify the Respoke servers that this device is eligible to receive notifications directed at the specified endpointID
-        [self registerPushServicesForEndpointID:endpointID];
+        [self registerPushServices];
     }
 }
 
@@ -123,15 +123,7 @@
 
     if ([instances count])
     {
-        // If there are already client instances running, check if any of them have already connected
-        for (RespokeClient *eachInstance in instances)
-        {
-            if ([eachInstance isConnected])
-            {
-                // This client has already connected, so notify the Respoke servers that this device is eligible to receive notifications directed at this endpointID
-                [self registerPushServicesForEndpointID:[eachInstance getEndpointID]];
-            }
-        }
+        [self registerPushServices];
     }
 }
 
@@ -142,12 +134,23 @@
 }
 
 
-- (void)registerPushServicesForEndpointID:(NSString*)endpointID
+- (void)registerPushServices
 {
-    NSLog(@"Registering Endpoint ID %@ for notifications", endpointID);
+    NSMutableArray *endpointIDArray = [NSMutableArray array];
+
+    // If there are already client instances running, check if any of them have already connected
+    for (RespokeClient *eachInstance in instances)
+    {
+        if ([eachInstance isConnected])
+        {
+            // This client has already connected, so notify the Respoke servers that this device is eligible to receive notifications directed at this endpointID
+            [endpointIDArray addObject:[eachInstance getEndpointID]];
+        }
+    }
+
     APIRegisterPushToken *transaction = [[APIRegisterPushToken alloc] init];
     transaction.token = pushToken;
-    transaction.endpointID = endpointID;
+    transaction.endpointIDArray = endpointIDArray;
     [transaction goWithSuccessHandler:^(){
         NSLog(@"Successfully registered push token");
     } errorHandler:^(NSString *error){

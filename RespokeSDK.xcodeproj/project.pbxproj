@@ -1,0 +1,659 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		18E945C419952B2200C8B142 /* UniversalLib */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 18E945C519952B2200C8B142 /* Build configuration list for PBXAggregateTarget "UniversalLib" */;
+			buildPhases = (
+				18E945C819952B5300C8B142 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = UniversalLib;
+			productName = UniversalLib;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		180BE48D19F9A8DF005BA3A1 /* RespokeDirectConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 180BE48C19F9A8DF005BA3A1 /* RespokeDirectConnection.m */; };
+		182CC3C61A150ABE0084E704 /* APIRegisterPushToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 182CC3C51A150ABE0084E704 /* APIRegisterPushToken.m */; };
+		18AFCCA4199BDB0D00818468 /* RespokeConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFCCA3199BDB0D00818468 /* RespokeConnection.m */; };
+		18E9420D1993D46E00C8B142 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E9420C1993D46E00C8B142 /* Foundation.framework */; };
+		18E9421B1993D46E00C8B142 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E9421A1993D46E00C8B142 /* XCTest.framework */; };
+		18E9421C1993D46E00C8B142 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E9420C1993D46E00C8B142 /* Foundation.framework */; };
+		18E9421E1993D46E00C8B142 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E9421D1993D46E00C8B142 /* UIKit.framework */; };
+		18E942211993D46E00C8B142 /* libRespokeSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E942091993D46E00C8B142 /* libRespokeSDK.a */; };
+		18E942271993D46E00C8B142 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 18E942251993D46E00C8B142 /* InfoPlist.strings */; };
+		18E942291993D46E00C8B142 /* RespokeSDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E942281993D46E00C8B142 /* RespokeSDKTests.m */; };
+		18E9424F1993D61000C8B142 /* Respoke.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E9423C1993D61000C8B142 /* Respoke.m */; };
+		18E942501993D61000C8B142 /* RespokeCall.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E9423E1993D61000C8B142 /* RespokeCall.m */; };
+		18E942511993D61000C8B142 /* RespokeClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E942401993D61000C8B142 /* RespokeClient.m */; };
+		18E942521993D61000C8B142 /* RespokeEndpoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E942421993D61000C8B142 /* RespokeEndpoint.m */; };
+		18E942531993D61000C8B142 /* RespokeGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E942441993D61000C8B142 /* RespokeGroup.m */; };
+		18E942541993D61000C8B142 /* RespokeSignalingChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E942471993D61000C8B142 /* RespokeSignalingChannel.m */; };
+		18E942551993D61000C8B142 /* APIDoOpen.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E9424A1993D61000C8B142 /* APIDoOpen.m */; };
+		18E942561993D61000C8B142 /* APIGetToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E9424C1993D61000C8B142 /* APIGetToken.m */; };
+		18E942571993D61000C8B142 /* APITransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E9424E1993D61000C8B142 /* APITransaction.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		18E9421F1993D46E00C8B142 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 18E942011993D46E00C8B142 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 18E942081993D46E00C8B142;
+			remoteInfo = RespokeSDK;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		18E942071993D46E00C8B142 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		180BE48C19F9A8DF005BA3A1 /* RespokeDirectConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RespokeDirectConnection.m; sourceTree = "<group>"; };
+		180BE49219F9A990005BA3A1 /* RespokeDirectConnection+private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RespokeDirectConnection+private.h"; sourceTree = "<group>"; };
+		182CC3C41A150ABE0084E704 /* APIRegisterPushToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIRegisterPushToken.h; sourceTree = "<group>"; };
+		182CC3C51A150ABE0084E704 /* APIRegisterPushToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIRegisterPushToken.m; sourceTree = "<group>"; };
+		18AFCBCE199A5E8600818468 /* Respoke+private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Respoke+private.h"; sourceTree = "<group>"; };
+		18AFCCA3199BDB0D00818468 /* RespokeConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RespokeConnection.m; sourceTree = "<group>"; };
+		18AFCCA5199BDB9000818468 /* RespokeConnection+private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RespokeConnection+private.h"; sourceTree = "<group>"; };
+		18E942091993D46E00C8B142 /* libRespokeSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRespokeSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		18E9420C1993D46E00C8B142 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		18E942101993D46E00C8B142 /* RespokeSDK-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RespokeSDK-Prefix.pch"; sourceTree = "<group>"; };
+		18E942191993D46E00C8B142 /* RespokeSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RespokeSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		18E9421A1993D46E00C8B142 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		18E9421D1993D46E00C8B142 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		18E942241993D46E00C8B142 /* RespokeSDKTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RespokeSDKTests-Info.plist"; sourceTree = "<group>"; };
+		18E942261993D46E00C8B142 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		18E942281993D46E00C8B142 /* RespokeSDKTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RespokeSDKTests.m; sourceTree = "<group>"; };
+		18E9423C1993D61000C8B142 /* Respoke.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Respoke.m; sourceTree = "<group>"; };
+		18E9423E1993D61000C8B142 /* RespokeCall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RespokeCall.m; sourceTree = "<group>"; };
+		18E942401993D61000C8B142 /* RespokeClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RespokeClient.m; sourceTree = "<group>"; };
+		18E942421993D61000C8B142 /* RespokeEndpoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RespokeEndpoint.m; sourceTree = "<group>"; };
+		18E942441993D61000C8B142 /* RespokeGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RespokeGroup.m; sourceTree = "<group>"; };
+		18E942461993D61000C8B142 /* RespokeSignalingChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RespokeSignalingChannel.h; sourceTree = "<group>"; };
+		18E942471993D61000C8B142 /* RespokeSignalingChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RespokeSignalingChannel.m; sourceTree = "<group>"; };
+		18E942491993D61000C8B142 /* APIDoOpen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIDoOpen.h; sourceTree = "<group>"; };
+		18E9424A1993D61000C8B142 /* APIDoOpen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIDoOpen.m; sourceTree = "<group>"; };
+		18E9424B1993D61000C8B142 /* APIGetToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIGetToken.h; sourceTree = "<group>"; };
+		18E9424C1993D61000C8B142 /* APIGetToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIGetToken.m; sourceTree = "<group>"; };
+		18E9424D1993D61000C8B142 /* APITransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APITransaction.h; sourceTree = "<group>"; };
+		18E9424E1993D61000C8B142 /* APITransaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APITransaction.m; sourceTree = "<group>"; };
+		18E943B81993E2B100C8B142 /* SocketIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIO.h; sourceTree = "<group>"; };
+		18E943BA1993E2B100C8B142 /* SocketIOJSONSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOJSONSerialization.h; sourceTree = "<group>"; };
+		18E943BC1993E2B100C8B142 /* SocketIOPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOPacket.h; sourceTree = "<group>"; };
+		18E943BE1993E2B100C8B142 /* SocketIOTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOTransport.h; sourceTree = "<group>"; };
+		18E943BF1993E2B100C8B142 /* SocketIOTransportWebsocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOTransportWebsocket.h; sourceTree = "<group>"; };
+		18E943C11993E2B100C8B142 /* SocketIOTransportXHR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOTransportXHR.h; sourceTree = "<group>"; };
+		18E9444A1993EBF800C8B142 /* RespokeCall+private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RespokeCall+private.h"; sourceTree = "<group>"; };
+		18E9444B1993EBF800C8B142 /* RespokeClient+private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RespokeClient+private.h"; sourceTree = "<group>"; };
+		18E9444C1993EBF800C8B142 /* RespokeEndpoint+private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RespokeEndpoint+private.h"; sourceTree = "<group>"; };
+		18E9444D1993EBF800C8B142 /* RespokeGroup+private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RespokeGroup+private.h"; sourceTree = "<group>"; };
+		18E945CA19952CF000C8B142 /* RTCAudioSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCAudioSource.h; sourceTree = "<group>"; };
+		18E945CB19952CF000C8B142 /* RTCAudioTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCAudioTrack.h; sourceTree = "<group>"; };
+		18E945CC19952CF000C8B142 /* RTCDataChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCDataChannel.h; sourceTree = "<group>"; };
+		18E945CD19952CF000C8B142 /* RTCEAGLVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCEAGLVideoView.h; sourceTree = "<group>"; };
+		18E945CE19952CF000C8B142 /* RTCI420Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCI420Frame.h; sourceTree = "<group>"; };
+		18E945CF19952CF000C8B142 /* RTCICECandidate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCICECandidate.h; sourceTree = "<group>"; };
+		18E945D019952CF000C8B142 /* RTCICEServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCICEServer.h; sourceTree = "<group>"; };
+		18E945D119952CF000C8B142 /* RTCMediaConstraints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCMediaConstraints.h; sourceTree = "<group>"; };
+		18E945D219952CF000C8B142 /* RTCMediaSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCMediaSource.h; sourceTree = "<group>"; };
+		18E945D319952CF000C8B142 /* RTCMediaStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCMediaStream.h; sourceTree = "<group>"; };
+		18E945D419952CF000C8B142 /* RTCMediaStreamTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCMediaStreamTrack.h; sourceTree = "<group>"; };
+		18E945D519952CF000C8B142 /* RTCNSGLVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCNSGLVideoView.h; sourceTree = "<group>"; };
+		18E945D619952CF000C8B142 /* RTCOpenGLVideoRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCOpenGLVideoRenderer.h; sourceTree = "<group>"; };
+		18E945D719952CF000C8B142 /* RTCPair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCPair.h; sourceTree = "<group>"; };
+		18E945D819952CF000C8B142 /* RTCPeerConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCPeerConnection.h; sourceTree = "<group>"; };
+		18E945D919952CF000C8B142 /* RTCPeerConnectionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCPeerConnectionDelegate.h; sourceTree = "<group>"; };
+		18E945DA19952CF000C8B142 /* RTCPeerConnectionFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCPeerConnectionFactory.h; sourceTree = "<group>"; };
+		18E945DB19952CF000C8B142 /* RTCSessionDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCSessionDescription.h; sourceTree = "<group>"; };
+		18E945DC19952CF000C8B142 /* RTCSessionDescriptionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCSessionDescriptionDelegate.h; sourceTree = "<group>"; };
+		18E945DD19952CF000C8B142 /* RTCStatsDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCStatsDelegate.h; sourceTree = "<group>"; };
+		18E945DE19952CF000C8B142 /* RTCStatsReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCStatsReport.h; sourceTree = "<group>"; };
+		18E945DF19952CF000C8B142 /* RTCTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCTypes.h; sourceTree = "<group>"; };
+		18E945E019952CF000C8B142 /* RTCVideoCapturer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCVideoCapturer.h; sourceTree = "<group>"; };
+		18E945E119952CF000C8B142 /* RTCVideoRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCVideoRenderer.h; sourceTree = "<group>"; };
+		18E945E219952CF000C8B142 /* RTCVideoSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCVideoSource.h; sourceTree = "<group>"; };
+		18E945E319952CF000C8B142 /* RTCVideoTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCVideoTrack.h; sourceTree = "<group>"; };
+		D42AE9E71A38DB8D00B1C9A1 /* Respoke.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Respoke.h; path = Public/Respoke.h; sourceTree = "<group>"; };
+		D42AE9E81A38DB8D00B1C9A1 /* RespokeCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RespokeCall.h; path = Public/RespokeCall.h; sourceTree = "<group>"; };
+		D42AE9E91A38DB8D00B1C9A1 /* RespokeClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RespokeClient.h; path = Public/RespokeClient.h; sourceTree = "<group>"; };
+		D42AE9EA1A38DB8D00B1C9A1 /* RespokeConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RespokeConnection.h; path = Public/RespokeConnection.h; sourceTree = "<group>"; };
+		D42AE9EB1A38DB8D00B1C9A1 /* RespokeDirectConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RespokeDirectConnection.h; path = Public/RespokeDirectConnection.h; sourceTree = "<group>"; };
+		D42AE9EC1A38DB8D00B1C9A1 /* RespokeEndpoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RespokeEndpoint.h; path = Public/RespokeEndpoint.h; sourceTree = "<group>"; };
+		D42AE9ED1A38DB8D00B1C9A1 /* RespokeGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RespokeGroup.h; path = Public/RespokeGroup.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		18E942061993D46E00C8B142 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18E9420D1993D46E00C8B142 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18E942161993D46E00C8B142 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18E942211993D46E00C8B142 /* libRespokeSDK.a in Frameworks */,
+				18E9421B1993D46E00C8B142 /* XCTest.framework in Frameworks */,
+				18E9421E1993D46E00C8B142 /* UIKit.framework in Frameworks */,
+				18E9421C1993D46E00C8B142 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		18E942001993D46E00C8B142 = {
+			isa = PBXGroup;
+			children = (
+				18E9420E1993D46E00C8B142 /* RespokeSDK */,
+				18E942221993D46E00C8B142 /* RespokeSDKTests */,
+				18E9420B1993D46E00C8B142 /* Frameworks */,
+				18E9420A1993D46E00C8B142 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		18E9420A1993D46E00C8B142 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				18E942091993D46E00C8B142 /* libRespokeSDK.a */,
+				18E942191993D46E00C8B142 /* RespokeSDKTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		18E9420B1993D46E00C8B142 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				18E9420C1993D46E00C8B142 /* Foundation.framework */,
+				18E9421A1993D46E00C8B142 /* XCTest.framework */,
+				18E9421D1993D46E00C8B142 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		18E9420E1993D46E00C8B142 /* RespokeSDK */ = {
+			isa = PBXGroup;
+			children = (
+				18E947121995329E00C8B142 /* PublicHeaders */,
+				18E9423C1993D61000C8B142 /* Respoke.m */,
+				18AFCBCE199A5E8600818468 /* Respoke+private.h */,
+				18E9423E1993D61000C8B142 /* RespokeCall.m */,
+				18E9444A1993EBF800C8B142 /* RespokeCall+private.h */,
+				18E942401993D61000C8B142 /* RespokeClient.m */,
+				18E9444B1993EBF800C8B142 /* RespokeClient+private.h */,
+				18AFCCA3199BDB0D00818468 /* RespokeConnection.m */,
+				18AFCCA5199BDB9000818468 /* RespokeConnection+private.h */,
+				180BE48C19F9A8DF005BA3A1 /* RespokeDirectConnection.m */,
+				180BE49219F9A990005BA3A1 /* RespokeDirectConnection+private.h */,
+				18E942421993D61000C8B142 /* RespokeEndpoint.m */,
+				18E9444C1993EBF800C8B142 /* RespokeEndpoint+private.h */,
+				18E942441993D61000C8B142 /* RespokeGroup.m */,
+				18E9444D1993EBF800C8B142 /* RespokeGroup+private.h */,
+				18E942461993D61000C8B142 /* RespokeSignalingChannel.h */,
+				18E942471993D61000C8B142 /* RespokeSignalingChannel.m */,
+				18E942481993D61000C8B142 /* RestAPI */,
+				18E943B11993E2B000C8B142 /* socketIOobjc */,
+				18E9420F1993D46E00C8B142 /* Supporting Files */,
+				18E945C919952CF000C8B142 /* WebRTC */,
+			);
+			path = RespokeSDK;
+			sourceTree = "<group>";
+		};
+		18E9420F1993D46E00C8B142 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				18E942101993D46E00C8B142 /* RespokeSDK-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		18E942221993D46E00C8B142 /* RespokeSDKTests */ = {
+			isa = PBXGroup;
+			children = (
+				18E942281993D46E00C8B142 /* RespokeSDKTests.m */,
+				18E942231993D46E00C8B142 /* Supporting Files */,
+			);
+			path = RespokeSDKTests;
+			sourceTree = "<group>";
+		};
+		18E942231993D46E00C8B142 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				18E942241993D46E00C8B142 /* RespokeSDKTests-Info.plist */,
+				18E942251993D46E00C8B142 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		18E942481993D61000C8B142 /* RestAPI */ = {
+			isa = PBXGroup;
+			children = (
+				18E942491993D61000C8B142 /* APIDoOpen.h */,
+				18E9424A1993D61000C8B142 /* APIDoOpen.m */,
+				18E9424B1993D61000C8B142 /* APIGetToken.h */,
+				18E9424C1993D61000C8B142 /* APIGetToken.m */,
+				182CC3C41A150ABE0084E704 /* APIRegisterPushToken.h */,
+				182CC3C51A150ABE0084E704 /* APIRegisterPushToken.m */,
+				18E9424D1993D61000C8B142 /* APITransaction.h */,
+				18E9424E1993D61000C8B142 /* APITransaction.m */,
+			);
+			path = RestAPI;
+			sourceTree = "<group>";
+		};
+		18E943B11993E2B000C8B142 /* socketIOobjc */ = {
+			isa = PBXGroup;
+			children = (
+				18E943B81993E2B100C8B142 /* SocketIO.h */,
+				18E943BA1993E2B100C8B142 /* SocketIOJSONSerialization.h */,
+				18E943BC1993E2B100C8B142 /* SocketIOPacket.h */,
+				18E943BE1993E2B100C8B142 /* SocketIOTransport.h */,
+				18E943BF1993E2B100C8B142 /* SocketIOTransportWebsocket.h */,
+				18E943C11993E2B100C8B142 /* SocketIOTransportXHR.h */,
+			);
+			name = socketIOobjc;
+			path = ../../Respoke/socketIOobjc;
+			sourceTree = "<group>";
+		};
+		18E945C919952CF000C8B142 /* WebRTC */ = {
+			isa = PBXGroup;
+			children = (
+				18E945CA19952CF000C8B142 /* RTCAudioSource.h */,
+				18E945CB19952CF000C8B142 /* RTCAudioTrack.h */,
+				18E945CC19952CF000C8B142 /* RTCDataChannel.h */,
+				18E945CD19952CF000C8B142 /* RTCEAGLVideoView.h */,
+				18E945CE19952CF000C8B142 /* RTCI420Frame.h */,
+				18E945CF19952CF000C8B142 /* RTCICECandidate.h */,
+				18E945D019952CF000C8B142 /* RTCICEServer.h */,
+				18E945D119952CF000C8B142 /* RTCMediaConstraints.h */,
+				18E945D219952CF000C8B142 /* RTCMediaSource.h */,
+				18E945D319952CF000C8B142 /* RTCMediaStream.h */,
+				18E945D419952CF000C8B142 /* RTCMediaStreamTrack.h */,
+				18E945D519952CF000C8B142 /* RTCNSGLVideoView.h */,
+				18E945D619952CF000C8B142 /* RTCOpenGLVideoRenderer.h */,
+				18E945D719952CF000C8B142 /* RTCPair.h */,
+				18E945D819952CF000C8B142 /* RTCPeerConnection.h */,
+				18E945D919952CF000C8B142 /* RTCPeerConnectionDelegate.h */,
+				18E945DA19952CF000C8B142 /* RTCPeerConnectionFactory.h */,
+				18E945DB19952CF000C8B142 /* RTCSessionDescription.h */,
+				18E945DC19952CF000C8B142 /* RTCSessionDescriptionDelegate.h */,
+				18E945DD19952CF000C8B142 /* RTCStatsDelegate.h */,
+				18E945DE19952CF000C8B142 /* RTCStatsReport.h */,
+				18E945DF19952CF000C8B142 /* RTCTypes.h */,
+				18E945E019952CF000C8B142 /* RTCVideoCapturer.h */,
+				18E945E119952CF000C8B142 /* RTCVideoRenderer.h */,
+				18E945E219952CF000C8B142 /* RTCVideoSource.h */,
+				18E945E319952CF000C8B142 /* RTCVideoTrack.h */,
+			);
+			path = WebRTC;
+			sourceTree = "<group>";
+		};
+		18E947121995329E00C8B142 /* PublicHeaders */ = {
+			isa = PBXGroup;
+			children = (
+				D42AE9E71A38DB8D00B1C9A1 /* Respoke.h */,
+				D42AE9E81A38DB8D00B1C9A1 /* RespokeCall.h */,
+				D42AE9E91A38DB8D00B1C9A1 /* RespokeClient.h */,
+				D42AE9EA1A38DB8D00B1C9A1 /* RespokeConnection.h */,
+				D42AE9EB1A38DB8D00B1C9A1 /* RespokeDirectConnection.h */,
+				D42AE9EC1A38DB8D00B1C9A1 /* RespokeEndpoint.h */,
+				D42AE9ED1A38DB8D00B1C9A1 /* RespokeGroup.h */,
+			);
+			name = PublicHeaders;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		18E942081993D46E00C8B142 /* RespokeSDK */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 18E9422C1993D46E00C8B142 /* Build configuration list for PBXNativeTarget "RespokeSDK" */;
+			buildPhases = (
+				18E942051993D46E00C8B142 /* Sources */,
+				18E942061993D46E00C8B142 /* Frameworks */,
+				18E942071993D46E00C8B142 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RespokeSDK;
+			productName = RespokeSDK;
+			productReference = 18E942091993D46E00C8B142 /* libRespokeSDK.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		18E942181993D46E00C8B142 /* RespokeSDKTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 18E9422F1993D46E00C8B142 /* Build configuration list for PBXNativeTarget "RespokeSDKTests" */;
+			buildPhases = (
+				18E942151993D46E00C8B142 /* Sources */,
+				18E942161993D46E00C8B142 /* Frameworks */,
+				18E942171993D46E00C8B142 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				18E942201993D46E00C8B142 /* PBXTargetDependency */,
+			);
+			name = RespokeSDKTests;
+			productName = RespokeSDKTests;
+			productReference = 18E942191993D46E00C8B142 /* RespokeSDKTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		18E942011993D46E00C8B142 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "Digium, Inc.";
+			};
+			buildConfigurationList = 18E942041993D46E00C8B142 /* Build configuration list for PBXProject "RespokeSDK" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 18E942001993D46E00C8B142;
+			productRefGroup = 18E9420A1993D46E00C8B142 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				18E942081993D46E00C8B142 /* RespokeSDK */,
+				18E942181993D46E00C8B142 /* RespokeSDKTests */,
+				18E945C419952B2200C8B142 /* UniversalLib */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		18E942171993D46E00C8B142 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18E942271993D46E00C8B142 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		18E945C819952B5300C8B142 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# define output folder environment variable\nUNIVERSAL_OUTPUTFOLDER=${SRCROOT}/RespokeSDK/Public/libs\n\n# remove any old version of the lib\n[ -e \"${UNIVERSAL_OUTPUTFOLDER}/libRespokeSDK.a\" ] && rm \"${UNIVERSAL_OUTPUTFOLDER}/libRespokeSDK.a\"\n\n# Step 1. Build Device and Simulator versions\nxcodebuild -target RespokeSDK ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\nxcodebuild -target RespokeSDK -configuration ${CONFIGURATION} -sdk iphonesimulator -arch i386 BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\n    \n# Step 2. Create universal binary file using lipo\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/libRespokeSDK.a\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/lib${PROJECT_NAME}.a\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/lib${PROJECT_NAME}.a\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		18E942051993D46E00C8B142 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18E942551993D61000C8B142 /* APIDoOpen.m in Sources */,
+				18AFCCA4199BDB0D00818468 /* RespokeConnection.m in Sources */,
+				18E942511993D61000C8B142 /* RespokeClient.m in Sources */,
+				18E9424F1993D61000C8B142 /* Respoke.m in Sources */,
+				18E942561993D61000C8B142 /* APIGetToken.m in Sources */,
+				18E942541993D61000C8B142 /* RespokeSignalingChannel.m in Sources */,
+				18E942521993D61000C8B142 /* RespokeEndpoint.m in Sources */,
+				18E942571993D61000C8B142 /* APITransaction.m in Sources */,
+				18E942531993D61000C8B142 /* RespokeGroup.m in Sources */,
+				182CC3C61A150ABE0084E704 /* APIRegisterPushToken.m in Sources */,
+				18E942501993D61000C8B142 /* RespokeCall.m in Sources */,
+				180BE48D19F9A8DF005BA3A1 /* RespokeDirectConnection.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18E942151993D46E00C8B142 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18E942291993D46E00C8B142 /* RespokeSDKTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		18E942201993D46E00C8B142 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 18E942081993D46E00C8B142 /* RespokeSDK */;
+			targetProxy = 18E9421F1993D46E00C8B142 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		18E942251993D46E00C8B142 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				18E942261993D46E00C8B142 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		18E9422A1993D46E00C8B142 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		18E9422B1993D46E00C8B142 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		18E9422D1993D46E00C8B142 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/RespokeSDK.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RespokeSDK/RespokeSDK-Prefix.pch";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/WebRTC",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = RespokeSDK;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		18E9422E1993D46E00C8B142 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/RespokeSDK.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RespokeSDK/RespokeSDK-Prefix.pch";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/WebRTC",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = RespokeSDK;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		18E942301993D46E00C8B142 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RespokeSDK/RespokeSDK-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "RespokeSDKTests/RespokeSDKTests-Info.plist";
+				PRODUCT_NAME = RespokeSDKTests;
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		18E942311993D46E00C8B142 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RespokeSDK/RespokeSDK-Prefix.pch";
+				INFOPLIST_FILE = "RespokeSDKTests/RespokeSDKTests-Info.plist";
+				PRODUCT_NAME = RespokeSDKTests;
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+		18E945C619952B2200C8B142 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		18E945C719952B2200C8B142 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		18E942041993D46E00C8B142 /* Build configuration list for PBXProject "RespokeSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18E9422A1993D46E00C8B142 /* Debug */,
+				18E9422B1993D46E00C8B142 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		18E9422C1993D46E00C8B142 /* Build configuration list for PBXNativeTarget "RespokeSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18E9422D1993D46E00C8B142 /* Debug */,
+				18E9422E1993D46E00C8B142 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		18E9422F1993D46E00C8B142 /* Build configuration list for PBXNativeTarget "RespokeSDKTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18E942301993D46E00C8B142 /* Debug */,
+				18E942311993D46E00C8B142 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		18E945C519952B2200C8B142 /* Build configuration list for PBXAggregateTarget "UniversalLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18E945C619952B2200C8B142 /* Debug */,
+				18E945C719952B2200C8B142 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 18E942011993D46E00C8B142 /* Project object */;
+}

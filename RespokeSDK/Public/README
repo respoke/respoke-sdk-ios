@@ -1,0 +1,32 @@
+Respoke SDK
+===========
+
+Perform the following steps to incorporate the Respoke SDK into your iOS application:
+
+1) Locate the RespokeSDK directory in finder, and drag it into the project navigator view in your XCode project.
+
+2) Choose 'Create groups for any added folders' and deselect 'Copy items into destination group's folder (if needed)' to reference the SDK where it is located in your filesystem. Choose "finish" to add the files into your XCode project.
+
+3) Add the following frameworks to your application:
+
+Security.framework
+CFNetwork.framework
+GLKit.framework
+AudioToolbox.framework
+AVFoundation.framework
+CoreAudio.framework
+CoreMedia.framework
+CoreVideo.framework
+CoreGraphics.framework
+OpenGLES.framework
+QuartzCore.framework
+libc++.dylib
+libicucore.dylib
+libstdc++.6.dylib
+libsqlite3.dylib
+
+4) Select your project file in the project navigator of XCode, select your application target, and then the "build settings" tab at the top. Find the "Architectures" option in the list, and change the value to "armv7".
+
+5) Download and install the socket.IO-objc library to your application. Follow the instructions here:
+
+https://github.com/pkyeck/socket.IO-objc

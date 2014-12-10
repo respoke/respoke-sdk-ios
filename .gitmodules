@@ -1,0 +1,3 @@
+[submodule "socket.IO-objc"]
+	path = socket.IO-objc
+	url = https://github.com/pkyeck/socket.IO-objc

@@ -137,6 +137,12 @@
 		D42AE9EB1A38DB8D00B1C9A1 /* RespokeDirectConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RespokeDirectConnection.h; path = Public/RespokeDirectConnection.h; sourceTree = "<group>"; };
 		D42AE9EC1A38DB8D00B1C9A1 /* RespokeEndpoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RespokeEndpoint.h; path = Public/RespokeEndpoint.h; sourceTree = "<group>"; };
 		D42AE9ED1A38DB8D00B1C9A1 /* RespokeGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RespokeGroup.h; path = Public/RespokeGroup.h; sourceTree = "<group>"; };
+		D44877651A39100F005D78E9 /* SocketIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SocketIO.h; path = "socket.IO-objc/SocketIO.h"; sourceTree = "<group>"; };
+		D44877661A39100F005D78E9 /* SocketIOJSONSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SocketIOJSONSerialization.h; path = "socket.IO-objc/SocketIOJSONSerialization.h"; sourceTree = "<group>"; };
+		D44877671A39100F005D78E9 /* SocketIOPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SocketIOPacket.h; path = "socket.IO-objc/SocketIOPacket.h"; sourceTree = "<group>"; };
+		D44877681A39100F005D78E9 /* SocketIOTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SocketIOTransport.h; path = "socket.IO-objc/SocketIOTransport.h"; sourceTree = "<group>"; };
+		D44877691A39100F005D78E9 /* SocketIOTransportWebsocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SocketIOTransportWebsocket.h; path = "socket.IO-objc/SocketIOTransportWebsocket.h"; sourceTree = "<group>"; };
+		D448776A1A39100F005D78E9 /* SocketIOTransportXHR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SocketIOTransportXHR.h; path = "socket.IO-objc/SocketIOTransportXHR.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +171,7 @@
 		18E942001993D46E00C8B142 = {
 			isa = PBXGroup;
 			children = (
+				D44877641A390FD7005D78E9 /* SocketIO */,
 				18E9420E1993D46E00C8B142 /* RespokeSDK */,
 				18E942221993D46E00C8B142 /* RespokeSDKTests */,
 				18E9420B1993D46E00C8B142 /* Frameworks */,
@@ -319,6 +326,19 @@
 				D42AE9ED1A38DB8D00B1C9A1 /* RespokeGroup.h */,
 			);
 			name = PublicHeaders;
+			sourceTree = "<group>";
+		};
+		D44877641A390FD7005D78E9 /* SocketIO */ = {
+			isa = PBXGroup;
+			children = (
+				D44877651A39100F005D78E9 /* SocketIO.h */,
+				D44877661A39100F005D78E9 /* SocketIOJSONSerialization.h */,
+				D44877671A39100F005D78E9 /* SocketIOPacket.h */,
+				D44877681A39100F005D78E9 /* SocketIOTransport.h */,
+				D44877691A39100F005D78E9 /* SocketIOTransportWebsocket.h */,
+				D448776A1A39100F005D78E9 /* SocketIOTransportXHR.h */,
+			);
+			name = SocketIO;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

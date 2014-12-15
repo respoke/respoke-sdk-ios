@@ -15,7 +15,7 @@
 {
     if (self = [super init])
     {
-        urlEndpoint = @"/v1/appauthsessions";
+        urlEndpoint = @"/v1/session-tokens";
     }
 
     return self;

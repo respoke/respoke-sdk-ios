@@ -158,7 +158,7 @@
 {
     self.connected = YES;
 
-    [self sendRESTMessage:@"post" url:@"/v1/endpointconnections" data:nil responseHandler:^(id response, NSString *errorMessage) {
+    [self sendRESTMessage:@"post" url:@"/v1/connections" data:nil responseHandler:^(id response, NSString *errorMessage) {
         if (errorMessage)
         {
             [self.delegate onError:[NSError errorWithDomain:NSURLErrorDomain code:5 userInfo:@{NSLocalizedDescriptionKey: @"Unexpected response received"}] sender:self];

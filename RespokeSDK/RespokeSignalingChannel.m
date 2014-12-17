@@ -53,7 +53,7 @@
             id response = argsData;
             NSString *errorString = nil;
 
-            if (argsData)
+            if (argsData && [argsData isKindOfClass:[NSString class]])
             {
                 if ([argsData isEqualToString:@"null"])
                 {
@@ -78,7 +78,7 @@
                     }
                 }
             }
-            else
+            else if (!argsData)
             {
                 errorString = @"Unexpected response received";
             }

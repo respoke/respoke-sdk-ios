@@ -111,9 +111,10 @@
     {
         if ([groupID length])
         {
-            NSString *urlEndpoint = [NSString stringWithFormat:@"/v1/channels/%@/subscribers/", groupID];
-            
-            [signalingChannel sendRESTMessage:@"delete" url:urlEndpoint data:nil responseHandler:^(id response, NSString *errorMessage) {
+            NSString *urlEndpoint = @"/v1/groups/";
+            NSDictionary *data = @{ @"groups": @[groupID] };
+
+            [signalingChannel sendRESTMessage:@"delete" url:urlEndpoint data:data responseHandler:^(id response, NSString *errorMessage) {
                 if (errorMessage)
                 {
                     errorHandler(errorMessage);

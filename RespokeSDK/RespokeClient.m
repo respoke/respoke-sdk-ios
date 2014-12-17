@@ -121,9 +121,10 @@
     {
         if ([groupName length])
         {
-            NSString *urlEndpoint = [NSString stringWithFormat:@"/v1/channels/%@/subscribers/", groupName];
-            
-            [signalingChannel sendRESTMessage:@"post" url:urlEndpoint data:nil responseHandler:^(id response, NSString *errorMessage) {
+            NSString *urlEndpoint = @"/v1/groups/";
+            NSDictionary *data = @{ @"groups": @[groupName] };
+
+            [signalingChannel sendRESTMessage:@"post" url:urlEndpoint data:data responseHandler:^(id response, NSString *errorMessage) {
                 if (errorMessage)
                 {
                     errorHandler(errorMessage);

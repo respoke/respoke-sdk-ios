@@ -65,7 +65,7 @@
  *  @param errorHandler    A block called when an error occurs, passing a string describing the error
  *  @param successHandler  A block called when the group is joined successfully, passing a reference to the group
  */
-- (void)joinGroups:(NSArray*)groupNames successHandler:(void (^)(RespokeGroup*))successHandler errorHandler:(void (^)(NSString*))errorHandler;
+- (void)joinGroups:(NSArray*)groupNames successHandler:(void (^)(NSArray*))successHandler errorHandler:(void (^)(NSString*))errorHandler;
 
 
 /**

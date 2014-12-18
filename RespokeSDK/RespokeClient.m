@@ -115,7 +115,7 @@
 }
 
 
-- (void)joinGroups:(NSArray*)groupNames successHandler:(void (^)(RespokeGroup*))successHandler errorHandler:(void (^)(NSString*))errorHandler
+- (void)joinGroups:(NSArray*)groupNames successHandler:(void (^)(NSArray*))successHandler errorHandler:(void (^)(NSString*))errorHandler
 {
     if (signalingChannel && signalingChannel.connected)
     {
@@ -131,13 +131,14 @@
                 }
                 else
                 {
+                    NSMutableArray *newGroups = [[NSMutableArray alloc] initWithCapacity:groupNames.count];
                     for (NSString *groupName in groupNames)
                     {
                         RespokeGroup *newGroup = [[RespokeGroup alloc] initWithGroupID:groupName appToken:applicationToken signalingChannel:signalingChannel client:self];
                         [groups setObject:newGroup forKey:groupName];
-
-                        successHandler(newGroup);
+                        [newGroups addObject:newGroup];
                     }
+                    successHandler(newGroups);
                 }
             }];
         }

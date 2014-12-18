@@ -59,13 +59,13 @@
 
 
 /**
- *  Join a Group and begin keeping track of it.
+ *  Join a list of Groups and begin keeping track of them.
  *
- *  @param groupName       The name of the group to join
+ *  @param groupNames      The names of the groups to join
  *  @param errorHandler    A block called when an error occurs, passing a string describing the error
  *  @param successHandler  A block called when the group is joined successfully, passing a reference to the group
  */
-- (void)joinGroup:(NSString*)groupName successHandler:(void (^)(RespokeGroup*))successHandler errorHandler:(void (^)(NSString*))errorHandler;
+- (void)joinGroups:(NSArray*)groupNames successHandler:(void (^)(NSArray*))successHandler errorHandler:(void (^)(NSString*))errorHandler;
 
 
 /**

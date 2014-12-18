@@ -53,7 +53,7 @@
             id response = argsData;
             NSString *errorString = nil;
 
-            if (argsData)
+            if (argsData && [argsData isKindOfClass:[NSString class]])
             {
                 if ([argsData isEqualToString:@"null"])
                 {
@@ -78,7 +78,7 @@
                     }
                 }
             }
-            else
+            else if (!argsData)
             {
                 errorString = @"Unexpected response received";
             }
@@ -158,7 +158,7 @@
 {
     self.connected = YES;
 
-    [self sendRESTMessage:@"post" url:@"/v1/endpointconnections" data:nil responseHandler:^(id response, NSString *errorMessage) {
+    [self sendRESTMessage:@"post" url:@"/v1/connections" data:nil responseHandler:^(id response, NSString *errorMessage) {
         if (errorMessage)
         {
             [self.delegate onError:[NSError errorWithDomain:NSURLErrorDomain code:5 userInfo:@{NSLocalizedDescriptionKey: @"Unexpected response received"}] sender:self];

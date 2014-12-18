@@ -115,25 +115,30 @@
 }
 
 
-- (void)joinGroup:(NSString*)groupName successHandler:(void (^)(RespokeGroup*))successHandler errorHandler:(void (^)(NSString*))errorHandler
+- (void)joinGroups:(NSArray*)groupNames successHandler:(void (^)(NSArray*))successHandler errorHandler:(void (^)(NSString*))errorHandler
 {
     if (signalingChannel && signalingChannel.connected)
     {
-        if ([groupName length])
+        if ([groupNames count])
         {
-            NSString *urlEndpoint = [NSString stringWithFormat:@"/v1/channels/%@/subscribers/", groupName];
-            
-            [signalingChannel sendRESTMessage:@"post" url:urlEndpoint data:nil responseHandler:^(id response, NSString *errorMessage) {
+            NSString *urlEndpoint = @"/v1/groups/";
+            NSDictionary *data = @{ @"groups": groupNames };
+
+            [signalingChannel sendRESTMessage:@"post" url:urlEndpoint data:data responseHandler:^(id response, NSString *errorMessage) {
                 if (errorMessage)
                 {
                     errorHandler(errorMessage);
                 }
                 else
                 {
-                    RespokeGroup *newGroup = [[RespokeGroup alloc] initWithGroupID:groupName appToken:applicationToken signalingChannel:signalingChannel client:self];
-                    [groups setObject:newGroup forKey:groupName];
-
-                    successHandler(newGroup);
+                    NSMutableArray *newGroups = [[NSMutableArray alloc] initWithCapacity:groupNames.count];
+                    for (NSString *groupName in groupNames)
+                    {
+                        RespokeGroup *newGroup = [[RespokeGroup alloc] initWithGroupID:groupName appToken:applicationToken signalingChannel:signalingChannel client:self];
+                        [groups setObject:newGroup forKey:groupName];
+                        [newGroups addObject:newGroup];
+                    }
+                    successHandler(newGroups);
                 }
             }];
         }

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define RESPOKE_BASE_URL @"api.respoke.io"
+#define RESPOKE_BASE_URL @"api-int.respoke.io"
 
 
 /**

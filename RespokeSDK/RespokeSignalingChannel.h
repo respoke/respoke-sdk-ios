@@ -183,8 +183,9 @@
  *  @param message    The body of the message
  *  @param endpointID The ID of the endpoint sending the message
  *  @param sender     The signaling channel that triggered the event
+ *  @param timestamp  The message timestamp
  */
-- (void)onMessage:(NSString*)message fromEndpointID:(NSString*)endpointID sender:(RespokeSignalingChannel*)sender;
+- (void)onMessage:(NSString*)message fromEndpointID:(NSString*)endpointID sender:(RespokeSignalingChannel*)sender timestamp:(NSDate *)timestamp;
 
 
 /**

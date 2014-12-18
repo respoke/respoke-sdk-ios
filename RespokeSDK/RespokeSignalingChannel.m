@@ -247,8 +247,18 @@
                     NSDictionary *header = [eachInstance objectForKey:@"header"];
                     NSString *endpoint = [header objectForKey:@"from"];
                     NSString *message = [eachInstance objectForKey:@"body"];
-
-                    [self.delegate onMessage:message fromEndpointID:endpoint sender:self];
+                    NSNumber *timestampNumber = [header objectForKey:@"timestamp"];
+                    NSDate *timestamp = nil;
+                    if (timestampNumber)
+                    {
+                        NSTimeInterval timestampInterval = (NSTimeInterval) ([timestampNumber longLongValue] / 1000);
+                        timestamp = [NSDate dateWithTimeIntervalSince1970:timestampInterval];
+                    }
+                    else
+                    {
+                        timestamp = [NSDate date];
+                    }
+                    [self.delegate onMessage:message fromEndpointID:endpoint sender:self timestamp:timestamp];
                 }
             }
             else if ([name isEqualToString:@"signal"])

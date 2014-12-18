@@ -115,9 +115,9 @@
 }
 
 
-- (void)didReceiveMessage:(NSString*)message
+- (void)didReceiveMessage:(NSString*)message withTimestamp:(NSDate*)timestamp
 {
-    [self.delegate onMessage:message sender:self];
+    [self.delegate onMessage:message sender:self timestamp:timestamp];
 }
 
 

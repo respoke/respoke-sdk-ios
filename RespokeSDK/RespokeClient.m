@@ -445,13 +445,13 @@
 }
 
 
-- (void)onMessage:(NSString*)message fromEndpointID:(NSString*)endpointID sender:(RespokeSignalingChannel*)sender
+- (void)onMessage:(NSString*)message fromEndpointID:(NSString*)endpointID sender:(RespokeSignalingChannel*)sender timestamp:(NSDate *)timestamp
 {
     RespokeEndpoint *endpoint = [self getEndpointWithID:endpointID skipCreate:YES];
 
     if (endpoint)
     {
-        [endpoint didReceiveMessage:message];
+        [endpoint didReceiveMessage:message withTimestamp:timestamp];
     }
 }
 

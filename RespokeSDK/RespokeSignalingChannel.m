@@ -313,7 +313,7 @@
     NSDictionary *header = [message objectForKey:@"header"];
     NSString *from = [header objectForKey:@"from"];
     NSString *fromConnection = [header objectForKey:@"fromConnection"];
-    
+
     if (signal && from)
     {
         NSString *signalType = [signal objectForKey:@"signalType"];
@@ -364,13 +364,25 @@
                     
                     if (sdp)
                     {
-                        if (isDirectConnection)
+                        NSNumber *timestampNumber = [header objectForKey:@"timestamp"];
+                        NSDate *timestamp = nil;
+                        if (timestampNumber)
                         {
-                            [self.delegate onIncomingDirectConnectionWithSDP:sdp sessionID:sessionID connectionID:fromConnection endpointID:from sender:self];
+                            NSTimeInterval timestampInterval = (NSTimeInterval) ([timestampNumber longLongValue] / 1000);
+                            timestamp = [NSDate dateWithTimeIntervalSince1970:timestampInterval];
                         }
                         else
                         {
-                            [self.delegate onIncomingCallWithSDP:sdp sessionID:sessionID connectionID:fromConnection endpointID:from sender:self];
+                            timestamp = [NSDate date];
+                        }
+
+                        if (isDirectConnection)
+                        {
+                            [self.delegate onIncomingDirectConnectionWithSDP:sdp sessionID:sessionID connectionID:fromConnection endpointID:from sender:self timestamp:timestamp];
+                        }
+                        else
+                        {
+                            [self.delegate onIncomingCallWithSDP:sdp sessionID:sessionID connectionID:fromConnection endpointID:from sender:self timestamp:timestamp];
                         }
                     }
                     else

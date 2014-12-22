@@ -107,8 +107,8 @@
 
 - (instancetype)initWithSignalingChannel:(RespokeSignalingChannel*)channel incomingCallSDP:(NSDictionary*)sdp sessionID:(NSString*)newID connectionID:(NSString*)newConnectionID endpoint:(RespokeEndpoint*)newEndpoint directConnectionOnly:(BOOL)dcOnly timestamp:(NSDate*)timestamp
 {
-    // TODO: Find out what to do about audioOnly flag. This should be dynamic, but API does not have audoOnly param
-    return [self initWithSignalingChannel:channel incomingCallSDP:sdp sessionID:newID connectionID:newConnectionID endpoint:newEndpoint audioOnly:NO directConnectionOnly:dcOnly timestamp:timestamp];
+    BOOL newAudioOnly = sdp && ![RespokeCall sdpHasVideo:[sdp objectForKey:@"sdp"]];
+    return [self initWithSignalingChannel:channel incomingCallSDP:sdp sessionID:newID connectionID:newConnectionID endpoint:newEndpoint audioOnly:newAudioOnly directConnectionOnly:dcOnly timestamp:timestamp];
 }
 
 
@@ -745,6 +745,7 @@
             }
             else
             {
+                audioOnly = ![RespokeCall sdpHasVideo:thePeerConnection.remoteDescription.description];
                 if (thePeerConnection.remoteDescription && !thePeerConnection.localDescription)
                 {
                     NSLog(@"Callee, setRemoteDescription succeeded");
@@ -881,6 +882,12 @@
         return nil;
 
     return [string substringWithRange:[result rangeAtIndex:1]];
+}
+
+
++ (BOOL)sdpHasVideo:(NSString*)sdp
+{
+    return sdp && [sdp rangeOfString:@"m=video"].location != NSNotFound;
 }
 
 

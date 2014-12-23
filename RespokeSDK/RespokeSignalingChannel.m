@@ -251,7 +251,7 @@
                     NSDate *timestamp = nil;
                     if (timestampNumber)
                     {
-                        NSTimeInterval timestampInterval = (NSTimeInterval) ([timestampNumber longLongValue] / 1000);
+                        NSTimeInterval timestampInterval = (NSTimeInterval) ([timestampNumber longLongValue] / 1000.0);
                         timestamp = [NSDate dateWithTimeIntervalSince1970:timestampInterval];
                     }
                     else
@@ -368,7 +368,7 @@
                         NSDate *timestamp = nil;
                         if (timestampNumber)
                         {
-                            NSTimeInterval timestampInterval = (NSTimeInterval) ([timestampNumber longLongValue] / 1000);
+                            NSTimeInterval timestampInterval = (NSTimeInterval) ([timestampNumber longLongValue] / 1000.0);
                             timestamp = [NSDate dateWithTimeIntervalSince1970:timestampInterval];
                         }
                         else

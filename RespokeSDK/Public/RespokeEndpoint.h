@@ -129,10 +129,11 @@
 /**
  *  Handle messages sent to the logged-in user from this one Endpoint.
  *
- *  @param message The message
- *  @param sender  The remote endpoint that sent the message
+ *  @param message   The message
+ *  @param sender    The remote endpoint that sent the message
+ *  @param timestamp The message timestamp
  */
-- (void)onMessage:(NSString*)message sender:(RespokeEndpoint*)sender;
+- (void)onMessage:(NSString*)message sender:(RespokeEndpoint*)sender timestamp:(NSDate*)timestamp;
 
 
 /**

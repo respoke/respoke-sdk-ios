@@ -45,6 +45,12 @@
 
 
 /**
+ *  The call timestamp
+ */
+@property (readonly) NSDate *timestamp;
+
+
+/**
  *  Answer the call and start the process of obtaining media. This method is called automatically on the caller's
  *  side. This method must be called on the callee's side to indicate that the endpoint does wish to accept the
  *  call. The app will have a later opportunity, by passing a callback named previewLocalMedia, to approve or

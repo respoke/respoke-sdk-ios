@@ -133,8 +133,9 @@
  *  @param connectionID  The connectionID that is calling
  *  @param endpointID    The endpointID that is calling
  *  @param sender        The signaling channel that triggered the event
+ *  @param timestamp     The call timestamp
  */
-- (void)onIncomingCallWithSDP:(NSDictionary*)sdp sessionID:(NSString*)sessionID connectionID:(NSString*)connectionID endpointID:(NSString*)endpointID sender:(RespokeSignalingChannel*)sender;
+- (void)onIncomingCallWithSDP:(NSDictionary*)sdp sessionID:(NSString*)sessionID connectionID:(NSString*)connectionID endpointID:(NSString*)endpointID sender:(RespokeSignalingChannel*)sender timestamp:(NSDate*)timestamp;
 
 
 /**
@@ -145,8 +146,9 @@
  *  @param connectionID  The connectionID that is calling
  *  @param endpointID    The endpointID that is calling
  *  @param sender        The signaling channel that triggered the event
+ *  @param timestamp     The call timestamp
  */
-- (void)onIncomingDirectConnectionWithSDP:(NSDictionary*)sdp sessionID:(NSString*)sessionID connectionID:(NSString*)connectionID endpointID:(NSString*)endpointID sender:(RespokeSignalingChannel*)sender;
+- (void)onIncomingDirectConnectionWithSDP:(NSDictionary*)sdp sessionID:(NSString*)sessionID connectionID:(NSString*)connectionID endpointID:(NSString*)endpointID sender:(RespokeSignalingChannel*)sender timestamp:(NSDate*)timestamp;
 
 /**
  *  Receive a notification from the signaling channel that an error has occurred
@@ -183,8 +185,9 @@
  *  @param message    The body of the message
  *  @param endpointID The ID of the endpoint sending the message
  *  @param sender     The signaling channel that triggered the event
+ *  @param timestamp  The message timestamp
  */
-- (void)onMessage:(NSString*)message fromEndpointID:(NSString*)endpointID sender:(RespokeSignalingChannel*)sender;
+- (void)onMessage:(NSString*)message fromEndpointID:(NSString*)endpointID sender:(RespokeSignalingChannel*)sender timestamp:(NSDate *)timestamp;
 
 
 /**

@@ -66,7 +66,7 @@
 @synthesize audioOnly;
 
 
-- (instancetype)initWithSignalingChannel:(RespokeSignalingChannel*)channel
+- (instancetype)initWithSignalingChannel:(RespokeSignalingChannel*)channel incomingCallSDP:(NSDictionary*)sdp sessionID:(NSString*)newID connectionID:(NSString*)newConnectionID endpoint:(RespokeEndpoint*)newEndpoint audioOnly:(BOOL)newAudioOnly directConnectionOnly:(BOOL)dcOnly timestamp:(NSDate*)timestamp
 {
     if (self = [super init])
     {
@@ -78,49 +78,37 @@
         peerConnectionFactory = [[RTCPeerConnectionFactory alloc] init];
         sessionID = [Respoke makeGUID];
         [signalingChannel.delegate callCreated:self];
-        
+
+        audioOnly = newAudioOnly;
+        incomingSDP = sdp;
+        sessionID = newID;
+        endpoint = newEndpoint;
+        toConnection = newConnectionID;
+        directConnectionOnly = dcOnly;
+        _timestamp = timestamp;
+
+        if (directConnectionOnly)
+        {
+            [self actuallyAddDirectConnection];
+        }
+
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive) name:UIApplicationWillResignActiveNotification object:nil];
     }
-    
+
     return self;
 }
 
 
 - (instancetype)initWithSignalingChannel:(RespokeSignalingChannel*)channel endpoint:(RespokeEndpoint*)newEndpoint audioOnly:(BOOL)newAudioOnly directConnectionOnly:(BOOL)dcOnly
 {
-    if (self = [self initWithSignalingChannel:channel])
-    {
-        endpoint = newEndpoint;
-        audioOnly = newAudioOnly;
-        directConnectionOnly = dcOnly;
-        
-        if (directConnectionOnly)
-        {
-            [self actuallyAddDirectConnection];
-        }
-    }
-
-    return self;
+    return [self initWithSignalingChannel:channel incomingCallSDP:nil sessionID:[Respoke makeGUID] connectionID:nil endpoint:newEndpoint audioOnly:newAudioOnly directConnectionOnly:dcOnly timestamp:[NSDate date]];
 }
 
 
-- (instancetype)initWithSignalingChannel:(RespokeSignalingChannel*)channel incomingCallSDP:(NSDictionary*)sdp sessionID:(NSString*)newID connectionID:(NSString*)newConnectionID endpoint:(RespokeEndpoint*)newEndpoint directConnectionOnly:(BOOL)dcOnly
+- (instancetype)initWithSignalingChannel:(RespokeSignalingChannel*)channel incomingCallSDP:(NSDictionary*)sdp sessionID:(NSString*)newID connectionID:(NSString*)newConnectionID endpoint:(RespokeEndpoint*)newEndpoint directConnectionOnly:(BOOL)dcOnly timestamp:(NSDate*)timestamp
 {
-    if (self = [self initWithSignalingChannel:channel])
-    {
-        incomingSDP = sdp;
-        sessionID = newID;
-        endpoint = newEndpoint;
-        toConnection = newConnectionID;
-        directConnectionOnly = dcOnly;
-        
-        if (directConnectionOnly)
-        {
-            [self actuallyAddDirectConnection];
-        }
-    }
-
-    return self;
+    // TODO: Find out what to do about audioOnly flag. This should be dynamic, but API does not have audoOnly param
+    return [self initWithSignalingChannel:channel incomingCallSDP:sdp sessionID:newID connectionID:newConnectionID endpoint:newEndpoint audioOnly:NO directConnectionOnly:dcOnly timestamp:timestamp];
 }
 
 

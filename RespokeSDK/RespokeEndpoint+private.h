@@ -35,8 +35,9 @@
  *  Process a received message
  *
  *  @param message The body of the message
+ *  @param timestamp The message timestamp
  */
-- (void)didReceiveMessage:(NSString*)message;
+- (void)didReceiveMessage:(NSString*)message withTimestamp:(NSDate*)timestamp;
 
 
 /**

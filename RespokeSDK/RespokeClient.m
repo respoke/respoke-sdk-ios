@@ -352,15 +352,14 @@
 }
 
 
-- (void)onIncomingCallWithSDP:(NSDictionary*)sdp sessionID:(NSString*)sessionID connectionID:(NSString*)connectionID endpointID:(NSString*)endpointID sender:(RespokeSignalingChannel*)sender
+- (void)onIncomingCallWithSDP:(NSDictionary*)sdp sessionID:(NSString*)sessionID connectionID:(NSString*)connectionID endpointID:(NSString*)endpointID sender:(RespokeSignalingChannel*)sender timestamp:(NSDate*)timestamp
 {
     RespokeEndpoint *endpoint = [self getEndpointWithID:endpointID skipCreate:NO];
 
     if (endpoint)
     { 
         // A remote device is trying to call us, so create a call instance to deal with it
-        RespokeCall *call = [[RespokeCall alloc] initWithSignalingChannel:signalingChannel incomingCallSDP:sdp sessionID:sessionID connectionID:connectionID endpoint:endpoint directConnectionOnly:NO];
-        
+        RespokeCall *call = [[RespokeCall alloc] initWithSignalingChannel:signalingChannel incomingCallSDP:sdp sessionID:sessionID connectionID:connectionID endpoint:endpoint directConnectionOnly:NO timestamp:timestamp];
         [self.delegate onCall:call sender:self];
     }
     else
@@ -371,14 +370,14 @@
 
 
 
-- (void)onIncomingDirectConnectionWithSDP:(NSDictionary*)sdp sessionID:(NSString*)sessionID connectionID:(NSString*)connectionID endpointID:(NSString*)endpointID sender:(RespokeSignalingChannel*)sender
+- (void)onIncomingDirectConnectionWithSDP:(NSDictionary*)sdp sessionID:(NSString*)sessionID connectionID:(NSString*)connectionID endpointID:(NSString*)endpointID sender:(RespokeSignalingChannel*)sender timestamp:(NSDate *)timestamp
 {
     RespokeEndpoint *endpoint = [self getEndpointWithID:endpointID skipCreate:NO];
     
     if (endpoint)
     {
         // A remote device is trying to create a direct connection with us, so create a call instance to deal with it
-        [[RespokeCall alloc] initWithSignalingChannel:signalingChannel incomingCallSDP:sdp sessionID:sessionID connectionID:connectionID endpoint:endpoint directConnectionOnly:YES];
+        [[RespokeCall alloc] initWithSignalingChannel:signalingChannel incomingCallSDP:sdp sessionID:sessionID connectionID:connectionID endpoint:endpoint directConnectionOnly:YES timestamp:timestamp];
     }
     else
     {
@@ -445,13 +444,13 @@
 }
 
 
-- (void)onMessage:(NSString*)message fromEndpointID:(NSString*)endpointID sender:(RespokeSignalingChannel*)sender
+- (void)onMessage:(NSString*)message fromEndpointID:(NSString*)endpointID sender:(RespokeSignalingChannel*)sender timestamp:(NSDate *)timestamp
 {
     RespokeEndpoint *endpoint = [self getEndpointWithID:endpointID skipCreate:YES];
 
     if (endpoint)
     {
-        [endpoint didReceiveMessage:message];
+        [endpoint didReceiveMessage:message withTimestamp:timestamp];
     }
 }
 

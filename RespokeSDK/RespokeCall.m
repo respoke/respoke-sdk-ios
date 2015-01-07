@@ -107,8 +107,8 @@
 
 - (instancetype)initWithSignalingChannel:(RespokeSignalingChannel*)channel incomingCallSDP:(NSDictionary*)sdp sessionID:(NSString*)newID connectionID:(NSString*)newConnectionID endpoint:(RespokeEndpoint*)newEndpoint directConnectionOnly:(BOOL)dcOnly timestamp:(NSDate*)timestamp
 {
-    // TODO: Find out what to do about audioOnly flag. This should be dynamic, but API does not have audoOnly param
-    return [self initWithSignalingChannel:channel incomingCallSDP:sdp sessionID:newID connectionID:newConnectionID endpoint:newEndpoint audioOnly:NO directConnectionOnly:dcOnly timestamp:timestamp];
+    BOOL newAudioOnly = sdp && ![RespokeCall sdpHasVideo:[sdp objectForKey:@"sdp"]];
+    return [self initWithSignalingChannel:channel incomingCallSDP:sdp sessionID:newID connectionID:newConnectionID endpoint:newEndpoint audioOnly:newAudioOnly directConnectionOnly:dcOnly timestamp:timestamp];
 }
 
 
@@ -749,7 +749,7 @@
                 {
                     NSLog(@"Callee, setRemoteDescription succeeded");
                     RTCPair* audio = [[RTCPair alloc] initWithKey:@"OfferToReceiveAudio" value:@"true"];
-                    RTCPair* video = [[RTCPair alloc] initWithKey:@"OfferToReceiveVideo" value:@"true"];
+                    RTCPair* video = [[RTCPair alloc] initWithKey:@"OfferToReceiveVideo" value:audioOnly ? @"false" : @"true"];
                     NSArray* mandatory = @[ audio, video ];
                     RTCMediaConstraints* constraints = [[RTCMediaConstraints alloc] initWithMandatoryConstraints:mandatory optionalConstraints:nil];
                     [thePeerConnection createAnswerWithDelegate:self constraints:constraints];
@@ -881,6 +881,12 @@
         return nil;
 
     return [string substringWithRange:[result rangeAtIndex:1]];
+}
+
+
++ (BOOL)sdpHasVideo:(NSString*)sdp
+{
+    return sdp && [sdp rangeOfString:@"m=video"].location != NSNotFound;
 }
 
 

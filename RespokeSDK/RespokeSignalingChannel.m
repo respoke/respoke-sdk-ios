@@ -32,7 +32,7 @@
 {
     socketIO = [[SocketIO alloc] initWithDelegate:self];
     socketIO.useSecure = YES;
-    [socketIO connectToHost:[NSString stringWithFormat:@"%@", RESPOKE_BASE_URL] onPort:RESPOKE_SOCKETIO_PORT withParams:[NSDictionary dictionaryWithObjectsAndKeys:appToken, @"app-token", nil]];
+    [socketIO connectToHost:[NSString stringWithFormat:@"%@", RESPOKE_BASE_URL] onPort:RESPOKE_SOCKETIO_PORT withParams:[NSDictionary dictionaryWithObjectsAndKeys:appToken, @"app-token", @"0.10.0", @"__sails_io_sdk_version", nil]];
 }
 
 
@@ -58,43 +58,7 @@
         }
         else
         {
-
-            [socketIO sendEvent:httpMethod withData:dict andAcknowledge:^(id argsData) {
-                id response = argsData;
-                NSString *errorString = nil;
-
-                if (argsData && [argsData isKindOfClass:[NSString class]])
-                {
-                    if ([argsData isEqualToString:@"null"])
-                    {
-                        response = nil;
-                    }
-                    else
-                    {
-                        NSError *error;
-                        id jsonResult = [NSJSONSerialization JSONObjectWithData:[argsData dataUsingEncoding:NSUTF8StringEncoding] options:0 error:&error];
-                        if (!error)
-                        {
-                            response = jsonResult;
-
-                            if ([jsonResult isKindOfClass:[NSDictionary class]])
-                            {
-                                errorString = [jsonResult objectForKey:@"error"];
-                            }
-                        }
-                        else
-                        {
-                            errorString = @"Unexpected response received";
-                        }
-                    }
-                }
-                else if (!argsData)
-                {
-                    errorString = @"Unexpected response received";
-                }
-
-                responseHandler(response, errorString);
-            }];
+            [self sendEvent:httpMethod data:dict attempt:1 responseHandler:responseHandler];
         }
     }
     else
@@ -104,11 +68,55 @@
 }
 
 
+- (void)sendEvent:(NSString *)httpMethod data:(NSDictionary *)data attempt:(NSInteger)attempt responseHandler:(void (^)(id, NSString*))responseHandler
+{
+    [socketIO sendEvent:httpMethod withData:data andAcknowledge:^(id argsData) {
+        id response = argsData;
+        NSString *errorString = nil;
+        NSInteger statusCode = 200;
+
+        // We are always expecting a dictionary but let's check just in case...
+        if (argsData && [argsData isKindOfClass:[NSDictionary class]])
+        {
+            NSDictionary *dict = argsData;
+            statusCode = [[dict objectForKey:@"statusCode"] integerValue];
+            response = [dict objectForKey:@"body"];
+            if ([response isKindOfClass:[NSDictionary class]])
+            {
+                errorString = [response objectForKey:@"error"];
+            }
+        }
+        else
+        {
+            errorString = @"Unexpected response received";
+        }
+
+        if (statusCode == 429)
+        {
+            // retry
+            if (attempt < 3)
+            {
+                [self sendEvent:httpMethod data:data attempt:attempt+1 responseHandler:responseHandler];
+            }
+            else
+            {
+                errorString = @"API rate limit was exceeded";
+                responseHandler(response, errorString);
+            }
+        }
+        else
+        {
+            responseHandler(response, errorString);
+        }
+    }];
+}
+
+
 - (void)sendSignalMessage:(NSObject*)message toEndpointID:(NSString*)toEndpointID successHandler:(void (^)())successHandler errorHandler:(void (^)(NSString*))errorHandler
 {
     NSError *jsonError = nil;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:message options:0 error:&jsonError];
-    
+
     if (!jsonError)
     {
         NSString *jsonSignal = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];

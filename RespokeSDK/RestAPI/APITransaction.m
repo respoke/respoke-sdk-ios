@@ -72,6 +72,10 @@
     {
         self.errorMessage = @"API authentication error";
     }
+    else if (httpStatus == 429)
+    {
+        self.errorMessage = @"API rate limit was exceeded";
+    }
     else if (httpStatus == 503)
     {
         self.errorMessage = @"Server is down for maintenance";

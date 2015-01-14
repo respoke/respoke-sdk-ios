@@ -339,6 +339,10 @@
     // Can only reconnect in development mode, not brokered mode
     BOOL willReconnect = reconnect && (applicationID != nil);
 
+    for (RespokeCall *call in calls) {
+        [call hangup:NO];
+    }
+
     [calls removeAllObjects];
     [groups removeAllObjects];
     [knownEndpoints removeAllObjects];

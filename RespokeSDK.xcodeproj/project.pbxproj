@@ -23,6 +23,30 @@
 /* Begin PBXBuildFile section */
 		180BE48D19F9A8DF005BA3A1 /* RespokeDirectConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 180BE48C19F9A8DF005BA3A1 /* RespokeDirectConnection.m */; };
 		182CC3C61A150ABE0084E704 /* APIRegisterPushToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 182CC3C51A150ABE0084E704 /* APIRegisterPushToken.m */; };
+		18440C281A66C99200592DEB /* libwebrtc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18440C271A66C99200592DEB /* libwebrtc.a */; };
+		18440DC21A66C9AF00592DEB /* SocketIO.m in Sources */ = {isa = PBXBuildFile; fileRef = 18440C311A66C9AE00592DEB /* SocketIO.m */; };
+		18440DC31A66C9AF00592DEB /* SocketIOJSONSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 18440C331A66C9AE00592DEB /* SocketIOJSONSerialization.m */; };
+		18440DC41A66C9AF00592DEB /* SocketIOPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 18440C351A66C9AE00592DEB /* SocketIOPacket.m */; };
+		18440DC51A66C9AF00592DEB /* SocketIOTransportWebsocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 18440C381A66C9AE00592DEB /* SocketIOTransportWebsocket.m */; };
+		18440DC61A66C9AF00592DEB /* SocketIOTransportXHR.m in Sources */ = {isa = PBXBuildFile; fileRef = 18440C3A1A66C9AE00592DEB /* SocketIOTransportXHR.m */; };
+		18440F331A66CA3300592DEB /* base64.c in Sources */ = {isa = PBXBuildFile; fileRef = 18440F2C1A66CA3300592DEB /* base64.c */; };
+		18440F341A66CA3300592DEB /* NSData+SRB64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 18440F2F1A66CA3300592DEB /* NSData+SRB64Additions.m */; };
+		18440F351A66CA3300592DEB /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 18440F321A66CA3300592DEB /* SRWebSocket.m */; };
+		18440F371A66CA7500592DEB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18440F361A66CA7500592DEB /* Security.framework */; };
+		18440F391A66CA7C00592DEB /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18440F381A66CA7C00592DEB /* CFNetwork.framework */; };
+		18440F3B1A66CA8200592DEB /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18440F3A1A66CA8200592DEB /* GLKit.framework */; };
+		18440F3D1A66CA8800592DEB /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18440F3C1A66CA8800592DEB /* AudioToolbox.framework */; };
+		18440F3F1A66CA9700592DEB /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18440F3E1A66CA9700592DEB /* CoreAudio.framework */; };
+		18440F411A66CAA500592DEB /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18440F401A66CAA500592DEB /* CoreMedia.framework */; };
+		18440F431A66CAAE00592DEB /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18440F421A66CAAE00592DEB /* CoreVideo.framework */; };
+		18440F451A66CAB400592DEB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18440F441A66CAB400592DEB /* CoreGraphics.framework */; };
+		18440F471A66CABB00592DEB /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18440F461A66CABB00592DEB /* OpenGLES.framework */; };
+		18440F491A66CAC300592DEB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18440F481A66CAC300592DEB /* QuartzCore.framework */; };
+		18440F4B1A66CACB00592DEB /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 18440F4A1A66CACB00592DEB /* libsqlite3.dylib */; };
+		18440F4D1A66CAF700592DEB /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18440F4C1A66CAF700592DEB /* AVFoundation.framework */; };
+		18440F4F1A66CB0700592DEB /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 18440F4E1A66CB0700592DEB /* libstdc++.6.dylib */; };
+		18440F511A66CB1700592DEB /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 18440F501A66CB1700592DEB /* libc++.dylib */; };
+		18440F531A66CB2F00592DEB /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 18440F521A66CB2F00592DEB /* libicucore.dylib */; };
 		18AFCCA4199BDB0D00818468 /* RespokeConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFCCA3199BDB0D00818468 /* RespokeConnection.m */; };
 		18E9420D1993D46E00C8B142 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E9420C1993D46E00C8B142 /* Foundation.framework */; };
 		18E9421B1993D46E00C8B142 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E9421A1993D46E00C8B142 /* XCTest.framework */; };
@@ -69,6 +93,40 @@
 		180BE49219F9A990005BA3A1 /* RespokeDirectConnection+private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RespokeDirectConnection+private.h"; sourceTree = "<group>"; };
 		182CC3C41A150ABE0084E704 /* APIRegisterPushToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIRegisterPushToken.h; sourceTree = "<group>"; };
 		182CC3C51A150ABE0084E704 /* APIRegisterPushToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIRegisterPushToken.m; sourceTree = "<group>"; };
+		18440C271A66C99200592DEB /* libwebrtc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwebrtc.a; path = RespokeSDK/Public/libs/libwebrtc.a; sourceTree = SOURCE_ROOT; };
+		18440C301A66C9AE00592DEB /* SocketIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIO.h; sourceTree = "<group>"; };
+		18440C311A66C9AE00592DEB /* SocketIO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIO.m; sourceTree = "<group>"; };
+		18440C321A66C9AE00592DEB /* SocketIOJSONSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOJSONSerialization.h; sourceTree = "<group>"; };
+		18440C331A66C9AE00592DEB /* SocketIOJSONSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOJSONSerialization.m; sourceTree = "<group>"; };
+		18440C341A66C9AE00592DEB /* SocketIOPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOPacket.h; sourceTree = "<group>"; };
+		18440C351A66C9AE00592DEB /* SocketIOPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOPacket.m; sourceTree = "<group>"; };
+		18440C361A66C9AE00592DEB /* SocketIOTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOTransport.h; sourceTree = "<group>"; };
+		18440C371A66C9AE00592DEB /* SocketIOTransportWebsocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOTransportWebsocket.h; sourceTree = "<group>"; };
+		18440C381A66C9AE00592DEB /* SocketIOTransportWebsocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOTransportWebsocket.m; sourceTree = "<group>"; };
+		18440C391A66C9AE00592DEB /* SocketIOTransportXHR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOTransportXHR.h; sourceTree = "<group>"; };
+		18440C3A1A66C9AE00592DEB /* SocketIOTransportXHR.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOTransportXHR.m; sourceTree = "<group>"; };
+		18440F2C1A66CA3300592DEB /* base64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = base64.c; sourceTree = "<group>"; };
+		18440F2D1A66CA3300592DEB /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
+		18440F2E1A66CA3300592DEB /* NSData+SRB64Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+SRB64Additions.h"; sourceTree = "<group>"; };
+		18440F2F1A66CA3300592DEB /* NSData+SRB64Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+SRB64Additions.m"; sourceTree = "<group>"; };
+		18440F301A66CA3300592DEB /* SocketRocket-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SocketRocket-Prefix.pch"; sourceTree = "<group>"; };
+		18440F311A66CA3300592DEB /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRWebSocket.h; sourceTree = "<group>"; };
+		18440F321A66CA3300592DEB /* SRWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRWebSocket.m; sourceTree = "<group>"; };
+		18440F361A66CA7500592DEB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		18440F381A66CA7C00592DEB /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		18440F3A1A66CA8200592DEB /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		18440F3C1A66CA8800592DEB /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		18440F3E1A66CA9700592DEB /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		18440F401A66CAA500592DEB /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		18440F421A66CAAE00592DEB /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		18440F441A66CAB400592DEB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		18440F461A66CABB00592DEB /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		18440F481A66CAC300592DEB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		18440F4A1A66CACB00592DEB /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		18440F4C1A66CAF700592DEB /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		18440F4E1A66CB0700592DEB /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
+		18440F501A66CB1700592DEB /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		18440F521A66CB2F00592DEB /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		18AFCBCE199A5E8600818468 /* Respoke+private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Respoke+private.h"; sourceTree = "<group>"; };
 		18AFCCA3199BDB0D00818468 /* RespokeConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RespokeConnection.m; sourceTree = "<group>"; };
 		18AFCCA5199BDB9000818468 /* RespokeConnection+private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RespokeConnection+private.h"; sourceTree = "<group>"; };
@@ -158,9 +216,25 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18440F531A66CB2F00592DEB /* libicucore.dylib in Frameworks */,
+				18440F511A66CB1700592DEB /* libc++.dylib in Frameworks */,
+				18440F4F1A66CB0700592DEB /* libstdc++.6.dylib in Frameworks */,
+				18440F4D1A66CAF700592DEB /* AVFoundation.framework in Frameworks */,
+				18440F4B1A66CACB00592DEB /* libsqlite3.dylib in Frameworks */,
+				18440F491A66CAC300592DEB /* QuartzCore.framework in Frameworks */,
+				18440F471A66CABB00592DEB /* OpenGLES.framework in Frameworks */,
+				18440F451A66CAB400592DEB /* CoreGraphics.framework in Frameworks */,
+				18440F431A66CAAE00592DEB /* CoreVideo.framework in Frameworks */,
+				18440F411A66CAA500592DEB /* CoreMedia.framework in Frameworks */,
+				18440F3F1A66CA9700592DEB /* CoreAudio.framework in Frameworks */,
+				18440F3D1A66CA8800592DEB /* AudioToolbox.framework in Frameworks */,
+				18440F3B1A66CA8200592DEB /* GLKit.framework in Frameworks */,
+				18440F391A66CA7C00592DEB /* CFNetwork.framework in Frameworks */,
+				18440F371A66CA7500592DEB /* Security.framework in Frameworks */,
 				18E942211993D46E00C8B142 /* libRespokeSDK.a in Frameworks */,
 				18E9421B1993D46E00C8B142 /* XCTest.framework in Frameworks */,
 				18E9421E1993D46E00C8B142 /* UIKit.framework in Frameworks */,
+				18440C281A66C99200592DEB /* libwebrtc.a in Frameworks */,
 				18E9421C1993D46E00C8B142 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -168,6 +242,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		18440C261A66C8DB00592DEB /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				18440C291A66C9AE00592DEB /* socket.IO-objc */,
+				18440C271A66C99200592DEB /* libwebrtc.a */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		18440C291A66C9AE00592DEB /* socket.IO-objc */ = {
+			isa = PBXGroup;
+			children = (
+				18440F2B1A66CA3300592DEB /* SocketRocket */,
+				18440C301A66C9AE00592DEB /* SocketIO.h */,
+				18440C311A66C9AE00592DEB /* SocketIO.m */,
+				18440C321A66C9AE00592DEB /* SocketIOJSONSerialization.h */,
+				18440C331A66C9AE00592DEB /* SocketIOJSONSerialization.m */,
+				18440C341A66C9AE00592DEB /* SocketIOPacket.h */,
+				18440C351A66C9AE00592DEB /* SocketIOPacket.m */,
+				18440C361A66C9AE00592DEB /* SocketIOTransport.h */,
+				18440C371A66C9AE00592DEB /* SocketIOTransportWebsocket.h */,
+				18440C381A66C9AE00592DEB /* SocketIOTransportWebsocket.m */,
+				18440C391A66C9AE00592DEB /* SocketIOTransportXHR.h */,
+				18440C3A1A66C9AE00592DEB /* SocketIOTransportXHR.m */,
+			);
+			path = "socket.IO-objc";
+			sourceTree = SOURCE_ROOT;
+		};
+		18440F2B1A66CA3300592DEB /* SocketRocket */ = {
+			isa = PBXGroup;
+			children = (
+				18440F2C1A66CA3300592DEB /* base64.c */,
+				18440F2D1A66CA3300592DEB /* base64.h */,
+				18440F2E1A66CA3300592DEB /* NSData+SRB64Additions.h */,
+				18440F2F1A66CA3300592DEB /* NSData+SRB64Additions.m */,
+				18440F301A66CA3300592DEB /* SocketRocket-Prefix.pch */,
+				18440F311A66CA3300592DEB /* SRWebSocket.h */,
+				18440F321A66CA3300592DEB /* SRWebSocket.m */,
+			);
+			name = SocketRocket;
+			path = "submodules/socket-rocket/SocketRocket";
+			sourceTree = "<group>";
+		};
 		18E942001993D46E00C8B142 = {
 			isa = PBXGroup;
 			children = (
@@ -191,6 +308,21 @@
 		18E9420B1993D46E00C8B142 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				18440F521A66CB2F00592DEB /* libicucore.dylib */,
+				18440F501A66CB1700592DEB /* libc++.dylib */,
+				18440F4E1A66CB0700592DEB /* libstdc++.6.dylib */,
+				18440F4C1A66CAF700592DEB /* AVFoundation.framework */,
+				18440F4A1A66CACB00592DEB /* libsqlite3.dylib */,
+				18440F481A66CAC300592DEB /* QuartzCore.framework */,
+				18440F461A66CABB00592DEB /* OpenGLES.framework */,
+				18440F441A66CAB400592DEB /* CoreGraphics.framework */,
+				18440F421A66CAAE00592DEB /* CoreVideo.framework */,
+				18440F401A66CAA500592DEB /* CoreMedia.framework */,
+				18440F3E1A66CA9700592DEB /* CoreAudio.framework */,
+				18440F3C1A66CA8800592DEB /* AudioToolbox.framework */,
+				18440F3A1A66CA8200592DEB /* GLKit.framework */,
+				18440F381A66CA7C00592DEB /* CFNetwork.framework */,
+				18440F361A66CA7500592DEB /* Security.framework */,
 				18E9420C1993D46E00C8B142 /* Foundation.framework */,
 				18E9421A1993D46E00C8B142 /* XCTest.framework */,
 				18E9421D1993D46E00C8B142 /* UIKit.framework */,
@@ -237,6 +369,7 @@
 		18E942221993D46E00C8B142 /* RespokeSDKTests */ = {
 			isa = PBXGroup;
 			children = (
+				18440C261A66C8DB00592DEB /* Libraries */,
 				18E942281993D46E00C8B142 /* RespokeSDKTests.m */,
 				18E942231993D46E00C8B142 /* Supporting Files */,
 			);
@@ -458,7 +591,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18440F341A66CA3300592DEB /* NSData+SRB64Additions.m in Sources */,
 				18E942291993D46E00C8B142 /* RespokeSDKTests.m in Sources */,
+				18440DC41A66C9AF00592DEB /* SocketIOPacket.m in Sources */,
+				18440F331A66CA3300592DEB /* base64.c in Sources */,
+				18440DC51A66C9AF00592DEB /* SocketIOTransportWebsocket.m in Sources */,
+				18440DC21A66C9AF00592DEB /* SocketIO.m in Sources */,
+				18440F351A66CA3300592DEB /* SRWebSocket.m in Sources */,
+				18440DC31A66C9AF00592DEB /* SocketIOJSONSerialization.m in Sources */,
+				18440DC61A66C9AF00592DEB /* SocketIOTransportXHR.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -599,6 +740,10 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "RespokeSDKTests/RespokeSDKTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/RespokeSDK/Public/libs",
+				);
 				PRODUCT_NAME = RespokeSDKTests;
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -615,6 +760,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RespokeSDK/RespokeSDK-Prefix.pch";
 				INFOPLIST_FILE = "RespokeSDKTests/RespokeSDKTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/RespokeSDK/Public/libs",
+				);
 				PRODUCT_NAME = RespokeSDKTests;
 				WRAPPER_EXTENSION = xctest;
 			};

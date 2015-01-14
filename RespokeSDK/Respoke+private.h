@@ -9,6 +9,9 @@
 #import "Respoke.h"
 
 
+#define GUID_STRING_LENGTH 36 // The length of GUID strings
+
+
 @interface Respoke (private)
 
 

@@ -75,12 +75,17 @@
 
 - (RespokeCall*)startVideoCallWithDelegate:(id <RespokeCallDelegate>)delegate remoteVideoView:(UIView*)newRemoteView localVideoView:(UIView*)newLocalView
 {
-    RespokeCall *call = [[RespokeCall alloc] initWithSignalingChannel:signalingChannel endpoint:self audioOnly:NO directConnectionOnly:NO];
-    call.delegate = delegate;
-    call.remoteView = newRemoteView;
-    call.localView = newLocalView;
+    RespokeCall *call = nil;
 
-    [call startCall];
+    if (signalingChannel && signalingChannel.connected)
+    {
+        call = [[RespokeCall alloc] initWithSignalingChannel:signalingChannel endpoint:self audioOnly:NO directConnectionOnly:NO];
+        call.delegate = delegate;
+        call.remoteView = newRemoteView;
+        call.localView = newLocalView;
+
+        [call startCall];
+    }
 
     return call;
 }
@@ -88,10 +93,15 @@
 
 - (RespokeCall*)startAudioCallWithDelegate:(id <RespokeCallDelegate>)delegate
 {
-    RespokeCall *call = [[RespokeCall alloc] initWithSignalingChannel:signalingChannel endpoint:self audioOnly:YES directConnectionOnly:NO];
-    call.delegate = delegate;
+    RespokeCall *call = nil;
 
-    [call startCall];
+    if (signalingChannel && signalingChannel.connected)
+    {
+        call = [[RespokeCall alloc] initWithSignalingChannel:signalingChannel endpoint:self audioOnly:YES directConnectionOnly:NO];
+        call.delegate = delegate;
+
+        [call startCall];
+    }
 
     return call;
 }

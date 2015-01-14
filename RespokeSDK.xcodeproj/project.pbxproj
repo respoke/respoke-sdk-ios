@@ -47,6 +47,8 @@
 		18440F4F1A66CB0700592DEB /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 18440F4E1A66CB0700592DEB /* libstdc++.6.dylib */; };
 		18440F511A66CB1700592DEB /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 18440F501A66CB1700592DEB /* libc++.dylib */; };
 		18440F531A66CB2F00592DEB /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 18440F521A66CB2F00592DEB /* libicucore.dylib */; };
+		18440F551A66CD9F00592DEB /* RespokeClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 18440F541A66CD9F00592DEB /* RespokeClientTests.m */; };
+		18440F571A66FAED00592DEB /* RespokeEndpointTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 18440F561A66FAED00592DEB /* RespokeEndpointTests.m */; };
 		18AFCCA4199BDB0D00818468 /* RespokeConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFCCA3199BDB0D00818468 /* RespokeConnection.m */; };
 		18E9420D1993D46E00C8B142 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E9420C1993D46E00C8B142 /* Foundation.framework */; };
 		18E9421B1993D46E00C8B142 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E9421A1993D46E00C8B142 /* XCTest.framework */; };
@@ -127,6 +129,8 @@
 		18440F4E1A66CB0700592DEB /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		18440F501A66CB1700592DEB /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		18440F521A66CB2F00592DEB /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		18440F541A66CD9F00592DEB /* RespokeClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RespokeClientTests.m; sourceTree = "<group>"; };
+		18440F561A66FAED00592DEB /* RespokeEndpointTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RespokeEndpointTests.m; sourceTree = "<group>"; };
 		18AFCBCE199A5E8600818468 /* Respoke+private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Respoke+private.h"; sourceTree = "<group>"; };
 		18AFCCA3199BDB0D00818468 /* RespokeConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RespokeConnection.m; sourceTree = "<group>"; };
 		18AFCCA5199BDB9000818468 /* RespokeConnection+private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RespokeConnection+private.h"; sourceTree = "<group>"; };
@@ -370,6 +374,8 @@
 			isa = PBXGroup;
 			children = (
 				18440C261A66C8DB00592DEB /* Libraries */,
+				18440F541A66CD9F00592DEB /* RespokeClientTests.m */,
+				18440F561A66FAED00592DEB /* RespokeEndpointTests.m */,
 				18E942281993D46E00C8B142 /* RespokeSDKTests.m */,
 				18E942231993D46E00C8B142 /* Supporting Files */,
 			);
@@ -591,8 +597,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18440F551A66CD9F00592DEB /* RespokeClientTests.m in Sources */,
 				18440F341A66CA3300592DEB /* NSData+SRB64Additions.m in Sources */,
 				18E942291993D46E00C8B142 /* RespokeSDKTests.m in Sources */,
+				18440F571A66FAED00592DEB /* RespokeEndpointTests.m in Sources */,
 				18440DC41A66C9AF00592DEB /* SocketIOPacket.m in Sources */,
 				18440F331A66CA3300592DEB /* base64.c in Sources */,
 				18440DC51A66C9AF00592DEB /* SocketIOTransportWebsocket.m in Sources */,

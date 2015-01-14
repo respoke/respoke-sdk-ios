@@ -44,47 +44,58 @@
         [dict setObject:@{@"App-Token": appToken} forKey:@"headers"];
         [dict setObject:url forKey:@"url"];
 
+        NSUInteger dataLen = 0;
         if (data)
         {
+            NSError *error;
+            dataLen = [NSJSONSerialization dataWithJSONObject:data options:0 error:&error].length;
             [dict setObject:data forKey:@"data"];
         }
-        
-        [socketIO sendEvent:httpMethod withData:dict andAcknowledge:^(id argsData) {
-            id response = argsData;
-            NSString *errorString = nil;
 
-            if (argsData && [argsData isKindOfClass:[NSString class]])
-            {
-                if ([argsData isEqualToString:@"null"])
+        if (dataLen > BODY_SIZE_LIMIT)
+        {
+            responseHandler(nil, @"Invalid message size");
+        }
+        else
+        {
+
+            [socketIO sendEvent:httpMethod withData:dict andAcknowledge:^(id argsData) {
+                id response = argsData;
+                NSString *errorString = nil;
+
+                if (argsData && [argsData isKindOfClass:[NSString class]])
                 {
-                    response = nil;
-                }
-                else
-                {
-                    NSError *error;
-                    id jsonResult = [NSJSONSerialization JSONObjectWithData:[argsData dataUsingEncoding:NSUTF8StringEncoding] options:0 error:&error];
-                    if (!error)
+                    if ([argsData isEqualToString:@"null"])
                     {
-                        response = jsonResult;
-
-                        if ([jsonResult isKindOfClass:[NSDictionary class]])
-                        {
-                            errorString = [jsonResult objectForKey:@"error"];
-                        }
+                        response = nil;
                     }
                     else
                     {
-                        errorString = @"Unexpected response received";
+                        NSError *error;
+                        id jsonResult = [NSJSONSerialization JSONObjectWithData:[argsData dataUsingEncoding:NSUTF8StringEncoding] options:0 error:&error];
+                        if (!error)
+                        {
+                            response = jsonResult;
+
+                            if ([jsonResult isKindOfClass:[NSDictionary class]])
+                            {
+                                errorString = [jsonResult objectForKey:@"error"];
+                            }
+                        }
+                        else
+                        {
+                            errorString = @"Unexpected response received";
+                        }
                     }
                 }
-            }
-            else if (!argsData)
-            {
-                errorString = @"Unexpected response received";
-            }
+                else if (!argsData)
+                {
+                    errorString = @"Unexpected response received";
+                }
 
-            responseHandler(response, errorString);
-        }];
+                responseHandler(response, errorString);
+            }];
+        }
     }
     else
     {

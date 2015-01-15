@@ -115,6 +115,20 @@
 }
 
 
+- (RespokeCall*)startVideoCallWithDelegate:(id <RespokeCallDelegate>)delegate endpointID:(NSString*)endpointID remoteVideoView:(UIView*)newRemoteView localVideoView:(UIView*)newLocalView
+{
+    RespokeEndpoint *endpoint = [self getEndpointWithID:endpointID skipCreate:NO];
+    return [endpoint startVideoCallWithDelegate:delegate remoteVideoView:newRemoteView localVideoView:newLocalView];
+}
+
+
+- (RespokeCall*)startAudioCallWithDelegate:(id <RespokeCallDelegate>)delegate endpointID:(NSString*)endpointID
+{
+    RespokeEndpoint *endpoint = [self getEndpointWithID:endpointID skipCreate:NO];
+    return [endpoint startAudioCallWithDelegate:delegate];
+}
+
+
 - (void)joinGroups:(NSArray*)groupNames successHandler:(void (^)(NSArray*))successHandler errorHandler:(void (^)(NSString*))errorHandler
 {
     if (signalingChannel && signalingChannel.connected)

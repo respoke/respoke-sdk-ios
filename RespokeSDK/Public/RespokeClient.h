@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 
 @class RespokeGroup;
@@ -15,6 +16,7 @@
 @class RespokeEndpoint;
 @class RespokeDirectConnection;
 @protocol RespokeClientDelegate;
+@protocol RespokeCallDelegate;
 
 
 /**
@@ -56,6 +58,30 @@
  *  @param errorHandler A block called when an error occurs, passing a string describing the error
  */
 - (void)connectWithTokenID:(NSString*)tokenID initialPresence:(NSObject*)presence errorHandler:(void (^)(NSString*))errorHandler;
+
+
+/**
+ *  Create a new call with audio and video.
+ *
+ *  @param delegate      The delegate to receive notifications about the new call
+ *  @param endpointID    The ID of the endpoint to call
+ *  @param newRemoteView A UIView on which to project the remote video
+ *  @param newLocalView  A UIView on which to project the local video
+ *
+ *  @return A reference to the new RespokeCall object representing this call
+ */
+- (RespokeCall*)startVideoCallWithDelegate:(id <RespokeCallDelegate>)delegate endpointID:(NSString*)endpointID remoteVideoView:(UIView*)newRemoteView localVideoView:(UIView*)newLocalView;
+
+
+/**
+ *  Create a new audio-only call.
+ *
+ *  @param delegate     The delegate to receive notifications about the new call
+ *  @param endpointID   The ID of the endpoint to call
+ *
+ *  @return A reference to the new RespokeCall object representing this call
+ */
+- (RespokeCall*)startAudioCallWithDelegate:(id <RespokeCallDelegate>)delegate endpointID:(NSString*)endpointID;
 
 
 /**

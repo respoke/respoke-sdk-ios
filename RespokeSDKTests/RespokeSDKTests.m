@@ -39,10 +39,10 @@
     NSString *guid3 = [Respoke makeGUID];
     NSString *guid4 = [Respoke makeGUID];
 
-    XCTAssert(GUID_STRING_LENGTH == [guid1 length], @"GUIDs should be %d characters", GUID_STRING_LENGTH);
-    XCTAssert(GUID_STRING_LENGTH == [guid2 length], @"GUIDs should be %d characters", GUID_STRING_LENGTH);
-    XCTAssert(GUID_STRING_LENGTH == [guid3 length], @"GUIDs should be %d characters", GUID_STRING_LENGTH);
-    XCTAssert(GUID_STRING_LENGTH == [guid4 length], @"GUIDs should be %d characters", GUID_STRING_LENGTH);
+    XCTAssertTrue(GUID_STRING_LENGTH == [guid1 length], @"GUIDs should be %d characters", GUID_STRING_LENGTH);
+    XCTAssertTrue(GUID_STRING_LENGTH == [guid2 length], @"GUIDs should be %d characters", GUID_STRING_LENGTH);
+    XCTAssertTrue(GUID_STRING_LENGTH == [guid3 length], @"GUIDs should be %d characters", GUID_STRING_LENGTH);
+    XCTAssertTrue(GUID_STRING_LENGTH == [guid4 length], @"GUIDs should be %d characters", GUID_STRING_LENGTH);
     
     XCTAssertFalse([guid1 isEqualToString:guid2], @"Should create unique GUIDs every time");
     XCTAssertFalse([guid1 isEqualToString:guid3], @"Should create unique GUIDs every time");

@@ -46,25 +46,18 @@
 {
     if (signalingChannel && signalingChannel.connected)
     {
-        if ([connections count])
-        {
-            NSDictionary *data = @{@"to": self.endpointID, @"message": message};
+        NSDictionary *data = @{@"to": self.endpointID, @"message": message};
 
-            [signalingChannel sendRESTMessage:@"post" url:@"/v1/messages" data:data responseHandler:^(id response, NSString *errorMessage) {
-                if (errorMessage)
-                {
-                    errorHandler(errorMessage);
-                }
-                else
-                {
-                    successHandler();
-                }
-            }];
-        }
-        else
-        {
-            errorHandler(@"Specified endpoint does not have any connections");
-        }
+        [signalingChannel sendRESTMessage:@"post" url:@"/v1/messages" data:data responseHandler:^(id response, NSString *errorMessage) {
+            if (errorMessage)
+            {
+                errorHandler(errorMessage);
+            }
+            else
+            {
+                successHandler();
+            }
+        }];
     }
     else
     {

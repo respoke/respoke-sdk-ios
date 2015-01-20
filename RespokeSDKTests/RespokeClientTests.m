@@ -47,7 +47,7 @@
     XCTAssertNil([client getEndpointID], @"Local endpoint should be nil if never connected");
     
     [client joinGroups:@[@"newGroupID"] successHandler:^(NSArray *resultArray){
-        XCTAssert(@"Should not call success handler");
+        XCTAssertTrue(NO, @"Should not call success handler");
     } errorHandler:^(NSString *errorMessage){
         callbackDidSucceed = YES;
         XCTAssertTrue([errorMessage isEqualToString:@"Can't complete request when not connected. Please reconnect!"]);
@@ -57,7 +57,7 @@
     callbackDidSucceed = NO;
     
     [client setPresence:@"newPresence" successHandler:^{
-        XCTAssert(@"Should not call success handler");
+        XCTAssertTrue(NO, @"Should not call success handler");
     }errorHandler:^(NSString *errorMessage){
         callbackDidSucceed = YES;
         XCTAssertTrue([errorMessage isEqualToString:@"Can't complete request when not connected. Please reconnect!"]);

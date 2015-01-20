@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Respoke.h"
+#import "Respoke+private.h"
 #import "RTCPeerConnectionFactory.h"
 #import "RespokeClient+private.h"
 #import "APIRegisterPushToken.h"
@@ -46,7 +46,7 @@
     NSInteger rnd = 0;
     NSInteger r;
 
-    for (NSInteger i = 0; i < 36; i += 1) 
+    for (NSInteger i = 0; i < GUID_STRING_LENGTH; i += 1) 
     {
         if (i == 8 || i == 13 ||  i == 18 || i == 23) 
         {

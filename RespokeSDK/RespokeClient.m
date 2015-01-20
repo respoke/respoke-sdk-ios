@@ -74,14 +74,22 @@
         [getToken goWithSuccessHandler:^{
             [self connectWithTokenID:getToken.token initialPresence:newPresence errorHandler:^(NSString *errorMessage){
                 connectionInProgress = NO;
-                errorHandler(errorMessage);
+                
+                if (errorHandler)
+                {
+                    errorHandler(errorMessage);
+                }
             }];
         } errorHandler:^(NSString *errorMessage){
             connectionInProgress = NO;
-            errorHandler(errorMessage);
+            
+            if (errorHandler)
+            {
+                errorHandler(errorMessage);
+            }
         }];
     }
-    else
+    else if (errorHandler)
     {
         errorHandler(@"AppID and endpointID must be specified");
     }
@@ -105,10 +113,14 @@
             [signalingChannel authenticate];
         } errorHandler:^(NSString *errorMessage){
             connectionInProgress = NO;
-            errorHandler(errorMessage);
+            
+            if (errorHandler)
+            {
+                errorHandler(errorMessage);
+            }
         }];
     }
-    else
+    else if (errorHandler)
     {
         errorHandler(@"TokenID must be specified");
     }
@@ -139,7 +151,7 @@
             NSDictionary *data = @{ @"groups": groupNames };
 
             [signalingChannel sendRESTMessage:@"post" url:urlEndpoint data:data responseHandler:^(id response, NSString *errorMessage) {
-                if (errorMessage)
+                if (errorMessage && errorHandler)
                 {
                     errorHandler(errorMessage);
                 }
@@ -152,16 +164,20 @@
                         [groups setObject:newGroup forKey:groupName];
                         [newGroups addObject:newGroup];
                     }
-                    successHandler(newGroups);
+                    
+                    if (successHandler)
+                    {
+                        successHandler(newGroups);
+                    }
                 }
             }];
         }
-        else
+        else if (errorHandler)
         {
             errorHandler(@"Group name must be specified");
         }
     }
-    else
+    else if (errorHandler)
     {
         errorHandler(@"Can't complete request when not connected. Please reconnect!");
     }
@@ -278,12 +294,9 @@
             }
         }];
     }
-    else
+    else if (errorHandler)
     {
-        if (errorHandler)
-        {
-            errorHandler(@"Can't complete request when not connected. Please reconnect!");
-        }
+        errorHandler(@"Can't complete request when not connected. Please reconnect!");
     }
 }
 

@@ -12,7 +12,6 @@
 @class RespokeCall;
 @class RespokeDirectConnection;
 @protocol RespokeEndpointDelegate;
-@protocol RespokeEndpointResolvePresenceDelegate;
 @protocol RespokeCallDelegate;
 
 
@@ -48,12 +47,6 @@
  *  The delegate that should receive notifications from the RespokeEndpointDelegate protocol
  */
 @property (weak) id <RespokeEndpointDelegate> delegate;
-
-
-/**
- *  The optional delegate that should resolve the presence for an endpoint
- */
-@property (weak) id <RespokeEndpointResolvePresenceDelegate> resolveDelegate;
 
 
 /**
@@ -143,25 +136,6 @@
  *  @param sender   The endpoint
  */
 - (void)onPresence:(NSObject*)presence sender:(RespokeEndpoint*)sender;
-
-
-@end
-
-
-/**
- *  A delegate protocol to ask the receiver to resolve a list of presence values for an endpoint
- */
-@protocol RespokeEndpointResolvePresenceDelegate <NSObject>
-
-
-/**
- *  Resolve the presence among multiple connections belonging to this endpoint
- *
- *  @param presenceArray An array of presence values
- *
- *  @return The resolved presence value to use
- */
-- (NSObject*)resolvePresence:(NSArray*)presenceArray;
 
 
 @end

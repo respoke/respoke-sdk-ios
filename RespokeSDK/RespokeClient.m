@@ -231,7 +231,7 @@
 
         if (!endpoint && !skipCreate)
         {
-            endpoint = [[RespokeEndpoint alloc] initWithSignalingChannel:signalingChannel endpointID:endpointIDToFind];
+            endpoint = [[RespokeEndpoint alloc] initWithSignalingChannel:signalingChannel endpointID:endpointIDToFind client:self];
             [knownEndpoints addObject:endpoint];
 
             // **** TODO: register presence

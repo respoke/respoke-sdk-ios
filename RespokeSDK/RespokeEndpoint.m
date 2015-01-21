@@ -13,6 +13,7 @@
 
 @interface RespokeEndpoint () {
     RespokeSignalingChannel *signalingChannel;  ///< The signaling channel to use
+    RespokeClient __weak *client;  ///< The client to which this endpoint belongs
     NSString *endpointID;  ///< The ID of this endpoint
     NSMutableArray *connections;  ///< The connections associated with this endpoint
     NSObject *presence;  ///< The current presence of this endpoint
@@ -29,13 +30,14 @@
 @synthesize directConnection;
 
 
-- (instancetype)initWithSignalingChannel:(RespokeSignalingChannel*)channel endpointID:(NSString*)newEndpointID
+- (instancetype)initWithSignalingChannel:(RespokeSignalingChannel*)channel endpointID:(NSString*)newEndpointID client:(RespokeClient*)newClient
 {
     if (self = [super init])
     {
         endpointID = newEndpointID;
         connections = [[NSMutableArray alloc] init];
         signalingChannel = channel;
+        client = newClient;
     }
 
     return self;
@@ -219,9 +221,9 @@
         }
     }
 
-    if (self.resolveDelegate)
+    if (client.resolveDelegate)
     {
-        presence = [self.resolveDelegate resolvePresence:list];
+        presence = [client.resolveDelegate resolvePresence:list];
     }
     else
     {

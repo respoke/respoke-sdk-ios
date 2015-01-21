@@ -1,5 +1,5 @@
 //
-//  RespokeEndpointTests.m
+//  MessagingTests.m
 //  RespokeSDK
 //
 //  Created by Jason Adams on 1/14/15.
@@ -16,7 +16,7 @@
 #define TEST_MESSAGE @"This is a test message!"
 
 
-@interface RespokeEndpointTests : RespokeTestCase <RespokeClientDelegate, RespokeEndpointDelegate> {
+@interface MessagingTests : RespokeTestCase <RespokeClientDelegate, RespokeEndpointDelegate> {
     BOOL callbackDidSucceed;
     BOOL messageReceived;
     RespokeEndpoint *firstEndpoint;
@@ -26,7 +26,7 @@
 @end
 
 
-@implementation RespokeEndpointTests
+@implementation MessagingTests
 
 
 - (void)setUp
@@ -42,39 +42,6 @@
 {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
-}
-
-
-- (void)testUnconnectedEndpointBehavior
-{
-    RespokeClient *client = [[Respoke sharedInstance] createClient];
-    XCTAssertNotNil(client);
-    
-    XCTAssertNil([client getEndpointWithID:@"someEndpointID" skipCreate:YES], @"Should return nil if no endpoint exists");
-    
-    RespokeEndpoint *endpoint = [client getEndpointWithID:@"someEndpointID" skipCreate:NO];
-    XCTAssertNotNil(endpoint, @"Should create an endpoint instance if it does not exist and it so commanded to");
-    XCTAssertTrue([@"someEndpointID" isEqualToString:[endpoint endpointID]], @"Should have the correct endpoint ID");
-    
-    NSArray *connections = [endpoint connections];
-    XCTAssertNotNil(connections, @"Should return an empty list of connections when not connected");
-    XCTAssertTrue(0 == [connections count], @"Should return an empty list of connections when not connected");
-    
-    NSMutableArray *mutableConnections = [endpoint getMutableConnections];
-    XCTAssertNotNil(mutableConnections, @"Should return an empty list of connections when not connected");
-    XCTAssertTrue(0 == [mutableConnections count], @"Should return an empty list of connections when not connected");
-    
-    [endpoint sendMessage:@"Hi there!" successHandler:^{
-        XCTAssertTrue(NO, @"Should not call success handler");
-    } errorHandler:^(NSString *errorMessage){
-        callbackDidSucceed = YES;
-        XCTAssertTrue([errorMessage isEqualToString:@"Can't complete request when not connected. Please reconnect!"]);
-    }];
-    
-    XCTAssertTrue(callbackDidSucceed, @"Did not call error handler when not connected");
-    
-    XCTAssertNil([endpoint startVideoCallWithDelegate:nil remoteVideoView:nil localVideoView:nil], @"Should not create a call object when not connected");
-    XCTAssertNil([endpoint startAudioCallWithDelegate:nil], @"Should not create a call object when not connected");
 }
 
 
@@ -132,6 +99,7 @@
     callbackDidSucceed = NO;
     [firstEndpoint sendMessage:TEST_MESSAGE successHandler:^{
         callbackDidSucceed = YES;
+        asyncTaskDone = messageReceived; // If the delegate message fired first, signal the task is done
     } errorHandler:^(NSString *errorMessage){
         XCTAssertTrue(NO, @"Should successfully send a message");
     }];
@@ -153,13 +121,13 @@
 
 - (void)onDisconnect:(RespokeClient*)sender reconnecting:(BOOL)reconnecting
 {
-
+    // Not under test
 }
 
 
 - (void)onError:(NSError *)error fromClient:(RespokeClient*)sender
 {
-    XCTAssert(@"Should not produce any client errors during endpoint testing");
+    XCTAssertTrue(NO, @"Should not produce any client errors during endpoint testing");
     asyncTaskDone = YES;
 }
 
@@ -184,8 +152,9 @@
     XCTAssertTrue([message isEqualToString:TEST_MESSAGE], @"Message sent should be the message received");
     XCTAssertTrue([sender.endpointID isEqualToString:secondEndpoint.endpointID], @"Should indicate correct sender endpoint ID");
     XCTAssertNotNil(timestamp, @"Should include a timestamp");
+    XCTAssertTrue((fabs([[NSDate date] timeIntervalSinceDate:timestamp]) < TEST_TIMEOUT), @"Timestamp should be a reasonable value");
     messageReceived = YES;
-    asyncTaskDone = YES;
+    asyncTaskDone = callbackDidSucceed; // Only signal the task is done if the other callback has already fired
 }
 
 

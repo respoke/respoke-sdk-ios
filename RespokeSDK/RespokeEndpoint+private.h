@@ -8,6 +8,7 @@
 
 #import "RespokeEndpoint.h"
 #import "RespokeSignalingChannel.h"
+#import "RespokeClient+private.h"
 
 
 @interface RespokeEndpoint (private)
@@ -17,10 +18,11 @@
  *  Initialize a new endpoint instance
  *
  *  @param channel The signaling channel to use
+ *  @param client  The client to which the endpoint belongs
  *
  *  @return The newly initialized instance
  */
-- (instancetype)initWithSignalingChannel:(RespokeSignalingChannel*)channel endpointID:(NSString*)newEndpointID;
+- (instancetype)initWithSignalingChannel:(RespokeSignalingChannel*)channel endpointID:(NSString*)newEndpointID client:(RespokeClient*)newClient;
 
 
 /**

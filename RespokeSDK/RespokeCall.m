@@ -59,14 +59,14 @@
     RTCVideoTrack* localVideoTrack;
     RTCVideoTrack* remoteVideoTrack;
     BOOL audioIsMuted;  ///< Indicates if the local audio has been muted
-    NSTimer *statsTimer;
 
     // Data members for statistics
     RTCICEGatheringState iceGatheringState;
     RTCICEConnectionState iceConnectionState;
     RespokeMediaStats *oldMediaStats;
-    id <RespokeMediaStatsDelegate> statsDelegate;
+    id <RespokeMediaStatsDelegate> __weak statsDelegate;
     NSTimeInterval statsInterval;
+    NSTimer *statsTimer;
 
 }
 
@@ -857,22 +857,22 @@
 
 - (void)tryStartStats
 {
-    if (statsDelegate && isConnected)
-    {
-        // ensure we start/stop timer on the same thread
-        dispatch_async(dispatch_get_main_queue(), ^{
+    // ensure we start/stop timer on the same thread
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (!statsTimer && statsDelegate && isConnected)
+        {
             statsTimer = [NSTimer scheduledTimerWithTimeInterval:statsInterval target:self selector:@selector(requestStats:) userInfo:nil repeats:YES];
-        });
-    }
+        }
+    });
 }
 
 
 - (void)tryStopStats
 {
+    // ensure we start/stop timer on the same thread
     dispatch_async(dispatch_get_main_queue(), ^{
         if (statsTimer)
         {
-            // ensure we start/stop timer on the same thread
             [statsTimer invalidate];
             statsTimer = nil;
         }

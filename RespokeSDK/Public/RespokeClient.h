@@ -161,6 +161,24 @@
 - (NSString*)getEndpointID;
 
 
+/**
+ *  Convenience method for setting presence to "available".
+ *
+ *  @param successHandler A block called when the operation is successful
+ *  @param errorHandler   A block called when an error occurs, passing a string describing the error
+ */
+- (void)setOnlineWithSuccessHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler;
+
+
+/**
+ *  Convenience method for setting presence to "unavailable".
+ *
+ *  @param successHandler A block called when the operation is successful
+ *  @param errorHandler   A block called when an error occurs, passing a string describing the error
+ */
+- (void)setOfflineWithSuccessHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler;
+
+
 @end
 
 

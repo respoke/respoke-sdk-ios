@@ -7,6 +7,7 @@
 //
 
 #import "RespokeCall+private.h"
+#import "RespokeMediaStats+private.h"
 #import "RespokeEndpoint+private.h"
 #import "Respoke+private.h"
 #import "RespokeDirectConnection+private.h"
@@ -28,12 +29,14 @@
 #import "RTCAudioTrack.h"
 #import "RTCEAGLVideoView.h"
 #import "RTCMediaStreamTrack.h"
+#import "RTCStatsReport.h"
 
 
 #define USE_FRONT_FACING_CAMERA_BY_DEFAULT YES
 
 
 @interface RespokeCall () <RTCPeerConnectionDelegate, RTCSessionDescriptionDelegate, RTCStatsDelegate, RTCEAGLVideoViewDelegate> {
+    BOOL isConnected; ///< Whether or not we have a connection established
     RespokeSignalingChannel *signalingChannel;  ///< The signaling channel to use
     NSMutableArray *iceServers;  ///< The ICE servers to evaluate
     RTCPeerConnection* peerConnection;  ///< The WebRTC peer connection to use
@@ -56,6 +59,15 @@
     RTCVideoTrack* localVideoTrack;
     RTCVideoTrack* remoteVideoTrack;
     BOOL audioIsMuted;  ///< Indicates if the local audio has been muted
+
+    // Data members for statistics
+    RTCICEGatheringState iceGatheringState;
+    RTCICEConnectionState iceConnectionState;
+    RespokeMediaStats *oldMediaStats;
+    id <RespokeMediaStatsDelegate> __weak statsDelegate;
+    NSTimeInterval statsInterval;
+    NSTimer *statsTimer;
+
 }
 
 @end
@@ -70,6 +82,7 @@
 {
     if (self = [super init])
     {
+        isConnected = NO;
         signalingChannel = channel;
         iceServers = [[NSMutableArray alloc] init];
         queuedLocalCandidates = [[NSMutableArray alloc] init];
@@ -91,6 +104,9 @@
         {
             [self actuallyAddDirectConnection];
         }
+
+        statsTimer = nil;
+        statsInterval = 1.0; // initialize to one second
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive) name:UIApplicationWillResignActiveNotification object:nil];
     }
@@ -143,6 +159,9 @@
 
 - (void)disconnect 
 {
+    isConnected = NO;
+    [self tryStopStats];
+
     [peerConnection close];
     peerConnection = nil;
     queuedRemoteCandidates = nil;
@@ -293,6 +312,8 @@
     [signalingChannel sendSignalMessage:signalData toEndpointID:endpoint.endpointID successHandler:^(){
         [self processRemoteSDP];
         [self.delegate onConnected:self];
+        isConnected = YES;
+        [self tryStartStats];
     } errorHandler:^(NSString *errorMessage) {
         [self.delegate onError:errorMessage sender:self];
     }];
@@ -302,6 +323,8 @@
 - (void)connectedReceived
 {
     [self.delegate onConnected:self];
+    isConnected = YES;
+    [self tryStartStats];
 }
 
 
@@ -330,6 +353,21 @@
 - (BOOL)isCaller
 {
     return caller;
+}
+
+
+- (void)getStatsWithDelegate:(id <RespokeMediaStatsDelegate>)delegate atInterval:(NSTimeInterval)interval
+{
+    statsDelegate = delegate;
+    statsInterval = interval;
+    [self tryStartStats];
+}
+
+
+- (void)stopStats
+{
+    statsDelegate = nil;
+    [self tryStopStats];
 }
 
 
@@ -471,7 +509,7 @@
 #endif
     }
 
-    RTCAudioTrack *audioTrack = [peerConnectionFactory audioTrackWithID:@"ARDAMSa0"];
+    RTCAudioTrack* audioTrack = [peerConnectionFactory audioTrackWithID:@"ARDAMSa0"];
 
     if (audioIsMuted)
     {
@@ -655,7 +693,8 @@
 - (void)peerConnection:(RTCPeerConnection*)peerConnection iceGatheringChanged:(RTCICEGatheringState)newState 
 {
     dispatch_async(dispatch_get_main_queue(), ^{ 
-        NSLog(@"PCO onIceGatheringChange. %d", newState); 
+        NSLog(@"PCO onIceGatheringChange. %d", newState);
+        iceGatheringState = newState;
     });
 }
 
@@ -665,6 +704,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         NSLog(@"PCO onIceConnectionChange. %d", newState);
 
+        iceConnectionState = newState;
         if (newState == RTCICEConnectionConnected)
         {
             NSLog(@"ICE Connection Connected.");
@@ -802,11 +842,48 @@
 #pragma mark - RTCStatsDelegate methods
 
 
-- (void)peerConnection:(RTCPeerConnection*)peerConnection didGetStats:(NSArray*)stats 
+- (void)peerConnection:(RTCPeerConnection*)peerConnection didGetStats:(NSArray*)stats
 {
+    if (statsDelegate)
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            RespokeMediaStats *mediaStats = [[RespokeMediaStats alloc] initWithData:stats iceGatheringState:iceGatheringState iceConnectionState:iceConnectionState timestamp:[NSDate date] oldMediaStats:oldMediaStats];
+            [statsDelegate onStats:mediaStats];
+            oldMediaStats = mediaStats;
+        });
+    }
+}
+
+
+- (void)tryStartStats
+{
+    // ensure we start/stop timer on the same thread
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSLog(@"Stats:\n %@", stats);
+        if (!statsTimer && statsDelegate && isConnected)
+        {
+            statsTimer = [NSTimer scheduledTimerWithTimeInterval:statsInterval target:self selector:@selector(requestStats:) userInfo:nil repeats:YES];
+        }
     });
+}
+
+
+- (void)tryStopStats
+{
+    // ensure we start/stop timer on the same thread
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (statsTimer)
+        {
+            [statsTimer invalidate];
+            statsTimer = nil;
+        }
+    });
+}
+
+
+- (void)requestStats:(NSTimer*)timer
+{
+   RTCMediaStreamTrack *track = (RTCMediaStreamTrack*)timer.userInfo;
+    [peerConnection getStatsWithDelegate:self mediaStreamTrack:track statsOutputLevel:RTCStatsOutputLevelDebug];
 }
 
 

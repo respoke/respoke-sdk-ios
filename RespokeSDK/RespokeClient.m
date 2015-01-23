@@ -264,6 +264,7 @@
 
 - (void)setPresence:(NSObject*)newPresence successHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler
 {
+
     if (signalingChannel && signalingChannel.connected)
     {
         NSObject *presenceToSet = newPresence;
@@ -298,6 +299,20 @@
     {
         errorHandler(@"Can't complete request when not connected. Please reconnect!");
     }
+}
+
+
+- (void)setOnlineWithSuccessHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler
+{
+    NSObject *newPresence = @"available";
+    [self setPresence:newPresence successHandler:successHandler errorHandler:errorHandler];
+}
+
+
+- (void)setOfflineWithSuccessHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler
+{
+    NSObject *newPresence = @"unavailable";
+    [self setPresence:newPresence successHandler:successHandler errorHandler:errorHandler];
 }
 
 

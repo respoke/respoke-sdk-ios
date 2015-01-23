@@ -14,12 +14,11 @@
 @implementation APITransaction
 
 
-- (instancetype)init
+- (instancetype)initWithBaseUrl:(NSString*)newBaseURL
 {
     if (self = [super init])
     {
-        self.baseURL = [NSString stringWithFormat:@"%@%@", @"https://", RESPOKE_BASE_URL];
-        urlEndpoint = @"";
+        self.baseURL = newBaseURL;
         params = @"";
         httpMethod = @"POST";
     }
@@ -33,7 +32,7 @@
     self.successHandler = successHandler;
     self.errorHandler = errorHandler;
 
-    NSURL *theURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", self.baseURL, urlEndpoint]];
+    NSURL *theURL = [NSURL URLWithString:self.baseURL];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:theURL cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:HTTP_TIMEOUT];
     [request setHTTPMethod:httpMethod];
     [request setValue:@"application/xml" forHTTPHeaderField:@"Accept"];

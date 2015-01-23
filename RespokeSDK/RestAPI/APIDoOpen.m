@@ -11,13 +11,9 @@
 @implementation APIDoOpen
 
 
-- (instancetype)init
+- (instancetype)initWithBaseUrl:(NSString *)baseURL
 {
-    if (self = [super init])
-    {
-        urlEndpoint = @"/v1/session-tokens";
-    }
-
+    self = [super initWithBaseUrl:[baseURL stringByAppendingString:@"/v1/session-tokens"]];
     return self;
 }
 

@@ -17,6 +17,13 @@
 }
 
 
+- (instancetype)init
+{
+    self = [super initWithBaseUrl:[RESPOKE_PUSH_SERVER_URL stringByAppendingString:@"/v1/register"]];
+    return self;
+}
+
+
 - (NSString*)hexifyData:(NSData *)data
 {
     const unsigned char *dataBuffer = (const unsigned char *)[data bytes];
@@ -38,8 +45,6 @@
 
 - (void)goWithSuccessHandler:(void (^)())successHandler errorHandler:(void (^)(NSString*))errorHandler
 {
-    self.baseURL = RESPOKE_PUSH_SERVER_URL;
-    urlEndpoint = @"/v1/register";
     tokenHexString = [self hexifyData:self.token];
     
     if (tokenHexString.length > 0)

@@ -17,11 +17,22 @@
 @implementation RespokeSignalingChannel
 
 
-- (instancetype)initWithAppToken:(NSString*)token
+- (instancetype)initWithAppToken:(NSString*)token baseURL:(NSString*)newBaseURL
 {
     if (self = [super init])
     {
         appToken = token;
+        
+        // The socket.io library doesn't want the "http(s)://" in the URL so chop it off
+        if ([[newBaseURL lowercaseString] hasPrefix:@"https://"])
+        {
+            useHTTPS = YES;
+            baseURL = [newBaseURL substringFromIndex:8];
+        }
+        else // Should be http://
+        {
+            baseURL = [newBaseURL substringFromIndex:7];
+        }
     }
 
     return self;
@@ -31,8 +42,9 @@
 - (void)authenticate
 {
     socketIO = [[SocketIO alloc] initWithDelegate:self];
-    socketIO.useSecure = YES;
-    [socketIO connectToHost:[NSString stringWithFormat:@"%@", RESPOKE_BASE_URL] onPort:RESPOKE_SOCKETIO_PORT withParams:[NSDictionary dictionaryWithObjectsAndKeys:appToken, @"app-token", nil]];
+    socketIO.useSecure = useHTTPS;
+    
+    [socketIO connectToHost:baseURL onPort:RESPOKE_SOCKETIO_PORT withParams:[NSDictionary dictionaryWithObjectsAndKeys:appToken, @"app-token", nil]];
 }
 
 

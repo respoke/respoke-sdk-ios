@@ -24,6 +24,8 @@
     NSString *appToken;  ///< The application token to use
     SocketIO *socketIO;  ///< The socket.io socket in use
     NSString *connectionID;  ///< The ID of this connection
+    NSString *baseURL;  ///< The base URL of the Respoke service
+    BOOL useHTTPS;  ///< Indicates that HTTPS should be used when connecting
 }
 
 
@@ -43,10 +45,11 @@
  *  Initialize a new signaling channel instance
  *
  *  @param token           The application token to use
+ *  @param baseURL         The base URL of the Respoke service
  *
  *  @return The newly initialized instance
  */
-- (instancetype)initWithAppToken:(NSString*)token;
+- (instancetype)initWithAppToken:(NSString*)token baseURL:(NSString*)baseURL;
 
 
 /**

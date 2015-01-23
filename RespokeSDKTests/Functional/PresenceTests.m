@@ -47,6 +47,7 @@
     // Create a client to test with
     RespokeClient *firstClient = [[Respoke sharedInstance] createClient];
     XCTAssertNotNil(firstClient, @"Should create test client");
+    [firstClient setBaseURL:TEST_RESPOKE_BASE_URL];
     
     NSString *testEndpointID = [RespokeTestCase generateTestEndpointID];
     XCTAssertNotNil(testEndpointID, @"Should create test endpoint id");
@@ -65,6 +66,7 @@
     // Create a second client to test with
     RespokeClient *secondClient = [[Respoke sharedInstance] createClient];
     XCTAssertNotNil(secondClient, @"Should create test client");
+    [secondClient setBaseURL:TEST_RESPOKE_BASE_URL];
     
     NSString *secondTestEndpointID = [RespokeTestCase generateTestEndpointID];
     XCTAssertNotNil(secondTestEndpointID, @"Should create test endpoint id");

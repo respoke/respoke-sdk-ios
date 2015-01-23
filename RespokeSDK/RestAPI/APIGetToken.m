@@ -14,13 +14,9 @@
 @implementation APIGetToken
 
 
-- (instancetype)init
+- (instancetype)initWithBaseUrl:(NSString *)baseURL
 {
-    if (self = [super init])
-    {
-        urlEndpoint = @"/v1/tokens";
-    }
-
+    self = [super initWithBaseUrl:[baseURL stringByAppendingString:@"/v1/tokens"]];
     return self;
 }
 

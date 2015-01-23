@@ -69,6 +69,30 @@
 
 
 /**
+ *  Indicate whether the call has media flowing.
+ *
+ *  @return YES if call has audio or video flowing.
+ */
+- (BOOL)hasMedia;
+
+
+/**
+ *  Indicate whether the call has audio flowing.
+ *
+ *  @return YES if call has audio flowing.
+ */
+- (BOOL)hasAudio;
+
+
+/**
+ *  Indicate whether the call has video flowing.
+ *
+ *  @return YES if call has video flowing.
+ */
+- (BOOL)hasVideo;
+
+
+/**
  *  Mute or unmute the local video
  *
  *  @param mute If true, mute the video. If false, unmute the video

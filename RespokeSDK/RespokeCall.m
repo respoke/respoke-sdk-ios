@@ -59,6 +59,7 @@
     RTCVideoTrack* localVideoTrack;
     RTCVideoTrack* remoteVideoTrack;
     BOOL audioIsMuted;  ///< Indicates if the local audio has been muted
+    NSMutableArray *remoteMediaStreams;
 
     // Data members for statistics
     RTCICEGatheringState iceGatheringState;
@@ -99,6 +100,7 @@
         toConnection = newConnectionID;
         directConnectionOnly = dcOnly;
         _timestamp = timestamp;
+        remoteMediaStreams = [[NSMutableArray alloc] init];
 
         if (directConnectionOnly)
         {
@@ -239,6 +241,56 @@
     }
 
     [self disconnect];
+}
+
+
+- (BOOL)hasAudio:(NSArray*)mediaStreams
+{
+    for (RTCMediaStream *eachStream in mediaStreams)
+    {
+        for (RTCAudioTrack *eachTrack in eachStream.audioTracks)
+        {
+            if (eachTrack.state ==  RTCSourceStateLive)
+            {
+                return YES;
+            }
+        }
+    }
+    return NO;
+}
+
+
+- (BOOL)hasVideo:(NSArray*)mediaStreams
+{
+    for (RTCMediaStream *eachStream in mediaStreams)
+    {
+        for (RTCVideoTrack *eachTrack in eachStream.videoTracks)
+        {
+            if (eachTrack.state ==  RTCSourceStateLive)
+            {
+                return YES;
+            }
+        }
+    }
+    return NO;
+}
+
+
+- (BOOL)hasMedia
+{
+    return [self hasAudio] || [self hasVideo];
+}
+
+
+- (BOOL)hasAudio
+{
+    return [self hasAudio:peerConnection.localStreams] || [self hasAudio:remoteMediaStreams];
+}
+
+
+- (BOOL)hasVideo
+{
+    return [self hasVideo:peerConnection.localStreams] || [self hasVideo:remoteMediaStreams];
 }
 
 
@@ -653,15 +705,17 @@
             remoteVideoTrack = stream.videoTracks[0];
             [remoteVideoTrack addRenderer:remoteVideoView];
         }
+        [remoteMediaStreams addObject:stream];
     });
 }
 
 
 - (void)peerConnection:(RTCPeerConnection*)peerConnection removedStream:(RTCMediaStream*)stream 
 {
-    //dispatch_async(dispatch_get_main_queue(), ^{ 
-        NSLog(@"PCO onRemoveStream."); 
-    //});
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"PCO onRemoveStream.");
+        [remoteMediaStreams removeObject:stream];
+    });
 }
 
 
@@ -882,7 +936,7 @@
 
 - (void)requestStats:(NSTimer*)timer
 {
-   RTCMediaStreamTrack *track = (RTCMediaStreamTrack*)timer.userInfo;
+    RTCMediaStreamTrack *track = (RTCMediaStreamTrack*)timer.userInfo;
     [peerConnection getStatsWithDelegate:self mediaStreamTrack:track statsOutputLevel:RTCStatsOutputLevelDebug];
 }
 

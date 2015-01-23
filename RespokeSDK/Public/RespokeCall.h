@@ -10,6 +10,7 @@
 
 
 @protocol RespokeCallDelegate;
+@protocol RespokeMediaStatsDelegate;
 @class RespokeEndpoint;
 @class RespokeDirectConnection;
 
@@ -96,6 +97,24 @@
  *  Indicates if the local client initiated the call
  */
 - (BOOL)isCaller;
+
+
+/**
+ *  Start gathering statistics. Statistics will be delivered to the delegate
+ *  once a connection is established.
+ *
+ *  Call stopStats to stop gathering statistics.
+ *
+ *  @param delegate The stats delegate
+ *  @param interval The interval at which to deliver stats in seconds
+ */
+- (void)getStatsWithDelegate:(id <RespokeMediaStatsDelegate>)delegate atInterval:(NSTimeInterval)interval;
+
+
+/**
+ *  Stop gathering statistics.
+ */
+- (void)stopStats;
 
 
 @end

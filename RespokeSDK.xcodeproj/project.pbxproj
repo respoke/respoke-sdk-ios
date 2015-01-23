@@ -69,8 +69,12 @@
 		18E942551993D61000C8B142 /* APIDoOpen.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E9424A1993D61000C8B142 /* APIDoOpen.m */; };
 		18E942561993D61000C8B142 /* APIGetToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E9424C1993D61000C8B142 /* APIGetToken.m */; };
 		18E942571993D61000C8B142 /* APITransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E9424E1993D61000C8B142 /* APITransaction.m */; };
+<<<<<<< HEAD
 		18FB22451A72AD2100057C1B /* GroupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FB22441A72AD2100057C1B /* GroupTests.m */; };
 		18FB22471A72C0CA00057C1B /* RespokeGroupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FB22461A72C0CA00057C1B /* RespokeGroupTests.m */; };
+=======
+		D452EDB11A68A8EE0080D954 /* RespokeMediaStats.m in Sources */ = {isa = PBXBuildFile; fileRef = D452EDB01A68A8EE0080D954 /* RespokeMediaStats.m */; };
+>>>>>>> 152164e7ca55b266ae41f6ec26bd6206eaf68a93
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -216,6 +220,9 @@
 		D44877681A39100F005D78E9 /* SocketIOTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SocketIOTransport.h; path = "socket.IO-objc/SocketIOTransport.h"; sourceTree = "<group>"; };
 		D44877691A39100F005D78E9 /* SocketIOTransportWebsocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SocketIOTransportWebsocket.h; path = "socket.IO-objc/SocketIOTransportWebsocket.h"; sourceTree = "<group>"; };
 		D448776A1A39100F005D78E9 /* SocketIOTransportXHR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SocketIOTransportXHR.h; path = "socket.IO-objc/SocketIOTransportXHR.h"; sourceTree = "<group>"; };
+		D452EDB01A68A8EE0080D954 /* RespokeMediaStats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RespokeMediaStats.m; sourceTree = "<group>"; };
+		D452EDB21A68A9250080D954 /* RespokeMediaStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RespokeMediaStats.h; path = Public/RespokeMediaStats.h; sourceTree = "<group>"; };
+		D452EDB31A69C01D0080D954 /* RespokeMediaStats+private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RespokeMediaStats+private.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -374,6 +381,8 @@
 				18AFCBCE199A5E8600818468 /* Respoke+private.h */,
 				18E9423E1993D61000C8B142 /* RespokeCall.m */,
 				18E9444A1993EBF800C8B142 /* RespokeCall+private.h */,
+				D452EDB01A68A8EE0080D954 /* RespokeMediaStats.m */,
+				D452EDB31A69C01D0080D954 /* RespokeMediaStats+private.h */,
 				18E942401993D61000C8B142 /* RespokeClient.m */,
 				18E9444B1993EBF800C8B142 /* RespokeClient+private.h */,
 				18AFCCA3199BDB0D00818468 /* RespokeConnection.m */,
@@ -491,6 +500,7 @@
 			children = (
 				D42AE9E71A38DB8D00B1C9A1 /* Respoke.h */,
 				D42AE9E81A38DB8D00B1C9A1 /* RespokeCall.h */,
+				D452EDB21A68A9250080D954 /* RespokeMediaStats.h */,
 				D42AE9E91A38DB8D00B1C9A1 /* RespokeClient.h */,
 				D42AE9EA1A38DB8D00B1C9A1 /* RespokeConnection.h */,
 				D42AE9EB1A38DB8D00B1C9A1 /* RespokeDirectConnection.h */,
@@ -620,6 +630,7 @@
 				18E942521993D61000C8B142 /* RespokeEndpoint.m in Sources */,
 				18E942571993D61000C8B142 /* APITransaction.m in Sources */,
 				18E942531993D61000C8B142 /* RespokeGroup.m in Sources */,
+				D452EDB11A68A8EE0080D954 /* RespokeMediaStats.m in Sources */,
 				182CC3C61A150ABE0084E704 /* APIRegisterPushToken.m in Sources */,
 				18E942501993D61000C8B142 /* RespokeCall.m in Sources */,
 				180BE48D19F9A8DF005BA3A1 /* RespokeDirectConnection.m in Sources */,

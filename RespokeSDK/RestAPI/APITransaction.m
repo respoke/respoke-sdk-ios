@@ -32,26 +32,34 @@
     self.successHandler = successHandler;
     self.errorHandler = errorHandler;
 
-    NSURL *theURL = [NSURL URLWithString:self.baseURL];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:theURL cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:HTTP_TIMEOUT];
-    [request setHTTPMethod:httpMethod];
-    [request setValue:@"application/xml" forHTTPHeaderField:@"Accept"];
-
+    NSString *contentType;
+    NSData *data;
     if (jsonParams)
     {
-        // If the parameters were specified in json, use that directly
-        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[jsonParams length]] forHTTPHeaderField:@"Content-length"];
-        [request setHTTPBody:jsonParams];
+        contentType = @"application/json";
+        data = jsonParams;
     }
     else
     {
-        [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-        [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[params length]] forHTTPHeaderField:@"Content-length"];
-        [request setHTTPBody:[params dataUsingEncoding:NSUTF8StringEncoding]];
+        contentType = @"application/x-www-form-urlencoded";
+        data = [params dataUsingEncoding:NSUTF8StringEncoding];
     }
 
-    connection = [NSURLConnection connectionWithRequest:request delegate:self];
+    if  ([data length] > BODY_SIZE_LIMIT)
+    {
+        self.errorHandler(@"Invalid message size");
+    }
+    else
+    {
+        NSURL *theURL = [NSURL URLWithString:self.baseURL];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:theURL cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:HTTP_TIMEOUT];
+        [request setHTTPMethod:httpMethod];
+        [request setValue:@"application/xml" forHTTPHeaderField:@"Accept"];
+        [request setValue:contentType forHTTPHeaderField:@"Content-Type"];
+        [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[data length]] forHTTPHeaderField:@"Content-length"];
+        [request setHTTPBody:data];
+        connection = [NSURLConnection connectionWithRequest:request delegate:self];
+    }
 }
 
 
@@ -62,6 +70,10 @@
     if (401 == httpStatus)
     {
         self.errorMessage = @"API authentication error";
+    }
+    else if (httpStatus == 429)
+    {
+        self.errorMessage = @"API rate limit was exceeded";
     }
     else if (httpStatus == 503)
     {

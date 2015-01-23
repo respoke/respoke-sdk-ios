@@ -135,6 +135,20 @@
 }
 
 
+- (RespokeCall*)startVideoCallWithDelegate:(id <RespokeCallDelegate>)delegate endpointID:(NSString*)endpointID remoteVideoView:(UIView*)newRemoteView localVideoView:(UIView*)newLocalView
+{
+    RespokeEndpoint *endpoint = [self getEndpointWithID:endpointID skipCreate:NO];
+    return [endpoint startVideoCallWithDelegate:delegate remoteVideoView:newRemoteView localVideoView:newLocalView];
+}
+
+
+- (RespokeCall*)startAudioCallWithDelegate:(id <RespokeCallDelegate>)delegate endpointID:(NSString*)endpointID
+{
+    RespokeEndpoint *endpoint = [self getEndpointWithID:endpointID skipCreate:NO];
+    return [endpoint startAudioCallWithDelegate:delegate];
+}
+
+
 - (void)joinGroups:(NSArray*)groupNames successHandler:(void (^)(NSArray*))successHandler errorHandler:(void (^)(NSString*))errorHandler
 {
     if (signalingChannel && signalingChannel.connected)
@@ -245,6 +259,7 @@
 
 - (void)setPresence:(NSObject*)newPresence successHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler
 {
+
     if (signalingChannel && signalingChannel.connected)
     {
         NSObject *presenceToSet = newPresence;
@@ -279,6 +294,20 @@
     {
         errorHandler(@"Can't complete request when not connected. Please reconnect!");
     }
+}
+
+
+- (void)setOnlineWithSuccessHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler
+{
+    NSObject *newPresence = @"available";
+    [self setPresence:newPresence successHandler:successHandler errorHandler:errorHandler];
+}
+
+
+- (void)setOfflineWithSuccessHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler
+{
+    NSObject *newPresence = @"unavailable";
+    [self setPresence:newPresence successHandler:successHandler errorHandler:errorHandler];
 }
 
 
@@ -346,6 +375,10 @@
 {
     // Can only reconnect in development mode, not brokered mode
     BOOL willReconnect = reconnect && (applicationID != nil);
+
+    for (RespokeCall *call in calls) {
+        [call hangup:NO];
+    }
 
     [calls removeAllObjects];
     [groups removeAllObjects];

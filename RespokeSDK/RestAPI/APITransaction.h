@@ -10,6 +10,8 @@
 
 #define RESPOKE_BASE_URL @"https://api.respoke.io"
 
+#define BODY_SIZE_LIMIT 20000
+
 
 /**
  *  An abstract base class for performing asynchronous REST transactions to the cloud infrastructure over HTTP

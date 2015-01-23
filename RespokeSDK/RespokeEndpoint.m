@@ -114,6 +114,29 @@
 }
 
 
+- (RespokeConnection*)getConnectionWithID:(NSString*)connectionID skipCreate:(BOOL)skipCreate
+{
+    RespokeConnection *connection = nil;
+
+    for (RespokeConnection *eachConnection in connections)
+    {
+        if ([eachConnection.connectionID isEqualToString:connectionID])
+        {
+            connection = eachConnection;
+            break;
+        }
+    }
+
+    if (!connection && !skipCreate)
+    {
+        connection = [[RespokeConnection alloc] initWithSignalingChannel:signalingChannel connectionID:connectionID endpoint:self];
+        [connections addObject:connection];
+    }
+
+    return connection;
+}
+
+
 - (NSMutableArray*)getMutableConnections
 {
     return connections;
@@ -153,16 +176,7 @@
                                 if (presenceDict && [presenceDict isKindOfClass:[NSDictionary class]])
                                 {
                                     NSObject *newPresence = [presenceDict objectForKey:@"type"];
-                                    RespokeConnection *connection = nil;
-                                    
-                                    for (RespokeConnection *eachConnection in connections)
-                                    {
-                                        if ([eachConnection.connectionID isEqualToString:eachConnectionID])
-                                        {
-                                            connection = eachConnection;
-                                            break;
-                                        }
-                                    }
+                                    RespokeConnection *connection = [self getConnectionWithID:eachConnectionID skipCreate:NO];
                                     
                                     if (connection && newPresence)
                                     {

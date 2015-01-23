@@ -193,20 +193,7 @@
 
         if (endpoint)
         {
-            for (RespokeConnection *eachConnection in endpoint.connections)
-            {
-                if ([eachConnection.connectionID isEqualToString:connectionID])
-                {
-                    connection = eachConnection;
-                    break;
-                }
-            }
-
-            if (!connection && !skipCreate)
-            {
-                connection = [[RespokeConnection alloc] initWithSignalingChannel:signalingChannel connectionID:connectionID endpoint:endpoint];
-                [[endpoint getMutableConnections] addObject:connection];
-            }
+            connection = [endpoint getConnectionWithID:connectionID skipCreate:skipCreate];
         }
     }
 

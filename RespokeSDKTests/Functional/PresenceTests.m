@@ -1,54 +1,48 @@
 //
-//  MessagingTests.m
+//  PresenceTests.m
 //  RespokeSDK
 //
-//  Created by Jason Adams on 1/14/15.
+//  Created by Jason Adams on 1/22/15.
 //  Copyright (c) 2015 Digium, Inc. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <XCTest/XCTest.h>
+#import "RespokeTestCase.h"
 #import "RespokeEndpoint+private.h"
 #import "Respoke+private.h"
-#import "RespokeClient+private.h"
-#import "RespokeTestCase.h"
-
-#define TEST_MESSAGE @"This is a test message!"
 
 
-@interface MessagingTests : RespokeTestCase <RespokeClientDelegate, RespokeEndpointDelegate> {
+@interface PresenceTests : RespokeTestCase <RespokeClientDelegate, RespokeEndpointDelegate, RespokeResolvePresenceDelegate> {
     BOOL callbackDidSucceed;
-    BOOL messageReceived;
+    BOOL remotePresenceReceived;
     RespokeEndpoint *firstEndpoint;
     RespokeEndpoint *secondEndpoint;
+    NSObject *expectedRemotePresence;
+    NSObject *customPresenceResolution;
 }
 
 @end
 
 
-@implementation MessagingTests
+@implementation PresenceTests
 
 
-- (void)setUp
+- (void)setUp 
 {
     [super setUp];
-    
+
     // Put setup code here. This method is called before the invocation of each test method in the class.
     callbackDidSucceed = NO;
 }
 
 
-- (void)tearDown
+- (void)tearDown 
 {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
 
 
-/**
- *  This test will create two client instances with unique endpoint IDs. It will then send messages between the two to test functionality.
- */
-- (void)testEndpointMessaging
+- (void)testCustomResolveMethod 
 {
     // Create a client to test with
     RespokeClient *firstClient = [[Respoke sharedInstance] createClient];
@@ -94,19 +88,40 @@
     secondEndpoint = [firstClient getEndpointWithID:secondTestEndpointID skipCreate:NO];
     XCTAssertNotNil(secondEndpoint, @"Should create endpoint instance");
     secondEndpoint.delegate = self;
+
+    // The custom resolve function will always return this random string
+    customPresenceResolution = [Respoke makeGUID];
+    
+    secondClient.resolveDelegate = self;
     
     asyncTaskDone = NO;
+    remotePresenceReceived = NO;
     callbackDidSucceed = NO;
-    [firstEndpoint sendMessage:TEST_MESSAGE successHandler:^{
+    [firstEndpoint registerPresenceWithSuccessHandler:^{
         callbackDidSucceed = YES;
-        asyncTaskDone = messageReceived; // If the delegate message fired first, signal the task is done
+        asyncTaskDone = remotePresenceReceived;
     } errorHandler:^(NSString *errorMessage){
-        XCTAssertTrue(NO, @"Should successfully send a message. Error: [%@]", errorMessage);
+        XCTAssertTrue(NO, @"Should successfully register to receive presence updates. Error: [%@]", errorMessage);
     }];
     
     [self waitForCompletion:TEST_TIMEOUT];
-    XCTAssertTrue(callbackDidSucceed, @"sendMessage should call successHandler");
-    XCTAssertTrue(messageReceived, @"Should call onMessage delegate when a message is received");
+    
+    
+    asyncTaskDone = NO;
+    remotePresenceReceived = NO;
+    callbackDidSucceed = NO;
+    expectedRemotePresence = @{@"presence": @"nacho presence2"};
+    [firstClient setPresence:expectedRemotePresence successHandler:^{
+        callbackDidSucceed = YES;
+        asyncTaskDone = remotePresenceReceived;
+    } errorHandler:^(NSString *errorMessage){
+        XCTAssertTrue(NO, @"Should successfully register to receive presence updates. Error: [%@]", errorMessage);
+    }];
+    
+    [self waitForCompletion:TEST_TIMEOUT];
+    
+    XCTAssertTrue([[firstEndpoint getPresence] isKindOfClass:[NSString class]], @"Resolved presence should be a string");
+    XCTAssertTrue([(NSString*)customPresenceResolution isEqualToString:(NSString*)[firstEndpoint getPresence]], @"Resolved presence should be correct");
 }
 
 
@@ -127,7 +142,7 @@
 
 - (void)onError:(NSError *)error fromClient:(RespokeClient*)sender
 {
-    XCTAssertTrue(NO, @"Should not produce any client errors during endpoint testing");
+    XCTAssertTrue(NO, @"Should not produce any client errors during testing");
     asyncTaskDone = YES;
 }
 
@@ -149,18 +164,27 @@
 
 - (void)onMessage:(NSString*)message sender:(RespokeEndpoint*)sender timestamp:(NSDate*)timestamp
 {
-    XCTAssertTrue([message isEqualToString:TEST_MESSAGE], @"Message sent should be the message received");
-    XCTAssertTrue([sender.endpointID isEqualToString:secondEndpoint.endpointID], @"Should indicate correct sender endpoint ID");
-    XCTAssertNotNil(timestamp, @"Should include a timestamp");
-    XCTAssertTrue((fabs([[NSDate date] timeIntervalSinceDate:timestamp]) < TEST_TIMEOUT), @"Timestamp should be a reasonable value");
-    messageReceived = YES;
-    asyncTaskDone = callbackDidSucceed; // Only signal the task is done if the other callback has already fired
+    // Not under test
 }
 
 
 - (void)onPresence:(NSObject*)presence sender:(RespokeEndpoint*)sender
 {
-    // Not under test
+    XCTAssertNotNil(presence, @"Remote presence should not be nil");
+    XCTAssertTrue([presence isKindOfClass:[NSString class]], @"Remote presence should be a string");
+    XCTAssertTrue([(NSString*)customPresenceResolution isEqualToString:(NSString*)presence], @"Resolved presence should be correct");
+    remotePresenceReceived = YES;
+    asyncTaskDone = callbackDidSucceed;
+}
+
+
+#pragma mark - RespokeResolvePresenceDelegate methods
+
+
+- (NSObject*)resolvePresence:(NSArray*)presenceArray
+{
+    XCTAssertTrue(1 == [presenceArray count], @"presence array should contain the correct number of values");
+    return customPresenceResolution;
 }
 
 

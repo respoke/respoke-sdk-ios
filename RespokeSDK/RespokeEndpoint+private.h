@@ -34,6 +34,17 @@
 
 
 /**
+ *  Returns a connection with the specified ID, and optionally creates one if it does not exist
+ *
+ *  @param connectionID  The ID of the connection
+ *  @param skipCreate    Whether or not to create a new connection if it is not found
+ *
+ *  @return The connection that matches the specified ID, or nil if not found and skipCreate is true
+ */
+- (RespokeConnection*)getConnectionWithID:(NSString*)connectionID skipCreate:(BOOL)skipCreate;
+
+
+/**
  *  Process a received message
  *
  *  @param message The body of the message

@@ -69,12 +69,9 @@
 		18E942551993D61000C8B142 /* APIDoOpen.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E9424A1993D61000C8B142 /* APIDoOpen.m */; };
 		18E942561993D61000C8B142 /* APIGetToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E9424C1993D61000C8B142 /* APIGetToken.m */; };
 		18E942571993D61000C8B142 /* APITransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E9424E1993D61000C8B142 /* APITransaction.m */; };
-<<<<<<< HEAD
 		18FB22451A72AD2100057C1B /* GroupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FB22441A72AD2100057C1B /* GroupTests.m */; };
 		18FB22471A72C0CA00057C1B /* RespokeGroupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FB22461A72C0CA00057C1B /* RespokeGroupTests.m */; };
-=======
 		D452EDB11A68A8EE0080D954 /* RespokeMediaStats.m in Sources */ = {isa = PBXBuildFile; fileRef = D452EDB01A68A8EE0080D954 /* RespokeMediaStats.m */; };
->>>>>>> 152164e7ca55b266ae41f6ec26bd6206eaf68a93
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */

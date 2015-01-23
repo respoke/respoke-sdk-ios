@@ -109,6 +109,20 @@
     XCTAssertTrue([firstClientGroup isJoined], @"Group should indicate that it is currently joined");
     firstClientGroup.delegate = self;
     
+    // Get the list of group members while firstClient is the only one there
+    
+    asyncTaskDone = NO;
+    [firstClientGroup getMembersWithSuccessHandler:^(NSArray *memberList){
+        XCTAssertNotNil(memberList, @"Member list should not be nil");
+        XCTAssertTrue(0 == [memberList count], @"There should be 0 members in the group initially");
+        asyncTaskDone = YES;
+    } errorHandler:^(NSString *errorMessage){
+        XCTAssertTrue(NO, @"Should successfully get the list of group members. Error: [%@]", errorMessage);
+        asyncTaskDone = YES;
+    }];
+    
+    [self waitForCompletion:TEST_TIMEOUT];
+    
     
     asyncTaskDone = NO;
     callbackSucceeded = NO;
@@ -129,12 +143,12 @@
     XCTAssertTrue([[secondClientGroup getGroupID] isEqualToString:testGroupID], @"Group should have the correct ID");
     XCTAssertTrue([secondClientGroup isJoined], @"Group should indicate that it is currently joined");
     
-    // Get the list of group members
+    // Get the list of group members now that the second client has joined
     
     asyncTaskDone = NO;
     [firstClientGroup getMembersWithSuccessHandler:^(NSArray *memberList){
         XCTAssertNotNil(memberList, @"Member list should not be nil");
-        XCTAssertTrue(1 == [memberList count], @"There should be 0 members in the group initially");
+        XCTAssertTrue(1 == [memberList count], @"There should be 1 members in the group initially");
         RespokeConnection *connection = [memberList firstObject];
         XCTAssertNotNil([connection connectionID], @"Connection ID should not be nil");
         secondEndpoint = [connection getEndpoint];

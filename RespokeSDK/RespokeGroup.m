@@ -45,7 +45,7 @@
 
 - (void)getMembersWithSuccessHandler:(void (^)(NSArray*))successHandler errorHandler:(void (^)(NSString*))errorHandler
 {
-    if (joined)
+    if ([self isJoined])
     {
         if ([groupID length])
         {
@@ -107,7 +107,7 @@
 
 - (void)leaveWithSuccessHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler
 {
-    if (joined)
+    if ([self isJoined])
     {
         if ([groupID length])
         {
@@ -140,7 +140,7 @@
 
 - (BOOL)isJoined
 {
-    return joined;
+    return joined && signalingChannel && signalingChannel.connected;
 }
 
 
@@ -152,7 +152,7 @@
 
 - (void)sendMessage:(NSString*)message successHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler
 {
-    if (joined)
+    if ([self isJoined])
     {
         if ([groupID length])
         {

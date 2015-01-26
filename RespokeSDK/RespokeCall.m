@@ -56,18 +56,18 @@
     BOOL audioOnly;  ///< Indicates that the call only supports audio
     BOOL directConnectionOnly;  ///< Indicates that this call is only for a direct connection
     RespokeDirectConnection *directConnection;  ///< The direct connection associated with this call
-    RTCVideoTrack* localVideoTrack;
-    RTCVideoTrack* remoteVideoTrack;
+    RTCVideoTrack* localVideoTrack; ///< Set when call is started or answered
+    RTCVideoTrack* remoteVideoTrack; ///< Set when a remote stream is added
     BOOL audioIsMuted;  ///< Indicates if the local audio has been muted
-    NSMutableArray *remoteMediaStreams;
+    NSMutableArray *remoteMediaStreams; ///< Array of remote media streams, set when remote streams are added
 
     // Data members for statistics
-    RTCICEGatheringState iceGatheringState;
-    RTCICEConnectionState iceConnectionState;
-    RespokeMediaStats *oldMediaStats;
-    id <RespokeMediaStatsDelegate> __weak statsDelegate;
-    NSTimeInterval statsInterval;
-    NSTimer *statsTimer;
+    RTCICEGatheringState iceGatheringState; ///< Updated with the ICE gather state changes
+    RTCICEConnectionState iceConnectionState; ///< Updated when the ICE connection state changes
+    RespokeMediaStats *oldMediaStats; ///< Needed to calculate time differences and accumulate stats
+    id <RespokeMediaStatsDelegate> __weak statsDelegate; ///< The delegate for stats
+    NSTimeInterval statsInterval; ///< The stats interval in seconds (floating point)
+    NSTimer *statsTimer; ///< The timer used to kick off statistics
 
 }
 
@@ -658,6 +658,38 @@
 }
 
 
+- (void)tryStartStats
+{
+    // ensure we start/stop timer on the same thread
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (!statsTimer && statsDelegate && isConnected)
+        {
+            statsTimer = [NSTimer scheduledTimerWithTimeInterval:statsInterval target:self selector:@selector(requestStats:) userInfo:nil repeats:YES];
+        }
+    });
+}
+
+
+- (void)tryStopStats
+{
+    // ensure we start/stop timer on the same thread
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (statsTimer)
+        {
+            [statsTimer invalidate];
+            statsTimer = nil;
+        }
+    });
+}
+
+
+- (void)requestStats:(NSTimer*)timer
+{
+    RTCMediaStreamTrack *track = (RTCMediaStreamTrack*)timer.userInfo;
+    [peerConnection getStatsWithDelegate:self mediaStreamTrack:track statsOutputLevel:RTCStatsOutputLevelDebug];
+}
+
+
 #pragma mark - RTCEAGLVideoViewDelegate
 
 
@@ -906,38 +938,6 @@
             oldMediaStats = mediaStats;
         });
     }
-}
-
-
-- (void)tryStartStats
-{
-    // ensure we start/stop timer on the same thread
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (!statsTimer && statsDelegate && isConnected)
-        {
-            statsTimer = [NSTimer scheduledTimerWithTimeInterval:statsInterval target:self selector:@selector(requestStats:) userInfo:nil repeats:YES];
-        }
-    });
-}
-
-
-- (void)tryStopStats
-{
-    // ensure we start/stop timer on the same thread
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (statsTimer)
-        {
-            [statsTimer invalidate];
-            statsTimer = nil;
-        }
-    });
-}
-
-
-- (void)requestStats:(NSTimer*)timer
-{
-    RTCMediaStreamTrack *track = (RTCMediaStreamTrack*)timer.userInfo;
-    [peerConnection getStatsWithDelegate:self mediaStreamTrack:track statsOutputLevel:RTCStatsOutputLevelDebug];
 }
 
 

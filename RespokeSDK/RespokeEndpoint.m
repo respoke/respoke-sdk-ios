@@ -13,6 +13,7 @@
 
 @interface RespokeEndpoint () {
     RespokeSignalingChannel *signalingChannel;  ///< The signaling channel to use
+    RespokeClient __weak *client;  ///< The client to which this endpoint belongs
     NSString *endpointID;  ///< The ID of this endpoint
     NSMutableArray *connections;  ///< The connections associated with this endpoint
     NSObject *presence;  ///< The current presence of this endpoint
@@ -29,13 +30,14 @@
 @synthesize directConnection;
 
 
-- (instancetype)initWithSignalingChannel:(RespokeSignalingChannel*)channel endpointID:(NSString*)newEndpointID
+- (instancetype)initWithSignalingChannel:(RespokeSignalingChannel*)channel endpointID:(NSString*)newEndpointID client:(RespokeClient*)newClient
 {
     if (self = [super init])
     {
         endpointID = newEndpointID;
         connections = [[NSMutableArray alloc] init];
         signalingChannel = channel;
+        client = newClient;
     }
 
     return self;
@@ -46,25 +48,18 @@
 {
     if (signalingChannel && signalingChannel.connected)
     {
-        if ([connections count])
-        {
-            NSDictionary *data = @{@"to": self.endpointID, @"message": message};
+        NSDictionary *data = @{@"to": self.endpointID, @"message": message};
 
-            [signalingChannel sendRESTMessage:@"post" url:@"/v1/messages" data:data responseHandler:^(id response, NSString *errorMessage) {
-                if (errorMessage)
-                {
-                    errorHandler(errorMessage);
-                }
-                else
-                {
-                    successHandler();
-                }
-            }];
-        }
-        else
-        {
-            errorHandler(@"Specified endpoint does not have any connections");
-        }
+        [signalingChannel sendRESTMessage:@"post" url:@"/v1/messages" data:data responseHandler:^(id response, NSString *errorMessage) {
+            if (errorMessage)
+            {
+                errorHandler(errorMessage);
+            }
+            else
+            {
+                successHandler();
+            }
+        }];
     }
     else
     {
@@ -119,6 +114,29 @@
 }
 
 
+- (RespokeConnection*)getConnectionWithID:(NSString*)connectionID skipCreate:(BOOL)skipCreate
+{
+    RespokeConnection *connection = nil;
+
+    for (RespokeConnection *eachConnection in connections)
+    {
+        if ([eachConnection.connectionID isEqualToString:connectionID])
+        {
+            connection = eachConnection;
+            break;
+        }
+    }
+
+    if (!connection && !skipCreate)
+    {
+        connection = [[RespokeConnection alloc] initWithSignalingChannel:signalingChannel connectionID:connectionID endpoint:self];
+        [connections addObject:connection];
+    }
+
+    return connection;
+}
+
+
 - (NSMutableArray*)getMutableConnections
 {
     return connections;
@@ -158,16 +176,7 @@
                                 if (presenceDict && [presenceDict isKindOfClass:[NSDictionary class]])
                                 {
                                     NSObject *newPresence = [presenceDict objectForKey:@"type"];
-                                    RespokeConnection *connection = nil;
-                                    
-                                    for (RespokeConnection *eachConnection in connections)
-                                    {
-                                        if ([eachConnection.connectionID isEqualToString:eachConnectionID])
-                                        {
-                                            connection = eachConnection;
-                                            break;
-                                        }
-                                    }
+                                    RespokeConnection *connection = [self getConnectionWithID:eachConnectionID skipCreate:NO];
                                     
                                     if (connection && newPresence)
                                     {
@@ -226,9 +235,9 @@
         }
     }
 
-    if (self.resolveDelegate)
+    if (client.resolveDelegate)
     {
-        presence = [self.resolveDelegate resolvePresence:list];
+        presence = [client.resolveDelegate resolvePresence:list];
     }
     else
     {

@@ -8,6 +8,7 @@
 
 #import "RespokeEndpoint.h"
 #import "RespokeSignalingChannel.h"
+#import "RespokeClient+private.h"
 
 
 @interface RespokeEndpoint (private)
@@ -17,10 +18,11 @@
  *  Initialize a new endpoint instance
  *
  *  @param channel The signaling channel to use
+ *  @param client  The client to which the endpoint belongs
  *
  *  @return The newly initialized instance
  */
-- (instancetype)initWithSignalingChannel:(RespokeSignalingChannel*)channel endpointID:(NSString*)newEndpointID;
+- (instancetype)initWithSignalingChannel:(RespokeSignalingChannel*)channel endpointID:(NSString*)newEndpointID client:(RespokeClient*)newClient;
 
 
 /**
@@ -29,6 +31,17 @@
  *  @return The mutable connections list for this endpoint
  */
 - (NSMutableArray*)getMutableConnections;
+
+
+/**
+ *  Returns a connection with the specified ID, and optionally creates one if it does not exist
+ *
+ *  @param connectionID  The ID of the connection
+ *  @param skipCreate    Whether or not to create a new connection if it is not found
+ *
+ *  @return The connection that matches the specified ID, or nil if not found and skipCreate is true
+ */
+- (RespokeConnection*)getConnectionWithID:(NSString*)connectionID skipCreate:(BOOL)skipCreate;
 
 
 /**

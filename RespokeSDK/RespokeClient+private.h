@@ -12,4 +12,12 @@
 @interface RespokeClient (private)
 
 
+/**
+ *  Set the base URL of the Respoke service
+ *
+ *  @param newBaseURL The URL to use
+ */
+- (void)setBaseURL:(NSString*)newBaseURL;
+
+
 @end

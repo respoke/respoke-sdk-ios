@@ -31,6 +31,7 @@
     BOOL reconnect;  ///< Indicates if the client should automatically reconnect if the web socket disconnects
     NSInteger reconnectCount;  ///< A count of how many times reconnection has been attempted
     BOOL connectionInProgress;  ///< Indicates if the client is in the middle of attempting to connect
+    NSString *baseURL;  ///< The base URL of the Respoke service
 }
 
 @end
@@ -43,6 +44,7 @@
 {
     if (self = [super init])
     {
+        baseURL = RESPOKE_BASE_URL;
         calls = [[NSMutableArray alloc] init];
         groups = [[NSMutableDictionary alloc] init];
         knownEndpoints = [[NSMutableArray alloc] init];
@@ -67,7 +69,7 @@
         reconnect = shouldReconnect;
         applicationID = appID;
         
-        APIGetToken *getToken = [[APIGetToken alloc] init];
+        APIGetToken *getToken = [[APIGetToken alloc] initWithBaseUrl:baseURL];
         getToken.appID = appID;
         getToken.endpointID = endpoint;
 
@@ -101,14 +103,14 @@
     if ([tokenID length])
     {
         connectionInProgress = YES;
-        APIDoOpen *doOpen = [[APIDoOpen alloc] init];
+        APIDoOpen *doOpen = [[APIDoOpen alloc] initWithBaseUrl:baseURL];
         doOpen.tokenID = tokenID;
 
         [doOpen goWithSuccessHandler:^{
             // Remember the presence value to set once connected
             presence = newPresence;
             
-            signalingChannel = [[RespokeSignalingChannel alloc] initWithAppToken:doOpen.appToken];
+            signalingChannel = [[RespokeSignalingChannel alloc] initWithAppToken:doOpen.appToken baseURL:baseURL];
             signalingChannel.delegate = self;
             [signalingChannel authenticate];
         } errorHandler:^(NSString *errorMessage){
@@ -124,6 +126,12 @@
     {
         errorHandler(@"TokenID must be specified");
     }
+}
+
+
+- (void)setBaseURL:(NSString*)newBaseURL
+{
+    baseURL = newBaseURL;
 }
 
 
@@ -207,20 +215,7 @@
 
         if (endpoint)
         {
-            for (RespokeConnection *eachConnection in endpoint.connections)
-            {
-                if ([eachConnection.connectionID isEqualToString:connectionID])
-                {
-                    connection = eachConnection;
-                    break;
-                }
-            }
-
-            if (!connection && !skipCreate)
-            {
-                connection = [[RespokeConnection alloc] initWithSignalingChannel:signalingChannel connectionID:connectionID endpoint:endpoint];
-                [[endpoint getMutableConnections] addObject:connection];
-            }
+            connection = [endpoint getConnectionWithID:connectionID skipCreate:skipCreate];
         }
     }
 
@@ -245,7 +240,7 @@
 
         if (!endpoint && !skipCreate)
         {
-            endpoint = [[RespokeEndpoint alloc] initWithSignalingChannel:signalingChannel endpointID:endpointIDToFind];
+            endpoint = [[RespokeEndpoint alloc] initWithSignalingChannel:signalingChannel endpointID:endpointIDToFind client:self];
             [knownEndpoints addObject:endpoint];
 
             // **** TODO: register presence

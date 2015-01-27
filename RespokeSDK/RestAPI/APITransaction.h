@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define RESPOKE_BASE_URL @"api-int.respoke.io"
+#define RESPOKE_BASE_URL @"https://api.respoke.io"
 
 #define BODY_SIZE_LIMIT 20000
 
@@ -21,7 +21,6 @@
     NSString *httpMethod;  ///< The HTTP method to use
     NSString *params;  ///< The parameter data to send
     NSData *jsonParams;  ///< The parameter data to send, encoded in json
-    NSString *urlEndpoint;  ///< The URL of the remote endpoint
     BOOL abort;  ///< Indicates any asynchronous response should be ignored
 }
 
@@ -66,6 +65,16 @@
  *  The most recent error message for this transaction
  */
 @property NSString *errorMessage;
+
+
+/**
+ *  Initialize the transaction class and specify the base URL of the Respoke service
+ *
+ *  @param newBaseURL The base URL of the Respoke service
+ *
+ *  @return The newly initialized instance
+ */
+- (instancetype)initWithBaseUrl:(NSString*)newBaseURL;
 
 
 /**

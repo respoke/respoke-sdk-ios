@@ -146,7 +146,7 @@
         
         for (NSInteger jj = 0; jj < [options count]; jj++)
         {
-            NSString *secondPresence = [options objectAtIndex:ii];
+            NSString *secondPresence = [options objectAtIndex:jj];
             
             [connection setPresence:firstPresence];
             [secondConnection setPresence:secondPresence];

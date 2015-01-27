@@ -191,7 +191,7 @@
         callbackSucceeded = YES;
         asyncTaskDone = membershipChanged;
     }errorHandler:^(NSString *errorMessage){
-        XCTAssertTrue(NO, @"Should successfully send a group message. Error: [%@]", errorMessage);
+        XCTAssertTrue(NO, @"Should successfully leave a group. Error: [%@]", errorMessage);
         asyncTaskDone = YES;
     }];
     

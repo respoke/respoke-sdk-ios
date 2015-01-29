@@ -37,6 +37,12 @@
 
 - (BOOL)waitForCompletion:(NSTimeInterval)timeoutSecs
 {
+    return [self waitForCompletion:timeoutSecs assertOnTimeout:YES];
+}
+
+
+- (BOOL)waitForCompletion:(NSTimeInterval)timeoutSecs assertOnTimeout:(BOOL)assertOnTimeout
+{
     NSDate *timeoutDate = [NSDate dateWithTimeIntervalSinceNow:timeoutSecs];
 
     do
@@ -49,7 +55,10 @@
     }
     while (!asyncTaskDone);
 
-    XCTAssertTrue(asyncTaskDone, @"TIMEOUT after %0.2f seconds", timeoutSecs);
+    if (assertOnTimeout) 
+    {
+        XCTAssertTrue(asyncTaskDone, @"TIMEOUT after %0.2f seconds", timeoutSecs);
+    }
 
     return asyncTaskDone;
 }

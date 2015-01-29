@@ -234,7 +234,7 @@
         NSDictionary *signalData = @{@"signalType": @"bye", @"target": directConnectionOnly ? @"directConnection" : @"call", @"to": endpoint.endpointID, @"sessionId": sessionID, @"signalId": [Respoke makeGUID], @"version": @"1.0"};
         
         [signalingChannel sendSignalMessage:signalData toEndpointID:endpoint.endpointID successHandler:^(){
-            // Do nothing
+            [self.delegate onHangup:self];
         } errorHandler:^(NSString *errorMessage) {
             [self.delegate onError:errorMessage sender:self];
         }];

@@ -1,0 +1,167 @@
+<!doctype html>
+<html ng-app>
+
+    <!-- Note that Chrome blocks the getUsermedia API when you open an html 
+         file from the filesystem (file:// prefix). Therefore, it is necessary 
+         to run this example page from a web server in order for it to behave 
+         correctly -->
+
+    <head>
+        <!-- Respoke client library -->
+        <script src="https://cdn.respoke.io/respoke.min.js"></script>
+
+        <!-- Angular.js for this example -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.13/angular.min.js"></script>
+
+        <style type="text/css">
+            #localVideoSource video{
+                height: 100px;
+                margin: -130px 0 0 20px;
+                position: absolute;
+            }
+        </style>
+
+        <script>
+
+            function setVideo(elementId, videoElement) {
+                var videoParent = document.getElementById(elementId);
+                videoParent.innerHTML = "";
+                videoParent.appendChild(videoElement);
+            }
+
+            function RespokeController($scope) {
+
+                $scope.activeCall = null;
+
+                $scope.username = "testbot";
+                $scope.friendId = "";
+
+                var videoOptions = {
+                    constraints: {audio: true, video: true},
+
+                    onPreviewLocalMedia: function(evt) {
+                        setVideo('localVideoSource', evt.element)
+                    },
+                    onLocalMedia: function(evt) {
+                        setVideo('localVideoSource', evt.element)
+                    },
+
+                    onConnect: function(evt) {
+                        setVideo('remoteVideoSource', evt.element)
+                        $scope.messages.push({'endpointID':$scope.friendId, 'content':'[Call connected]'});
+                        $scope.$apply();
+                    }
+                };
+
+                var audioOptions = {
+                    constraints: {audio: true, video: false},
+
+                    onConnect: function(evt) {
+                        $scope.messages.push({'endpointID':$scope.friendId, 'content':'[Call connected]'});
+                        $scope.$apply();
+                    }
+                };
+
+                $scope.messages = [];
+
+                $scope.client = respoke.Client({
+                    appId: "57ac5f3a-0513-40b5-ba42-b80939e69436",
+                    baseURL: "https://api-int.respoke.io",
+                    developmentMode: true
+                });
+
+                // Listen for the 'connect' event
+                $scope.client.listen('connect', function () {
+                    $scope.messages.push({'endpointID':'testbot', 'content':'Ready to rock'});
+                    $scope.$apply();
+                });
+
+                // Listen for the 'call' event
+                $scope.client.listen('call', function(evt) {
+
+                    $scope.messages.push({'endpointID':evt.endpoint.id, 'content':'[Call created]'});
+
+                    $scope.activeCall = evt.call;
+                    $scope.friendId = evt.endpoint.id;
+
+                    if ($scope.activeCall.caller !== true) {
+                        $scope.activeCall.answer(audioOptions);
+                        $scope.activeCall.listen('hangup', function (evt) {
+                            $scope.messages.push({'endpointID':$scope.friendId, 'content':'[Call hung up]'});
+                            $scope.activeCall = null;
+                            $scope.$apply();
+                        });
+
+                        $scope.messages.push({'endpointID':evt.endpoint.id, 'content':'[Answering call]'});
+                    }
+                    $scope.$apply();
+                });
+
+                // listen for incoming messages
+                $scope.client.listen('message', function(evt) {
+                    $scope.messages.push({'endpointID':evt.message.endpointId, 'content':evt.message.message});
+                    $scope.$apply();
+
+                    if (evt.message.message === "Hi testbot!") {
+                        var endpoint = $scope.client.getEndpoint({"id" : evt.message.endpointId});
+                        endpoint.sendMessage({"message":"Hey pal!"});
+
+                        $scope.messages.push({'endpointID':'testbot', 'content':'Hey pal!'});
+                        $scope.$apply();
+                    } else if (evt.message.message === "Testbot! Call me sometime! Or now!") {
+                        var endpoint = $scope.client.getEndpoint({"id" : evt.message.endpointId});
+                        $scope.activeCall = endpoint.startAudioCall(audioOptions);
+                    } else if (evt.message.message === "Hang up dude. I'm done talking.") {
+                        $scope.activeCall.hangup();
+                        $scope.activeCall = null;
+                    };
+                });
+
+                $scope.connect = function () {
+                    $scope.client.connect({
+                        endpointId: 'testbot'
+                    });
+                };
+
+                $scope.call = function () {
+                    var recipientEndpoint = $scope.client.getEndpoint({ id: $scope.friendId });
+                    $scope.activeCall = recipientEndpoint.startVideoCall(callOptions);
+                };
+
+                $scope.hangup = function () {
+                    $scope.activeCall.hangup();
+                    $scope.activeCall = null;
+                };
+
+                $scope.init = function () {
+                    respoke.log.setLevel('debug');
+                    $scope.connect();
+                };
+
+                $scope.init();
+            }
+        </script>
+
+    </head>
+    <body>
+        <div ng-controller="RespokeController">
+
+            <h3 ng-show="client.isConnected()">
+                Connected as {{username}}. Waiting for test users.
+            </h3>
+
+            <div ng-show="!client.isConnected()">
+                Connecting the SDK autotest bot, please wait...
+            </div>
+
+            <div id="remoteVideoSource"></div>
+            <div id="localVideoSource"></div>
+
+            <ul>
+                <li ng-repeat="message in messages">
+                    <span>{{message.endpointID}} - {{message.content}}</span>
+                </li>
+            </ul>
+        </div>
+    </body>
+</html

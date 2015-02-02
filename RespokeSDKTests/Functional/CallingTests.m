@@ -170,13 +170,13 @@
     XCTAssertNotNil(incomingCall, @"Should have created a call object to represent the incoming call");
     XCTAssertTrue(![incomingCall isCaller], @"Should be the recipient of the call, not the caller");
     XCTAssertTrue(testbotEndpoint == [incomingCall getRemoteEndpoint], @"Should indicate call is with the endpoint that the call was started from");
-    XCTAssertTrue(incomingCall.audioOnly, @"Should indicate this is an audio-only call");
 
     asyncTaskDone = NO;
     incomingCall.delegate = self;
     [incomingCall answer];
     [self waitForCompletion:CALL_TEST_TIMEOUT];
     XCTAssertTrue(didConnect, @"Call should be established");
+    XCTAssertTrue(incomingCall.audioOnly, @"Should indicate this is an audio-only call");
         
     // Let the call run for a while to make sure it is stable
     asyncTaskDone = NO;
@@ -188,7 +188,6 @@
     // Send a message to the testbot asking it to hangup the call so that we can test detecting that event
     asyncTaskDone = NO;
     callbackDidSucceed = NO;
-    didHangup = NO;
     [testbotEndpoint sendMessage:TEST_BOT_HANGUP_MESSAGE successHandler:^{
         callbackDidSucceed = YES;
         asyncTaskDone = didHangup; // If the delegate message fired first, signal the task is done

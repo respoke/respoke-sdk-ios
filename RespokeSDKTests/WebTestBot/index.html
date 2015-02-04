@@ -85,14 +85,19 @@
                     $scope.friendId = evt.endpoint.id;
 
                     if ($scope.activeCall.caller !== true) {
-                        $scope.activeCall.answer(audioOptions);
+                        if (evt.call.outgoingMedia.constraints.video) {
+                            $scope.messages.push({'endpointID':evt.endpoint.id, 'content':'[Answering video call]'});
+                            $scope.activeCall.answer(videoOptions);
+                        } else {
+                            $scope.messages.push({'endpointID':evt.endpoint.id, 'content':'[Answering audio call]'});
+                            $scope.activeCall.answer(audioOptions);
+                        }
+
                         $scope.activeCall.listen('hangup', function (evt) {
                             $scope.messages.push({'endpointID':$scope.friendId, 'content':'[Call hung up]'});
                             $scope.activeCall = null;
                             $scope.$apply();
                         });
-
-                        $scope.messages.push({'endpointID':evt.endpoint.id, 'content':'[Answering call]'});
                     }
                     $scope.$apply();
                 });
@@ -111,6 +116,9 @@
                     } else if (evt.message.message === "Testbot! Call me sometime! Or now!") {
                         var endpoint = $scope.client.getEndpoint({"id" : evt.message.endpointId});
                         $scope.activeCall = endpoint.startAudioCall(audioOptions);
+                    } else if (evt.message.message === "Testbot! Call me using video!") {
+                        var endpoint = $scope.client.getEndpoint({"id" : evt.message.endpointId});
+                        $scope.activeCall = endpoint.startVideoCall(videoOptions);
                     } else if (evt.message.message === "Hang up dude. I'm done talking.") {
                         $scope.activeCall.hangup();
                         $scope.activeCall = null;

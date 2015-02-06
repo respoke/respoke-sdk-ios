@@ -50,42 +50,12 @@
 - (void)testGroupMembershipAndMessaging
 {
     // Create a client to test with
-    RespokeClient *firstClient = [[Respoke sharedInstance] createClient];
-    XCTAssertNotNil(firstClient, @"Should create test client");
-    [firstClient setBaseURL:TEST_RESPOKE_BASE_URL];
-    
     firstTestEndpointID = [RespokeTestCase generateTestEndpointID];
-    XCTAssertNotNil(firstTestEndpointID, @"Should create test endpoint id");
-    
-    asyncTaskDone = NO;
-    firstClient.delegate = self;
-    [firstClient connectWithEndpointID:firstTestEndpointID appID:TEST_APP_ID reconnect:YES initialPresence:nil errorHandler:^(NSString *errorMessage) {
-        XCTAssertTrue(NO, @"Should successfully connect. Error: [%@]", errorMessage);
-    }];
-    
-    [self waitForCompletion:TEST_TIMEOUT];
-    
-    XCTAssertTrue([firstClient isConnected], @"First client should connect");
-    
+    RespokeClient *firstClient = [self createTestClientWithEndpointID:firstTestEndpointID delegate:self];
     
     // Create a second client to test with
-    RespokeClient *secondClient = [[Respoke sharedInstance] createClient];
-    XCTAssertNotNil(secondClient, @"Should create test client");
-    [secondClient setBaseURL:TEST_RESPOKE_BASE_URL];
-    
     secondTestEndpointID = [RespokeTestCase generateTestEndpointID];
-    XCTAssertNotNil(secondTestEndpointID, @"Should create test endpoint id");
-    
-    asyncTaskDone = NO;
-    secondClient.delegate = self;
-    [secondClient connectWithEndpointID:secondTestEndpointID appID:TEST_APP_ID reconnect:YES initialPresence:nil errorHandler:^(NSString *errorMessage) {
-        XCTAssertTrue(NO, @"Should successfully connect. Error: [%@]", errorMessage);
-        asyncTaskDone = YES;
-    }];
-    
-    [self waitForCompletion:TEST_TIMEOUT];
-    
-    XCTAssertTrue([secondClient isConnected], @"Second client should connect");
+    RespokeClient *secondClient = [self createTestClientWithEndpointID:secondTestEndpointID delegate:self];
     
 
     // Have each client join the same group and discover each other

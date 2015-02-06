@@ -182,7 +182,7 @@
         XCTAssertTrue(didConnect, @"Call should be established");
         XCTAssertTrue([call isCaller], @"Call should indicate that it is the caller");
         XCTAssertTrue(testbotEndpoint == [call getRemoteEndpoint], @"Should indicate call is with the endpoint that the call was started from");
-        XCTAssertTrue(!call.audioOnly, @"Should indicate this is an audio-only call");
+        XCTAssertTrue(!call.audioOnly, @"Should indicate this is a video call");
         
         // Let the call run for a while to make sure it is stable
         asyncTaskDone = NO;
@@ -353,7 +353,7 @@
     [incomingCall answer];
     [self waitForCompletion:CALL_TEST_TIMEOUT];
     XCTAssertTrue(didConnect, @"Call should be established");
-    XCTAssertTrue(!incomingCall.audioOnly, @"Should indicate this is an audio-only call");
+    XCTAssertTrue(!incomingCall.audioOnly, @"Should indicate this is a video call");
     
     // Let the call run for a while to make sure it is stable
     asyncTaskDone = NO;

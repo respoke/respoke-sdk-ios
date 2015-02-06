@@ -101,6 +101,14 @@
 
 
 /**
+ *  Indicates if the local video stream is muted
+ *
+ *  @return returns true if the local video stream is currently muted
+ */
+- (BOOL)videoIsMuted;
+
+
+/**
  *  Mute or unmute the local audio
  *
  *  @param mute If true, mute the audio. If false, unmute the audio
@@ -108,6 +116,19 @@
 - (void)muteAudio:(BOOL)mute;
 
 
+/**
+ *  Indicates if the local audio stream is muted
+ *
+ *  @return returns true if the local audio stream is currently muted
+ */
+- (BOOL)audioIsMuted;
+
+
+/**
+ *  Change which physical camera is used as the video source for the call
+ *
+ *  @param useFrontFacingCamera Uses the front-facing camera when true, back-facing camera when false
+ */
 - (void)switchVideoSource:(BOOL)useFrontFacingCamera;
 
 

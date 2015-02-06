@@ -309,6 +309,28 @@
 }
 
 
+- (BOOL)videoIsMuted
+{
+    BOOL isMuted = YES;
+
+    if (!self.audioOnly)
+    {
+        for (RTCMediaStream *eachStream in peerConnection.localStreams)
+        {
+            for (RTCMediaStreamTrack *eachTrack in eachStream.videoTracks)
+            {
+                if ([eachTrack isEnabled])
+                {
+                    isMuted = NO;
+                }
+            }
+        }
+    }
+
+    return isMuted;
+}
+
+
 - (void)muteAudio:(BOOL)mute
 {
     audioIsMuted = mute;
@@ -320,6 +342,25 @@
             [eachTrack setEnabled:!mute];
         }
     }
+}
+
+
+- (BOOL)audioIsMuted
+{
+    BOOL isMuted = YES;
+
+    for (RTCMediaStream *eachStream in peerConnection.localStreams)
+    {
+        for (RTCMediaStreamTrack *eachTrack in eachStream.audioTracks)
+        {
+            if ([eachTrack isEnabled])
+            {
+                isMuted = NO;
+            }
+        }
+    }
+
+    return isMuted;
 }
 
 

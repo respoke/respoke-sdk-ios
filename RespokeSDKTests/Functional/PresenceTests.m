@@ -45,41 +45,12 @@
 - (void)testCustomResolveMethod 
 {
     // Create a client to test with
-    RespokeClient *firstClient = [[Respoke sharedInstance] createClient];
-    XCTAssertNotNil(firstClient, @"Should create test client");
-    [firstClient setBaseURL:TEST_RESPOKE_BASE_URL];
-    
     NSString *testEndpointID = [RespokeTestCase generateTestEndpointID];
-    XCTAssertNotNil(testEndpointID, @"Should create test endpoint id");
-    
-    asyncTaskDone = NO;
-    firstClient.delegate = self;
-    [firstClient connectWithEndpointID:testEndpointID appID:TEST_APP_ID reconnect:YES initialPresence:nil errorHandler:^(NSString *errorMessage) {
-        XCTAssertTrue(NO, @"Should successfully connect. Error: [%@]", errorMessage);
-    }];
-
-    [self waitForCompletion:TEST_TIMEOUT];
-
-    XCTAssertTrue([firstClient isConnected], @"First client should connect");
-    
+    RespokeClient *firstClient = [self createTestClientWithEndpointID:testEndpointID delegate:self];
     
     // Create a second client to test with
-    RespokeClient *secondClient = [[Respoke sharedInstance] createClient];
-    XCTAssertNotNil(secondClient, @"Should create test client");
-    [secondClient setBaseURL:TEST_RESPOKE_BASE_URL];
-    
     NSString *secondTestEndpointID = [RespokeTestCase generateTestEndpointID];
-    XCTAssertNotNil(secondTestEndpointID, @"Should create test endpoint id");
-    
-    asyncTaskDone = NO;
-    secondClient.delegate = self;
-    [secondClient connectWithEndpointID:secondTestEndpointID appID:TEST_APP_ID reconnect:YES initialPresence:nil errorHandler:^(NSString *errorMessage) {
-        XCTAssertTrue(NO, @"Should successfully connect. Error: [%@]", errorMessage);
-    }];
-    
-    [self waitForCompletion:TEST_TIMEOUT];
-    
-    XCTAssertTrue([secondClient isConnected], @"Second client should connect");
+    RespokeClient *secondClient = [self createTestClientWithEndpointID:secondTestEndpointID delegate:self];
     
     
     // Build references to each of the endpoints

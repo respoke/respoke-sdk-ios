@@ -118,23 +118,8 @@
 - (void)testVideoCalling
 {
     // Create a client to test with
-    RespokeClient *client = [[Respoke sharedInstance] createClient];
-    XCTAssertNotNil(client, @"Should create test client");
-    [client setBaseURL:TEST_RESPOKE_BASE_URL];
-    
     NSString *testEndpointID = [RespokeTestCase generateTestEndpointID];
-    XCTAssertNotNil(testEndpointID, @"Should create test endpoint id");
-    
-    asyncTaskDone = NO;
-    client.delegate = self;
-    [client connectWithEndpointID:testEndpointID appID:TEST_APP_ID reconnect:YES initialPresence:nil errorHandler:^(NSString *errorMessage) {
-        XCTAssertTrue(NO, @"Should successfully connect. Error: [%@]", errorMessage);
-        asyncTaskDone = YES;
-    }];
-    
-    [self waitForCompletion:TEST_TIMEOUT];
-    
-    XCTAssertTrue([client isConnected], @"First client should connect");
+    RespokeClient *client = [self createTestClientWithEndpointID:testEndpointID delegate:self];
     
     
     // If things went well, there should be a web page open on the test host running a Transporter app that is logged in as testbot. It is set up to automatically answer any calls placed to it for testing purposes.
@@ -180,6 +165,8 @@
         [self waitForCompletion:1 assertOnTimeout:NO];
         XCTAssertTrue([call hasAudio], @"Should indicate the call has audio");
         XCTAssertTrue([call hasVideo], @"Should indicate the call has video");
+        XCTAssertTrue(![call audioIsMuted], @"Audio should not be muted");
+        XCTAssertTrue(![call videoIsMuted], @"Video should not be muted");
         
         // Mute the audio & video
         [call muteAudio:YES];
@@ -187,6 +174,8 @@
         asyncTaskDone = NO;
         [self waitForCompletion:1 assertOnTimeout:NO];
         
+        XCTAssertTrue([call audioIsMuted], @"Audio should now be muted");
+        XCTAssertTrue([call videoIsMuted], @"Video should now be muted");
         XCTAssertTrue(!didHangup, @"Should not have hung up the call yet");
         
         // un-Mute the video
@@ -194,6 +183,8 @@
         asyncTaskDone = NO;
         [self waitForCompletion:1 assertOnTimeout:NO];
         
+        XCTAssertTrue([call audioIsMuted], @"Audio should be muted");
+        XCTAssertTrue(![call videoIsMuted], @"Video should not be muted");
         XCTAssertTrue(!didHangup, @"Should not have hung up the call yet");
         
         asyncTaskDone = NO;
@@ -276,23 +267,8 @@
 - (void)testVideoAnswering
 {
     // Create a client to test with
-    RespokeClient *client = [[Respoke sharedInstance] createClient];
-    XCTAssertNotNil(client, @"Should create test client");
-    [client setBaseURL:TEST_RESPOKE_BASE_URL];
-    
     NSString *testEndpointID = [RespokeTestCase generateTestEndpointID];
-    XCTAssertNotNil(testEndpointID, @"Should create test endpoint id");
-    
-    asyncTaskDone = NO;
-    client.delegate = self;
-    [client connectWithEndpointID:testEndpointID appID:TEST_APP_ID reconnect:YES initialPresence:nil errorHandler:^(NSString *errorMessage) {
-        XCTAssertTrue(NO, @"Should successfully connect. Error: [%@]", errorMessage);
-        asyncTaskDone = YES;
-    }];
-    
-    [self waitForCompletion:TEST_TIMEOUT];
-    
-    XCTAssertTrue([client isConnected], @"First client should connect");
+    RespokeClient *client = [self createTestClientWithEndpointID:testEndpointID delegate:self];
     
     
     // If things went well, there should be a web page open on the test host running a Transporter app that is logged in as testbot. It is set up to automatically answer any calls placed to it for testing purposes.
@@ -338,6 +314,8 @@
     [self waitForCompletion:1 assertOnTimeout:NO];
     XCTAssertTrue([incomingCall hasAudio], @"Should indicate the call has audio");
     XCTAssertTrue([incomingCall hasVideo], @"Should indicate the call has video");
+    XCTAssertTrue(![incomingCall audioIsMuted], @"Audio should not be muted");
+    XCTAssertTrue(![incomingCall videoIsMuted], @"Video should not be muted");
     
     
     // Send a message to the testbot asking it to hangup the call so that we can test detecting that event

@@ -14,6 +14,7 @@
 #define TEST_TIMEOUT 30 // timeout in seconds
 #define CALL_TEST_TIMEOUT 60 // timeout in seconds for calling tests (which take longer to setup)
 #define TEST_BOT_ENDPOINT_ID @"testbot"
+#define TEST_MESSAGE @"This is a test message!"
 
 @interface RespokeTestCase : XCTestCase {
     BOOL asyncTaskDone;

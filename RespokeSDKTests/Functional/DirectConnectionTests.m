@@ -97,7 +97,7 @@
     didGetCalleeOnClose = NO;
     didHangup = NO;
     [call hangup:YES];
-    [self waitForCompletion:TEST_TIMEOUT assertOnTimeout:NO];
+    [self waitForCompletion:TEST_TIMEOUT];
     
     XCTAssertTrue(didHangup, @"Should have hung up the call");
     XCTAssertTrue(didGetCalleeOnClose, @"Callee should have received onClose notification");
@@ -122,7 +122,7 @@
 
 - (void)onError:(NSError *)error fromClient:(RespokeClient*)sender
 {
-    XCTAssertTrue(NO, @"Should not produce any client errors during endpoint testing");
+    XCTAssertTrue(NO, @"Should not produce any client errors during testing");
     asyncTaskDone = YES;
 }
 

@@ -74,7 +74,7 @@
 /**
  *  Called when a message is received over the direct connection.
  */
- - (void)onMessage:(id)message sender:(RespokeDirectConnection*)sender;
+- (void)onMessage:(id)message sender:(RespokeDirectConnection*)sender;
 
 
 @end

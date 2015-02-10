@@ -13,6 +13,11 @@
 
 #define RESPOKE_SOCKETIO_PORT 443
 
+#define RETRY_EVENT_KEY @"RETRY_EVENT_KEY"
+#define RETRY_DATA_KEY @"RETRY_DATA_KEY"
+#define RETRY_RESPONSE_HANDLER_KEY @"RETRY_RESPONSE_HANDLER_KEY"
+#define RETRY_ATTEMPT_KEY @"RETRY_ATTEMPT_KEY"
+
 
 @implementation RespokeSignalingChannel
 
@@ -82,45 +87,73 @@
 
 - (void)sendEvent:(NSString *)httpMethod data:(NSDictionary *)data attempt:(NSInteger)attempt responseHandler:(void (^)(id, NSString*))responseHandler
 {
-    [socketIO sendEvent:httpMethod withData:data andAcknowledge:^(id argsData) {
-        id response = argsData;
-        NSString *errorString = nil;
-        NSInteger statusCode = 200;
+    if (self.connected)
+    {
+        [socketIO sendEvent:httpMethod withData:data andAcknowledge:^(id argsData) {
+            id response = argsData;
+            NSString *errorString = nil;
+            NSInteger statusCode = 200;
+            NSDictionary *rateLimitData = nil;
 
-        // We are always expecting a dictionary but let's check just in case...
-        if (argsData && [argsData isKindOfClass:[NSDictionary class]])
-        {
-            NSDictionary *dict = argsData;
-            statusCode = [[dict objectForKey:@"statusCode"] integerValue];
-            response = [dict objectForKey:@"body"];
-            if ([response isKindOfClass:[NSDictionary class]])
+            // We are always expecting a dictionary but let's check just in case...
+            if (argsData && [argsData isKindOfClass:[NSDictionary class]])
             {
-                errorString = [response objectForKey:@"error"];
-            }
-        }
-        else
-        {
-            errorString = @"Unexpected response received";
-        }
-
-        if (statusCode == 429)
-        {
-            // retry
-            if (attempt < 3)
-            {
-                [self sendEvent:httpMethod data:data attempt:attempt+1 responseHandler:responseHandler];
+                NSDictionary *dict = argsData;
+                statusCode = [[dict objectForKey:@"statusCode"] integerValue];
+                response = [dict objectForKey:@"body"];
+                if ([response isKindOfClass:[NSDictionary class]])
+                {
+                    errorString = [response objectForKey:@"error"];
+                    rateLimitData = [response objectForKey:@"rateLimit"];
+                }
             }
             else
             {
-                errorString = @"API rate limit was exceeded";
+                errorString = @"Unexpected response received";
+            }
+
+            if (statusCode == 429)
+            {
+                // retry
+                if (attempt < 3)
+                {
+                    NSInteger rateLimitDelay = 0;
+                    if (rateLimitData)
+                    {
+                        // If the response contained information on the rate limit error threshold, calculate the delay necessary to avoid it when retrying
+                        NSNumber *limit = [rateLimitData objectForKey:@"limit"];
+                        rateLimitDelay = 1000 / [limit integerValue]; // Assumes the "timeUnits" is always "seconds"
+                    }
+                    
+                    // Retry sending again after enough time has passed for the rate limit error to be cleared
+                    [self performSelector:@selector(retrySendingEvent:) withObject:@{RETRY_EVENT_KEY: httpMethod, RETRY_DATA_KEY: data, RETRY_ATTEMPT_KEY: [NSNumber numberWithInteger:attempt+1], RETRY_RESPONSE_HANDLER_KEY: responseHandler} afterDelay:rateLimitDelay];
+                }
+                else
+                {
+                    errorString = @"API rate limit was exceeded";
+                    responseHandler(response, errorString);
+                }
+            }
+            else
+            {
                 responseHandler(response, errorString);
             }
-        }
-        else
-        {
-            responseHandler(response, errorString);
-        }
-    }];
+        }];
+    }
+    else
+    {
+        responseHandler(nil, @"Not connected");
+    }
+}
+
+
+- (void)retrySendingEvent:(NSDictionary*)paramsDict
+{
+    // Parse the parameters from the supplied dictionary and retry the request
+    [self sendEvent:[paramsDict objectForKey:RETRY_EVENT_KEY]
+               data:[paramsDict objectForKey:RETRY_DATA_KEY]
+            attempt:[[paramsDict objectForKey:RETRY_ATTEMPT_KEY] integerValue]
+    responseHandler:[paramsDict objectForKey:RETRY_RESPONSE_HANDLER_KEY]];
 }
 
 

@@ -22,6 +22,7 @@
 
 /* Begin PBXBuildFile section */
 		180BE48D19F9A8DF005BA3A1 /* RespokeDirectConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 180BE48C19F9A8DF005BA3A1 /* RespokeDirectConnection.m */; };
+		182A2EFD1A86564A009148A1 /* DirectConnectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 182A2EFC1A86564A009148A1 /* DirectConnectionTests.m */; };
 		182CC3C61A150ABE0084E704 /* APIRegisterPushToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 182CC3C51A150ABE0084E704 /* APIRegisterPushToken.m */; };
 		1832F5051A7140A50096B5B6 /* PresenceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1832F5041A7140A50096B5B6 /* PresenceTests.m */; };
 		18440C281A66C99200592DEB /* libwebrtc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18440C271A66C99200592DEB /* libwebrtc.a */; };
@@ -114,6 +115,7 @@
 /* Begin PBXFileReference section */
 		180BE48C19F9A8DF005BA3A1 /* RespokeDirectConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RespokeDirectConnection.m; sourceTree = "<group>"; };
 		180BE49219F9A990005BA3A1 /* RespokeDirectConnection+private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RespokeDirectConnection+private.h"; sourceTree = "<group>"; };
+		182A2EFC1A86564A009148A1 /* DirectConnectionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectConnectionTests.m; sourceTree = "<group>"; };
 		182CC3C41A150ABE0084E704 /* APIRegisterPushToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIRegisterPushToken.h; sourceTree = "<group>"; };
 		182CC3C51A150ABE0084E704 /* APIRegisterPushToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIRegisterPushToken.m; sourceTree = "<group>"; };
 		1832F5041A7140A50096B5B6 /* PresenceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresenceTests.m; sourceTree = "<group>"; };
@@ -356,10 +358,11 @@
 		18C7DAB01A70514300D60F0A /* Functional */ = {
 			isa = PBXGroup;
 			children = (
+				189CAB781A783451006E24E5 /* CallingTests.m */,
+				182A2EFC1A86564A009148A1 /* DirectConnectionTests.m */,
+				18FB22441A72AD2100057C1B /* GroupTests.m */,
 				18C7DAB11A70514300D60F0A /* MessagingTests.m */,
 				1832F5041A7140A50096B5B6 /* PresenceTests.m */,
-				18FB22441A72AD2100057C1B /* GroupTests.m */,
-				189CAB781A783451006E24E5 /* CallingTests.m */,
 			);
 			path = Functional;
 			sourceTree = "<group>";
@@ -754,6 +757,7 @@
 				18440F351A66CA3300592DEB /* SRWebSocket.m in Sources */,
 				18440DC31A66C9AF00592DEB /* SocketIOJSONSerialization.m in Sources */,
 				18440DC61A66C9AF00592DEB /* SocketIOTransportXHR.m in Sources */,
+				182A2EFD1A86564A009148A1 /* DirectConnectionTests.m in Sources */,
 				18FB22451A72AD2100057C1B /* GroupTests.m in Sources */,
 				18C7DAB71A70514300D60F0A /* RespokeClientTests.m in Sources */,
 				18C7DAB91A70514300D60F0A /* RespokeSDKTests.m in Sources */,
@@ -1021,6 +1025,7 @@
 				189CAB5E1A782D74006E24E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		18E942041993D46E00C8B142 /* Build configuration list for PBXProject "RespokeSDK" */ = {
 			isa = XCConfigurationList;

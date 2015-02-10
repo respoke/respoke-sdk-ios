@@ -10,6 +10,8 @@
 
 @interface ViewController : UIViewController
 
+@property (weak) IBOutlet UIView *remoteView;
+@property (weak) IBOutlet UIView *localView;
 
 @end
 

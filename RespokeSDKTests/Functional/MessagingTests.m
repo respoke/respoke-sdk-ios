@@ -13,8 +13,6 @@
 #import "RespokeClient+private.h"
 #import "RespokeTestCase.h"
 
-#define TEST_MESSAGE @"This is a test message!"
-
 
 @interface MessagingTests : RespokeTestCase <RespokeClientDelegate, RespokeEndpointDelegate> {
     BOOL callbackDidSucceed;

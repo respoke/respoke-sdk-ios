@@ -79,11 +79,12 @@
 @synthesize audioOnly;
 
 
-- (instancetype)initWithSignalingChannel:(RespokeSignalingChannel*)channel incomingCallSDP:(NSDictionary*)sdp sessionID:(NSString*)newID connectionID:(NSString*)newConnectionID endpoint:(RespokeEndpoint*)newEndpoint audioOnly:(BOOL)newAudioOnly directConnectionOnly:(BOOL)dcOnly timestamp:(NSDate*)timestamp
+- (instancetype)initWithSignalingChannel:(RespokeSignalingChannel*)channel incomingCallSDP:(NSDictionary*)sdp sessionID:(NSString*)newID connectionID:(NSString*)newConnectionID endpoint:(RespokeEndpoint*)newEndpoint audioOnly:(BOOL)newAudioOnly directConnectionOnly:(BOOL)dcOnly timestamp:(NSDate*)timestamp isCaller:(BOOL)isCaller
 {
     if (self = [super init])
     {
         isConnected = NO;
+        caller = isCaller;
         signalingChannel = channel;
         iceServers = [[NSMutableArray alloc] init];
         queuedLocalCandidates = [[NSMutableArray alloc] init];
@@ -119,14 +120,14 @@
 
 - (instancetype)initWithSignalingChannel:(RespokeSignalingChannel*)channel endpoint:(RespokeEndpoint*)newEndpoint audioOnly:(BOOL)newAudioOnly directConnectionOnly:(BOOL)dcOnly
 {
-    return [self initWithSignalingChannel:channel incomingCallSDP:nil sessionID:[Respoke makeGUID] connectionID:nil endpoint:newEndpoint audioOnly:newAudioOnly directConnectionOnly:dcOnly timestamp:[NSDate date]];
+    return [self initWithSignalingChannel:channel incomingCallSDP:nil sessionID:[Respoke makeGUID] connectionID:nil endpoint:newEndpoint audioOnly:newAudioOnly directConnectionOnly:dcOnly timestamp:[NSDate date] isCaller:YES];
 }
 
 
 - (instancetype)initWithSignalingChannel:(RespokeSignalingChannel*)channel incomingCallSDP:(NSDictionary*)sdp sessionID:(NSString*)newID connectionID:(NSString*)newConnectionID endpoint:(RespokeEndpoint*)newEndpoint directConnectionOnly:(BOOL)dcOnly timestamp:(NSDate*)timestamp
 {
     BOOL newAudioOnly = sdp && ![RespokeCall sdpHasVideo:[sdp objectForKey:@"sdp"]];
-    return [self initWithSignalingChannel:channel incomingCallSDP:sdp sessionID:newID connectionID:newConnectionID endpoint:newEndpoint audioOnly:newAudioOnly directConnectionOnly:dcOnly timestamp:timestamp];
+    return [self initWithSignalingChannel:channel incomingCallSDP:sdp sessionID:newID connectionID:newConnectionID endpoint:newEndpoint audioOnly:newAudioOnly directConnectionOnly:dcOnly timestamp:timestamp isCaller:NO];
 }
 
 
@@ -192,7 +193,6 @@
 
 - (void)startCall
 {
-    caller = YES;
     waitingForAnswer = YES;
 
     if (directConnectionOnly)

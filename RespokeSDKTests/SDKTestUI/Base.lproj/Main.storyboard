@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -15,8 +15,34 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PB5-VU-rtv" userLabel="Remote View">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WYE-fZ-c0e" userLabel="Local View">
+                                <rect key="frame" x="440" y="440" width="150" height="150"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="Wc8-Fq-5u3"/>
+                                    <constraint firstAttribute="width" constant="150" id="inz-4K-lSN"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="PB5-VU-rtv" secondAttribute="bottom" id="JqO-WT-dtO"/>
+                            <constraint firstItem="PB5-VU-rtv" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="OiT-U0-hbf"/>
+                            <constraint firstItem="PB5-VU-rtv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="UWN-8W-3om"/>
+                            <constraint firstAttribute="trailing" secondItem="WYE-fZ-c0e" secondAttribute="trailing" constant="10" id="d1u-2Z-j5Y"/>
+                            <constraint firstAttribute="trailing" secondItem="PB5-VU-rtv" secondAttribute="trailing" id="mTA-HJ-Wic"/>
+                            <constraint firstAttribute="bottom" secondItem="WYE-fZ-c0e" secondAttribute="bottom" constant="10" id="uxc-XF-cst"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="localView" destination="WYE-fZ-c0e" id="MSS-6f-BSX"/>
+                        <outlet property="remoteView" destination="PB5-VU-rtv" id="q2U-d9-p9U"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

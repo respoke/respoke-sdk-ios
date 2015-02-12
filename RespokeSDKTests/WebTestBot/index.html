@@ -29,11 +29,19 @@
                 videoParent.appendChild(videoElement);
             }
 
-            function RespokeController($scope) {
+            function RespokeController($scope, $location) {
 
+                // A username may be optionally specified as a query on the URL, i.e. http://localhost:8080/#?un=jasonadams
+                // The Android and XCode projects will automatically append the local user's username to the end of the testbot endpoint ID it looks for during tests to avoid conflicts with other testers
+                $scope.local_user = "" + $location.search()["un"];
+
+                if ($scope.local_user === "undefined") {
+                    // If no user name was found, assume this is the Bambbo CI server (since you can't specify queries on html loaded from file)
+                    $scope.local_user = "bamboo";
+                }
+
+                $scope.username = "testbot-" + $scope.local_user;
                 $scope.activeCall = null;
-
-                $scope.username = "testbot";
                 $scope.friendId = "";
 
                 var videoOptions = {
@@ -72,7 +80,7 @@
 
                 // Listen for the 'connect' event
                 $scope.client.listen('connect', function () {
-                    $scope.messages.push({'endpointID':'testbot', 'content':'Ready to rock'});
+                    $scope.messages.push({'endpointID':$scope.username, 'content':'Ready to rock'});
                     $scope.$apply();
                 });
 
@@ -127,7 +135,7 @@
 
                 $scope.connect = function () {
                     $scope.client.connect({
-                        endpointId: 'testbot'
+                        endpointId: $scope.username
                     });
                 };
 

@@ -12,12 +12,44 @@ RespokeSDK - The source code to the Respoke SDK and an XCode project to build th
 
 RespokeSDK/Public - The output directory of the distributable Respoke libraries and public header files. See the readme in this folder for instructions on how to use the Respoke SDK in a third-party application.
 
+RespokeSDKTests - A Test project with a test UI for functional & unit testing
+
 pull_webrtc_source.sh & build_webrtc_libs.sh - Scripts to assist in the building of the open source WebRTC framework from Google. The WebRTC libraries have been precompiled and placed into the RespokeSDK directory since the build process is very cumbersome and only needs to be done if upgrading to a new release.
+
 
 Running the SDK test cases
 ==========================
 
-The functional test cases that use RespokeCall require a web server with a specific Web application based on Respoke.js that is set up to automatically respond to certain actions that the SDK test cases perform. Because the web application will use audio and video, it must run from the context of a web server (and not just by loading the html from the file system). To set up your system to perform these tests, do the following:
+The functional test cases that use RespokeCall require a specific Web application based on Respoke.js that is set up to automatically respond to certain actions that the SDK test cases perform. Because the web application will use audio and video, it requires special user permissions from browsers that support WebRTC and typically requires user interaction. Therefore it must run from either the context of a web server, or by loading the html file from the file system with specific command line parameters for Chrome. 
+
+Additionally, the XCode test project has been set up to expect that the web application will connect to Respoke with a specific endpoint ID in the following format:
+
+testbot-username
+
+This username is the user that you are logged into your development computer with when you run the tests. This is done to avoid conflicts that can occur when multiple developers are running multiple instances of the test web application simultaneously. 
+
+To set up your system to perform these tests, do one of the following:
+
+A) Load the html from a file with Chrome. 
+
+1) Run the following command to command Chrome to start the test bot and use a fake audio and video source during testing
+
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+    --use-fake-ui-for-media-stream \
+    --use-fake-device-for-media-stream \
+    --allow-file-access-from-files \
+    ./RespokeSDKTests/WebTestBot/index.html &
+
+2) Once the file has loaded, append your local username to the URL to match what XCode will search for as the tests run:
+
+file:///projects/respoke-ios/RespokeSDK/RespokeSDKTests/WebTestBot/index.html#?un=jasonadams
+
+3) Run the SDK test cases
+
+
+
+B) Run with a local web server.
+
 
 1) Install http-server
 
@@ -25,7 +57,7 @@ $ sudo npm i -g http-server
 
 2) Start http-server from the testbot directory:
 
-$ cd RespokeSDK/RespokeSDKTests/WebTestBot/
+$ cd RespokeSDKTests/WebTestBot/
 
 $ http-server
 
@@ -35,7 +67,7 @@ $ /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --use-fake-ui-f
 
 This can alternately be done with Firefox by navigating to "about:config" and then setting the "media.navigator.permission.disabled" option to TRUE
 
-4) Open the testbot in a Chrome tab by loading http://localhost:8080
+4) Open the testbot in a Chrome tab by loading http://localhost:8080/#?un=username
 
 5) Run the SDK test cases
 

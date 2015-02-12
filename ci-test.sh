@@ -36,6 +36,6 @@ echo $! > chrome.pid
 # Run the test
 ${bamboo_capability_system_builder_command_xctool} \
     -sdk iphonesimulator \
-    -scheme RespokeSDK \
+    -scheme SDKTestUI \
     reporter junit:build/junit-report.xml \
     test

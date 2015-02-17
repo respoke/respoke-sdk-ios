@@ -168,6 +168,7 @@
     [peerConnection close];
     peerConnection = nil;
     queuedRemoteCandidates = nil;
+    directConnection = nil;
 
     if (localVideoTrack) {
         [localVideoTrack removeRenderer:localVideoView];
@@ -693,8 +694,7 @@
     if (sender == directConnection)
     {
         directConnection = nil;
-        
-        //TODO
+        [endpoint setDirectConnection:nil];
     }
 }
 
@@ -746,7 +746,7 @@
     } 
     else 
     {
-        NSParameterAssert(NO);
+        NSLog(@"Could not update video view layout because the view references have not been added to the call in time");
     }
 
     [self updateVideoViewLayout];

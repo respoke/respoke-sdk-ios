@@ -41,8 +41,10 @@
                 }
 
                 $scope.username = "testbot-" + $scope.local_user;
+                $scope.testGroupID = "robots are taking over " + $scope.local_user;
                 $scope.activeCall = null;
                 $scope.friendId = "";
+                $scope.directConnection = null;
 
                 var videoOptions = {
                     constraints: {audio: true, video: true},
@@ -81,6 +83,19 @@
                 // Listen for the 'connect' event
                 $scope.client.listen('connect', function () {
                     $scope.messages.push({'endpointID':$scope.username, 'content':'Ready to rock'});
+
+                    $scope.client.join({ 
+                        id: $scope.testGroupID,
+                        onSuccess: function (evt) {
+                            $scope.messages.push({'endpointID':$scope.username, 'content':'joined group ' + $scope.testGroupID});
+                            $scope.$apply();
+                        },
+                        onError: function (evt) {
+                            $scope.messages.push({'endpointID':$scope.username, 'content':'ERROR: Unable to join group ' + $scope.testGroupID});
+                            $scope.$apply();
+                        }
+                    });
+
                     $scope.$apply();
                 });
 
@@ -104,8 +119,67 @@
                         $scope.activeCall.listen('hangup', function (evt) {
                             $scope.messages.push({'endpointID':$scope.friendId, 'content':'[Call hung up]'});
                             $scope.activeCall = null;
+                            $scope.directConnection = null;
                             $scope.$apply();
                         });
+                    }
+                    $scope.$apply();
+                });
+
+                function setDirectConnectionListeners() {
+                    $scope.activeCall = $scope.client.getCall({
+                        endpointId: $scope.friendId
+                    });
+
+                    $scope.activeCall.listen('hangup', function (evt) {
+                        $scope.messages.push({'endpointID':$scope.friendId, 'content':'[Direct Connection Call hung up]'});
+                        if ($scope.directConnection.isActive()) {
+                            $scope.messages.push({'endpointID':$scope.friendId, 'content':'[Direct Connection is active]'});
+                        } else {
+                            $scope.messages.push({'endpointID':$scope.friendId, 'content':'[Direct Connection is NOT active]'});
+                        }
+                        $scope.activeCall.hangup();
+                        $scope.activeCall = null;
+                        $scope.directConnection = null;
+                        $scope.$apply();
+                    });
+
+                    $scope.directConnection.listen('open', function() {
+                        $scope.messages.push({'endpointID':$scope.friendId, 'content':'[Direct connection open]'});
+                        $scope.$apply();
+                    });
+                    $scope.directConnection.listen('close', function() {
+                        $scope.directConnection = null;
+                        $scope.messages.push({'endpointID':$scope.friendId, 'content':'[Direct connection close]'});
+                        $scope.$apply();
+                    });
+                    $scope.directConnection.listen('start', function() {
+                        $scope.messages.push({'endpointID':$scope.friendId, 'content':'[Direct connection start]'});
+                        $scope.$apply();
+                    });
+                    $scope.directConnection.listen('message', function(evt) {
+                        $scope.messages.push({'endpointID':$scope.friendId, 'content':'DIRECT: ' + evt.message.message});
+                        if (evt.message.message === "Hi testbot!") {
+                            $scope.directConnection.sendMessage({"message":"Hey pal!"});
+                            $scope.messages.push({'endpointID':$scope.username, 'content':'DIRECT: ' + 'Hey pal!'});
+                        } else if (evt.message.message === "Disconnect from me.") {
+                            $scope.messages.push({'endpointID':evt.endpoint.id, 'content':'[Testbot will close the direct connection]'});
+                            $scope.$apply();
+                            $scope.activeCall.hangup();
+                        }
+                        $scope.$apply();
+                   });
+                }
+
+                // Listen for the 'direct-connection' event
+                $scope.client.listen('direct-connection', function(evt) {
+                    $scope.directConnection = evt.directConnection;
+                    $scope.friendId = evt.endpoint.id;
+                    setDirectConnectionListeners();
+
+                    if ($scope.activeCall.caller !== true) {
+                        $scope.messages.push({'endpointID':evt.endpoint.id, 'content':'[Accepting incoming direct connection]'});
+                        $scope.directConnection.accept();
                     }
                     $scope.$apply();
                 });
@@ -113,14 +187,17 @@
                 // listen for incoming messages
                 $scope.client.listen('message', function(evt) {
                     $scope.messages.push({'endpointID':evt.message.endpointId, 'content':evt.message.message});
-                    $scope.$apply();
 
                     if (evt.message.message === "Hi testbot!") {
                         var endpoint = $scope.client.getEndpoint({"id" : evt.message.endpointId});
                         endpoint.sendMessage({"message":"Hey pal!"});
 
-                        $scope.messages.push({'endpointID':'testbot', 'content':'Hey pal!'});
-                        $scope.$apply();
+                        $scope.messages.push({'endpointID':$scope.username, 'content':'Hey pal!'});
+                    } else if (evt.message.message === "Hi guys!") {
+                        var group = $scope.client.getGroup({"id" : $scope.testGroupID});
+                        group.sendMessage({"message":"Hey everyone!"});
+
+                        $scope.messages.push({'endpointID':$scope.username, 'content':'Hey everyone!'});
                     } else if (evt.message.message === "Testbot! Call me sometime! Or now!") {
                         var endpoint = $scope.client.getEndpoint({"id" : evt.message.endpointId});
                         $scope.activeCall = endpoint.startAudioCall(audioOptions);
@@ -130,7 +207,19 @@
                     } else if (evt.message.message === "Hang up dude. I'm done talking.") {
                         $scope.activeCall.hangup();
                         $scope.activeCall = null;
+                    } else if (evt.message.message === "You still there, dude?") {
+                        $scope.client.setPresence( {presence: 'dnd'} );
+                        $scope.messages.push({'endpointID':$scope.username, 'content':'[Set presence to dnd]'});
+                    } else if (evt.message.message === "This is important, we need to talk.") {
+                        $scope.client.setPresence( {presence: 'available'} );
+                        $scope.messages.push({'endpointID':$scope.username, 'content':'[Set presence to available]'});
+                    } else if (evt.message.message === "Connect to me.") {
+                        $scope.messages.push({'endpointID':$scope.username, 'content':'[Initiating direct connection]'});
+                        var endpoint = $scope.client.getEndpoint({"id" : evt.message.endpointId});
+                        $scope.friendId = evt.endpoint.id;
+                        $scope.directConnection = endpoint.startDirectConnection();
                     };
+                    $scope.$apply();
                 });
 
                 $scope.connect = function () {
@@ -180,4 +269,4 @@
             </ul>
         </div>
     </body>
-</html
+</html>

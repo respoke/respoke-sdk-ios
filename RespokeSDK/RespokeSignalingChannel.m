@@ -200,7 +200,7 @@
             {   
                 connectionID = [response objectForKey:@"id"];
                 NSString *endpointID = [response objectForKey:@"endpointId"];
-                [self.delegate onConnect:self endpointID:endpointID];
+                [self.delegate onConnect:self endpointID:endpointID connectionID:connectionID];
             }
             else
             {

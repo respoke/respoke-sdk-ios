@@ -161,6 +161,14 @@
 
 
 /**
+ *  Register push services for this client's connection
+ *
+ *  @param token    The push token to use
+ */
+- (void)registerPushServicesWithToken:(NSData*)token;
+
+
+/**
  *  Return the Endpoint ID of this client
  *
  *  @return The Endpoint ID of this client

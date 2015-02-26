@@ -120,11 +120,7 @@
 - (void)registerPushToken:(NSData*)token
 {
     pushToken = token;
-
-    if ([instances count])
-    {
-        [self registerPushServices];
-    }
+    [self registerPushServices];
 }
 
 
@@ -136,26 +132,15 @@
 
 - (void)registerPushServices
 {
-    NSMutableArray *endpointIDArray = [NSMutableArray array];
-
-    // If there are already client instances running, check if any of them have already connected
-    for (RespokeClient *eachInstance in instances)
-    {
-        if ([eachInstance isConnected])
+    if ([instances count] && pushToken) {
+        for (RespokeClient *eachInstance in instances)
         {
-            // This client has already connected, so notify the Respoke servers that this device is eligible to receive notifications directed at this endpointID
-            [endpointIDArray addObject:[eachInstance getEndpointID]];
+            if ([eachInstance isConnected])
+            {
+                [eachInstance registerPushServicesWithToken:pushToken];
+            }
         }
     }
-
-    APIRegisterPushToken *transaction = [[APIRegisterPushToken alloc] init];
-    transaction.token = pushToken;
-    transaction.endpointIDArray = endpointIDArray;
-    [transaction goWithSuccessHandler:^(){
-        NSLog(@"Successfully registered push token");
-    } errorHandler:^(NSString *error){
-        NSLog(@"Push register failed: %@", error);
-    }];
 }
 
 

@@ -21,6 +21,7 @@
 
 @interface RespokeClient () <SocketIODelegate, RespokeSignalingChannelDelegate> {
     NSString *localEndpointID;  ///< The local endpoint ID
+    NSString *localConnectionID;  ///< The local connection ID
     NSString *applicationToken;  ///< The application token to use
     RespokeSignalingChannel *signalingChannel;  ///< The signaling channel to use
     NSMutableArray *calls;  ///< An array of the active calls
@@ -311,6 +312,15 @@
 }
 
 
+- (void)registerPushServicesWithToken:(NSData*)token
+{
+    NSDictionary *data = @{@"token": [self hexifyData:token], @"service": @"apple"};
+    [signalingChannel sendRESTMessage:@"post" url:[RESPOKE_BASE_URL stringByAppendingString:[NSString stringWithFormat:@"/v1/connections/%@/push-token", localConnectionID]] data:data responseHandler:^(id response, NSString *errorMessage) {
+        //TODO handle error; do something with received token for future connections, etc
+    }];
+}
+
+
 #pragma mark - Private methods
 
 
@@ -356,11 +366,12 @@
 #pragma mark - RespokeSignalingChannelDelegate
 
 
-- (void)onConnect:(RespokeSignalingChannel*)sender endpointID:(NSString*)endpointID
+- (void)onConnect:(RespokeSignalingChannel*)sender endpointID:(NSString*)endpointID connectionID:(NSString*)connectionID
 {
     connectionInProgress = NO;
     reconnectCount = 0;
     localEndpointID = endpointID;
+    localConnectionID = connectionID;
 
     [[Respoke sharedInstance] client:self connectedWithEndpoint:endpointID];
     
@@ -556,6 +567,25 @@
 - (void)directConnectionAvailable:(RespokeDirectConnection*)directConnection endpoint:(RespokeEndpoint*)endpoint
 {
     [self.delegate onIncomingDirectConnection:directConnection endpoint:endpoint];
+}
+
+
+- (NSString*)hexifyData:(NSData *)data
+{
+    const unsigned char *dataBuffer = (const unsigned char *)[data bytes];
+    if (!dataBuffer)
+    {
+        return [NSString string];
+    }
+    
+    NSUInteger dataLength = [data length];
+    NSMutableString *hex = [NSMutableString stringWithCapacity:(dataLength * 2)];
+    for (int i = 0; i < dataLength; ++i)
+    {
+        [hex appendString:[NSString stringWithFormat:@"%02lx", (unsigned long)dataBuffer[i]]];
+    }
+    
+    return [NSString stringWithString:hex];
 }
 
 

@@ -114,10 +114,11 @@
 /**
  *  Receive a notification from the signaling channel that it has connected to the cloud infrastructure
  *
- *  @param sender      The signaling channel that triggered the event
- *  @param endpointID  The endpointID for this connection, as reported by the server
+ *  @param sender        The signaling channel that triggered the event
+ *  @param endpointID    The endpointID for this connection, as reported by the server
+ *  @param connectionID  The connectionID for this connection, as reported by the server
  */
-- (void)onConnect:(RespokeSignalingChannel*)sender endpointID:(NSString*)endpointID;
+- (void)onConnect:(RespokeSignalingChannel*)sender endpointID:(NSString*)endpointID connectionID:(NSString*)connectionID;
 
 
 /**

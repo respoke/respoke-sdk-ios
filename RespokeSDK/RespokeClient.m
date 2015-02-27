@@ -418,7 +418,7 @@
     if (endpoint)
     {
         // A remote device is trying to create a direct connection with us, so create a call instance to deal with it
-        [[RespokeCall alloc] initWithSignalingChannel:signalingChannel incomingCallSDP:sdp sessionID:sessionID connectionID:connectionID endpoint:endpoint directConnectionOnly:YES timestamp:timestamp];
+        (void) [[RespokeCall alloc] initWithSignalingChannel:signalingChannel incomingCallSDP:sdp sessionID:sessionID connectionID:connectionID endpoint:endpoint directConnectionOnly:YES timestamp:timestamp];
     }
     else
     {

@@ -33,6 +33,11 @@ function pull() {
 
 	check_code_signing "WARNING"
 
+	if [ -d webrtc-build-scripts ]; then
+		echo "Whoa! The webrtc-build-scripts repo already exists. Bailing..."
+		exit 1
+        fi
+
 	git clone https://github.com/pristineio/webrtc-build-scripts.git &&
 		pushd webrtc-build-scripts &&
 		source ios/build.sh &&
@@ -54,9 +59,9 @@ function build() {
 		popd 
 }
 
-function release() {
+function deploy() {
 	echo "====================================="
-	echo "===> Releasing headers and binaries.."
+	echo "===> Deploying headers and binaries.."
 	echo "====================================="
 
 	RTC_SRC=webrtc-build-scripts/ios/webrtc/src
@@ -96,7 +101,7 @@ function release() {
 }
 
 function usage() {
-	echo "USAGE: $0 <build> | <pull> | <release>"
+	echo "USAGE: $0 <pull> | <build> | <deploy>"
 }
 
 if [ $# -eq 0 ]; then

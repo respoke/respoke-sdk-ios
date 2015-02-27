@@ -104,7 +104,7 @@ Prerequisites:
 
 The build scripts assume that all of the WebRTC code will be placed inside of this repository's directory structure. The first step is to get the Chromium Depot Tools, which are used to pull the source code and build it later.
 
-A build script has been provided to pull and build the source code as well as release the WebRTC headers and libraries to the RespokeSDK project directory.
+A build script has been provided to pull and build the source code as well as deploy the WebRTC headers and libraries to the RespokeSDK project directory.
 
 ```
 Step 1: Download build tools and WebRTC source code
@@ -114,14 +114,14 @@ To pull the sources:
 ```
 $ ./build_webrtc.sh pull
 ```
-This will pull all of the code and associated submodules from a variety of sources. Expect this to take a long time to finish, and will require ~1.5 GB of storage space. If you would like to use a newer version of the WebRTC source, then edit this file and change the first line to define the specific revision # you are interested in using. I highly recommend one of the stable releases, as the daily builds seem to break somewhat regularly.
+This will pull all of the code and associated submodules from a variety of sources. Expect this to take a long time to finish, and will require ~1.5 GB of storage space. If you would like to use a newer version of the WebRTC source, refer to the webrtc-build-scripts README for info on how to do that. I highly recommend one of the stable releases, as the daily builds seem to break somewhat regularly.
 
 Step 2: Build the libraries
 ---------------------------
 
 To build the sources:
 ```
-$ ./build_webrtc.sh pull
+$ ./build_webrtc.sh build
 ```
 
 If you encounter an error during the build phase, there are a multitude of things that could have gone wrong. If you see this error in particular:
@@ -139,12 +139,12 @@ to:
 check_code_signing "WARNING"
 ```
 
-Step 3: Release the libraries
+Step 3: Deploy the libraries
 -----------------------------
 
-To build the sources:
+To deploy the WebRTC binaries and headers:
 ```
-$ ./build_webrtc.sh release
+$ ./build_webrtc.sh deploy
 ```
 This will combine the assorted libraries into universal simulator/device compatible libraries, and then replace the compiled libraries and associated headers inside of the Respoke iOS project with the new ones. Once it completes successfully, you should be able to open the XCode project, recompile and go.
 

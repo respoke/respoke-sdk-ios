@@ -7,6 +7,7 @@
 //
 
 #import "RespokeTestCase.h"
+#import "Respoke.h"
 
 
 @implementation RespokeTestCase
@@ -37,6 +38,12 @@
 
 - (BOOL)waitForCompletion:(NSTimeInterval)timeoutSecs
 {
+    return [self waitForCompletion:timeoutSecs assertOnTimeout:YES];
+}
+
+
+- (BOOL)waitForCompletion:(NSTimeInterval)timeoutSecs assertOnTimeout:(BOOL)assertOnTimeout
+{
     NSDate *timeoutDate = [NSDate dateWithTimeIntervalSinceNow:timeoutSecs];
 
     do
@@ -49,9 +56,33 @@
     }
     while (!asyncTaskDone);
 
-    XCTAssertTrue(asyncTaskDone, @"TIMEOUT after %0.2f seconds", timeoutSecs);
+    if (assertOnTimeout) 
+    {
+        XCTAssertTrue(asyncTaskDone, @"TIMEOUT after %0.2f seconds", timeoutSecs);
+    }
 
     return asyncTaskDone;
+}
+
+
+- (RespokeClient*)createTestClientWithEndpointID:(NSString*)endpointID delegate:(id <RespokeClientDelegate>)delegate
+{
+    RespokeClient *client = [[Respoke sharedInstance] createClient];
+    XCTAssertNotNil(client, @"Should create test client");
+    [client setBaseURL:TEST_RESPOKE_BASE_URL];
+    
+    asyncTaskDone = NO;
+    client.delegate = delegate;
+    [client connectWithEndpointID:endpointID appID:TEST_APP_ID reconnect:YES initialPresence:nil errorHandler:^(NSString *errorMessage) {
+        XCTAssertTrue(NO, @"Should successfully connect. Error: [%@]", errorMessage);
+        asyncTaskDone = YES;
+    }];
+
+    [self waitForCompletion:TEST_TIMEOUT];
+
+    XCTAssertTrue([client isConnected], @"First client should connect");
+
+    return client;
 }
 
 

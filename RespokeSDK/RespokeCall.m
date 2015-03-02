@@ -79,11 +79,12 @@
 @synthesize audioOnly;
 
 
-- (instancetype)initWithSignalingChannel:(RespokeSignalingChannel*)channel incomingCallSDP:(NSDictionary*)sdp sessionID:(NSString*)newID connectionID:(NSString*)newConnectionID endpoint:(RespokeEndpoint*)newEndpoint audioOnly:(BOOL)newAudioOnly directConnectionOnly:(BOOL)dcOnly timestamp:(NSDate*)timestamp
+- (instancetype)initWithSignalingChannel:(RespokeSignalingChannel*)channel incomingCallSDP:(NSDictionary*)sdp sessionID:(NSString*)newID connectionID:(NSString*)newConnectionID endpoint:(RespokeEndpoint*)newEndpoint audioOnly:(BOOL)newAudioOnly directConnectionOnly:(BOOL)dcOnly timestamp:(NSDate*)timestamp isCaller:(BOOL)isCaller
 {
     if (self = [super init])
     {
         isConnected = NO;
+        caller = isCaller;
         signalingChannel = channel;
         iceServers = [[NSMutableArray alloc] init];
         queuedLocalCandidates = [[NSMutableArray alloc] init];
@@ -119,14 +120,14 @@
 
 - (instancetype)initWithSignalingChannel:(RespokeSignalingChannel*)channel endpoint:(RespokeEndpoint*)newEndpoint audioOnly:(BOOL)newAudioOnly directConnectionOnly:(BOOL)dcOnly
 {
-    return [self initWithSignalingChannel:channel incomingCallSDP:nil sessionID:[Respoke makeGUID] connectionID:nil endpoint:newEndpoint audioOnly:newAudioOnly directConnectionOnly:dcOnly timestamp:[NSDate date]];
+    return [self initWithSignalingChannel:channel incomingCallSDP:nil sessionID:[Respoke makeGUID] connectionID:nil endpoint:newEndpoint audioOnly:newAudioOnly directConnectionOnly:dcOnly timestamp:[NSDate date] isCaller:YES];
 }
 
 
 - (instancetype)initWithSignalingChannel:(RespokeSignalingChannel*)channel incomingCallSDP:(NSDictionary*)sdp sessionID:(NSString*)newID connectionID:(NSString*)newConnectionID endpoint:(RespokeEndpoint*)newEndpoint directConnectionOnly:(BOOL)dcOnly timestamp:(NSDate*)timestamp
 {
     BOOL newAudioOnly = sdp && ![RespokeCall sdpHasVideo:[sdp objectForKey:@"sdp"]];
-    return [self initWithSignalingChannel:channel incomingCallSDP:sdp sessionID:newID connectionID:newConnectionID endpoint:newEndpoint audioOnly:newAudioOnly directConnectionOnly:dcOnly timestamp:timestamp];
+    return [self initWithSignalingChannel:channel incomingCallSDP:sdp sessionID:newID connectionID:newConnectionID endpoint:newEndpoint audioOnly:newAudioOnly directConnectionOnly:dcOnly timestamp:timestamp isCaller:NO];
 }
 
 
@@ -167,6 +168,7 @@
     [peerConnection close];
     peerConnection = nil;
     queuedRemoteCandidates = nil;
+    directConnection = nil;
 
     if (localVideoTrack) {
         [localVideoTrack removeRenderer:localVideoView];
@@ -192,7 +194,6 @@
 
 - (void)startCall
 {
-    caller = YES;
     waitingForAnswer = YES;
 
     if (directConnectionOnly)
@@ -234,7 +235,7 @@
         NSDictionary *signalData = @{@"signalType": @"bye", @"target": directConnectionOnly ? @"directConnection" : @"call", @"to": endpoint.endpointID, @"sessionId": sessionID, @"signalId": [Respoke makeGUID], @"version": @"1.0"};
         
         [signalingChannel sendSignalMessage:signalData toEndpointID:endpoint.endpointID successHandler:^(){
-            // Do nothing
+            [self.delegate onHangup:self];
         } errorHandler:^(NSString *errorMessage) {
             [self.delegate onError:errorMessage sender:self];
         }];
@@ -309,6 +310,28 @@
 }
 
 
+- (BOOL)videoIsMuted
+{
+    BOOL isMuted = YES;
+
+    if (!self.audioOnly)
+    {
+        for (RTCMediaStream *eachStream in peerConnection.localStreams)
+        {
+            for (RTCMediaStreamTrack *eachTrack in eachStream.videoTracks)
+            {
+                if ([eachTrack isEnabled])
+                {
+                    isMuted = NO;
+                }
+            }
+        }
+    }
+
+    return isMuted;
+}
+
+
 - (void)muteAudio:(BOOL)mute
 {
     audioIsMuted = mute;
@@ -320,6 +343,25 @@
             [eachTrack setEnabled:!mute];
         }
     }
+}
+
+
+- (BOOL)audioIsMuted
+{
+    BOOL isMuted = YES;
+
+    for (RTCMediaStream *eachStream in peerConnection.localStreams)
+    {
+        for (RTCMediaStreamTrack *eachTrack in eachStream.audioTracks)
+        {
+            if ([eachTrack isEnabled])
+            {
+                isMuted = NO;
+            }
+        }
+    }
+
+    return isMuted;
 }
 
 
@@ -652,8 +694,7 @@
     if (sender == directConnection)
     {
         directConnection = nil;
-        
-        //TODO
+        [endpoint setDirectConnection:nil];
     }
 }
 
@@ -705,7 +746,7 @@
     } 
     else 
     {
-        NSParameterAssert(NO);
+        NSLog(@"Could not update video view layout because the view references have not been added to the call in time");
     }
 
     [self updateVideoViewLayout];

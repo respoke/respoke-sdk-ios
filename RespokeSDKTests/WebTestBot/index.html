@@ -1,0 +1,272 @@
+<!doctype html>
+<html ng-app>
+
+    <!-- Note that Chrome blocks the getUsermedia API when you open an html 
+         file from the filesystem (file:// prefix). Therefore, it is necessary 
+         to run this example page from a web server in order for it to behave 
+         correctly -->
+
+    <head>
+        <!-- Respoke client library -->
+        <script src="https://cdn.respoke.io/respoke.min.js"></script>
+
+        <!-- Angular.js for this example -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.13/angular.min.js"></script>
+
+        <style type="text/css">
+            #localVideoSource video{
+                height: 100px;
+                margin: -130px 0 0 20px;
+                position: absolute;
+            }
+        </style>
+
+        <script>
+
+            function setVideo(elementId, videoElement) {
+                var videoParent = document.getElementById(elementId);
+                videoParent.innerHTML = "";
+                videoParent.appendChild(videoElement);
+            }
+
+            function RespokeController($scope, $location) {
+
+                // A username may be optionally specified as a query on the URL, i.e. http://localhost:8080/#?un=jasonadams
+                // The Android and XCode projects will automatically append the local user's username to the end of the testbot endpoint ID it looks for during tests to avoid conflicts with other testers
+                $scope.local_user = "" + $location.search()["un"];
+
+                if ($scope.local_user === "undefined") {
+                    // If no user name was found, assume this is the Bambbo CI server (since you can't specify queries on html loaded from file)
+                    $scope.local_user = "bamboo";
+                }
+
+                $scope.username = "testbot-" + $scope.local_user;
+                $scope.testGroupID = "robots are taking over " + $scope.local_user;
+                $scope.activeCall = null;
+                $scope.friendId = "";
+                $scope.directConnection = null;
+
+                var videoOptions = {
+                    constraints: {audio: true, video: true},
+
+                    onPreviewLocalMedia: function(evt) {
+                        setVideo('localVideoSource', evt.element)
+                    },
+                    onLocalMedia: function(evt) {
+                        setVideo('localVideoSource', evt.element)
+                    },
+
+                    onConnect: function(evt) {
+                        setVideo('remoteVideoSource', evt.element)
+                        $scope.messages.push({'endpointID':$scope.friendId, 'content':'[Call connected]'});
+                        $scope.$apply();
+                    }
+                };
+
+                var audioOptions = {
+                    constraints: {audio: true, video: false},
+
+                    onConnect: function(evt) {
+                        $scope.messages.push({'endpointID':$scope.friendId, 'content':'[Call connected]'});
+                        $scope.$apply();
+                    }
+                };
+
+                $scope.messages = [];
+
+                $scope.client = respoke.Client({
+                    appId: "57ac5f3a-0513-40b5-ba42-b80939e69436",
+                    baseURL: "https://api-int.respoke.io",
+                    developmentMode: true
+                });
+
+                // Listen for the 'connect' event
+                $scope.client.listen('connect', function () {
+                    $scope.messages.push({'endpointID':$scope.username, 'content':'Ready to rock'});
+
+                    $scope.client.join({ 
+                        id: $scope.testGroupID,
+                        onSuccess: function (evt) {
+                            $scope.messages.push({'endpointID':$scope.username, 'content':'joined group ' + $scope.testGroupID});
+                            $scope.$apply();
+                        },
+                        onError: function (evt) {
+                            $scope.messages.push({'endpointID':$scope.username, 'content':'ERROR: Unable to join group ' + $scope.testGroupID});
+                            $scope.$apply();
+                        }
+                    });
+
+                    $scope.$apply();
+                });
+
+                // Listen for the 'call' event
+                $scope.client.listen('call', function(evt) {
+
+                    $scope.messages.push({'endpointID':evt.endpoint.id, 'content':'[Call created]'});
+
+                    $scope.activeCall = evt.call;
+                    $scope.friendId = evt.endpoint.id;
+
+                    if ($scope.activeCall.caller !== true) {
+                        if (evt.call.outgoingMedia.constraints.video) {
+                            $scope.messages.push({'endpointID':evt.endpoint.id, 'content':'[Answering video call]'});
+                            $scope.activeCall.answer(videoOptions);
+                        } else {
+                            $scope.messages.push({'endpointID':evt.endpoint.id, 'content':'[Answering audio call]'});
+                            $scope.activeCall.answer(audioOptions);
+                        }
+
+                        $scope.activeCall.listen('hangup', function (evt) {
+                            $scope.messages.push({'endpointID':$scope.friendId, 'content':'[Call hung up]'});
+                            $scope.activeCall = null;
+                            $scope.directConnection = null;
+                            $scope.$apply();
+                        });
+                    }
+                    $scope.$apply();
+                });
+
+                function setDirectConnectionListeners() {
+                    $scope.activeCall = $scope.client.getCall({
+                        endpointId: $scope.friendId
+                    });
+
+                    $scope.activeCall.listen('hangup', function (evt) {
+                        $scope.messages.push({'endpointID':$scope.friendId, 'content':'[Direct Connection Call hung up]'});
+                        if ($scope.directConnection.isActive()) {
+                            $scope.messages.push({'endpointID':$scope.friendId, 'content':'[Direct Connection is active]'});
+                        } else {
+                            $scope.messages.push({'endpointID':$scope.friendId, 'content':'[Direct Connection is NOT active]'});
+                        }
+                        $scope.activeCall.hangup();
+                        $scope.activeCall = null;
+                        $scope.directConnection = null;
+                        $scope.$apply();
+                    });
+
+                    $scope.directConnection.listen('open', function() {
+                        $scope.messages.push({'endpointID':$scope.friendId, 'content':'[Direct connection open]'});
+                        $scope.$apply();
+                    });
+                    $scope.directConnection.listen('close', function() {
+                        $scope.directConnection = null;
+                        $scope.messages.push({'endpointID':$scope.friendId, 'content':'[Direct connection close]'});
+                        $scope.$apply();
+                    });
+                    $scope.directConnection.listen('start', function() {
+                        $scope.messages.push({'endpointID':$scope.friendId, 'content':'[Direct connection start]'});
+                        $scope.$apply();
+                    });
+                    $scope.directConnection.listen('message', function(evt) {
+                        $scope.messages.push({'endpointID':$scope.friendId, 'content':'DIRECT: ' + evt.message.message});
+                        if (evt.message.message === "Hi testbot!") {
+                            $scope.directConnection.sendMessage({"message":"Hey pal!"});
+                            $scope.messages.push({'endpointID':$scope.username, 'content':'DIRECT: ' + 'Hey pal!'});
+                        } else if (evt.message.message === "Disconnect from me.") {
+                            $scope.messages.push({'endpointID':evt.endpoint.id, 'content':'[Testbot will close the direct connection]'});
+                            $scope.$apply();
+                            $scope.activeCall.hangup();
+                        }
+                        $scope.$apply();
+                   });
+                }
+
+                // Listen for the 'direct-connection' event
+                $scope.client.listen('direct-connection', function(evt) {
+                    $scope.directConnection = evt.directConnection;
+                    $scope.friendId = evt.endpoint.id;
+                    setDirectConnectionListeners();
+
+                    if ($scope.activeCall.caller !== true) {
+                        $scope.messages.push({'endpointID':evt.endpoint.id, 'content':'[Accepting incoming direct connection]'});
+                        $scope.directConnection.accept();
+                    }
+                    $scope.$apply();
+                });
+
+                // listen for incoming messages
+                $scope.client.listen('message', function(evt) {
+                    $scope.messages.push({'endpointID':evt.message.endpointId, 'content':evt.message.message});
+
+                    if (evt.message.message === "Hi testbot!") {
+                        var endpoint = $scope.client.getEndpoint({"id" : evt.message.endpointId});
+                        endpoint.sendMessage({"message":"Hey pal!"});
+
+                        $scope.messages.push({'endpointID':$scope.username, 'content':'Hey pal!'});
+                    } else if (evt.message.message === "Hi guys!") {
+                        var group = $scope.client.getGroup({"id" : $scope.testGroupID});
+                        group.sendMessage({"message":"Hey everyone!"});
+
+                        $scope.messages.push({'endpointID':$scope.username, 'content':'Hey everyone!'});
+                    } else if (evt.message.message === "Testbot! Call me sometime! Or now!") {
+                        var endpoint = $scope.client.getEndpoint({"id" : evt.message.endpointId});
+                        $scope.activeCall = endpoint.startAudioCall(audioOptions);
+                    } else if (evt.message.message === "Testbot! Call me using video!") {
+                        var endpoint = $scope.client.getEndpoint({"id" : evt.message.endpointId});
+                        $scope.activeCall = endpoint.startVideoCall(videoOptions);
+                    } else if (evt.message.message === "Hang up dude. I'm done talking.") {
+                        $scope.activeCall.hangup();
+                        $scope.activeCall = null;
+                    } else if (evt.message.message === "You still there, dude?") {
+                        $scope.client.setPresence( {presence: 'dnd'} );
+                        $scope.messages.push({'endpointID':$scope.username, 'content':'[Set presence to dnd]'});
+                    } else if (evt.message.message === "This is important, we need to talk.") {
+                        $scope.client.setPresence( {presence: 'available'} );
+                        $scope.messages.push({'endpointID':$scope.username, 'content':'[Set presence to available]'});
+                    } else if (evt.message.message === "Connect to me.") {
+                        $scope.messages.push({'endpointID':$scope.username, 'content':'[Initiating direct connection]'});
+                        var endpoint = $scope.client.getEndpoint({"id" : evt.message.endpointId});
+                        $scope.friendId = evt.endpoint.id;
+                        $scope.directConnection = endpoint.startDirectConnection();
+                    };
+                    $scope.$apply();
+                });
+
+                $scope.connect = function () {
+                    $scope.client.connect({
+                        endpointId: $scope.username
+                    });
+                };
+
+                $scope.call = function () {
+                    var recipientEndpoint = $scope.client.getEndpoint({ id: $scope.friendId });
+                    $scope.activeCall = recipientEndpoint.startVideoCall(callOptions);
+                };
+
+                $scope.hangup = function () {
+                    $scope.activeCall.hangup();
+                    $scope.activeCall = null;
+                };
+
+                $scope.init = function () {
+                    respoke.log.setLevel('debug');
+                    $scope.connect();
+                };
+
+                $scope.init();
+            }
+        </script>
+
+    </head>
+    <body>
+        <div ng-controller="RespokeController">
+
+            <h3 ng-show="client.isConnected()">
+                Connected as {{username}}. Waiting for test users.
+            </h3>
+
+            <div ng-show="!client.isConnected()">
+                Connecting the SDK autotest bot, please wait...
+            </div>
+
+            <div id="remoteVideoSource"></div>
+            <div id="localVideoSource"></div>
+
+            <ul>
+                <li ng-repeat="message in messages">
+                    <span>{{message.endpointID}} - {{message.content}}</span>
+                </li>
+            </ul>
+        </div>
+    </body>
+</html>

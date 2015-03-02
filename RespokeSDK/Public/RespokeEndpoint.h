@@ -101,9 +101,7 @@
 /**
  *  Create a new DirectConnection.  This method creates a new Call as well, attaching this DirectConnection to
  *  it for the purposes of creating a peer-to-peer link for sending data such as messages to the other endpoint.
- *  Information sent through a DirectConnection is not handled by the cloud infrastructure.  If there is already
- *  a direct connection open, this method will resolve the promise with that direct connection instead of
- *  attempting to create a new one.
+ *  Information sent through a DirectConnection is not handled by the cloud infrastructure.  
  *
  *  @return The DirectConnection which can be used to send data and messages directly to the other endpoint.
  */

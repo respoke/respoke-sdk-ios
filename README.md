@@ -14,7 +14,7 @@ RespokeSDK/Public - The output directory of the distributable Respoke libraries 
 
 RespokeSDKTests - A Test project with a test UI for functional & unit testing
 
-pull_webrtc_source.sh & build_webrtc_libs.sh - Scripts to assist in the building of the open source WebRTC framework from Google. The WebRTC libraries have been precompiled and placed into the RespokeSDK directory since the build process is very cumbersome and only needs to be done if upgrading to a new release.
+build_webrtc.sh - Script to assist in the building of the open source WebRTC framework from Google. The WebRTC libraries have been precompiled and placed into the RespokeSDK directory since the build process is very cumbersome and only needs to be done if upgrading to a new release. Script relies on build scripts from https://github.com/pristineio/webrtc-build-scripts/
 
 
 Running the SDK test cases
@@ -93,7 +93,7 @@ The open-source code lives here:
 
 https://code.google.com/p/webrtc/
 
-The WebRTC source code is a nightmarish onion of layers, and can be challenging to build correctly for iOS. Build scripts have been included in this repository to automate as much of this process as possible. For a list of the many individual steps, and workarounds for frequent problems, take a look at my blog post here:
+The WebRTC source code is a nightmarish onion of layers, and can be challenging to build correctly for iOS. A build script has been included in this repository to automate as much of this process as possible. For a list of the many individual steps, and workarounds for frequent problems, take a look at my blog post here:
 
 http://ninjanetic.com/how-to-get-started-with-webrtc-and-ios-without-wasting-10-hours-of-your-life/
 
@@ -104,39 +104,25 @@ Prerequisites:
 
 The build scripts assume that all of the WebRTC code will be placed inside of this repository's directory structure. The first step is to get the Chromium Depot Tools, which are used to pull the source code and build it later.
 
-Step 1: Chromium tools
-----------------------
+A build script has been provided to pull and build the source code as well as deploy the WebRTC headers and libraries to the RespokeSDK project directory.
 
-From the terminal, change into the root directory of this repository wherever it lives on your system. We will assume that it resides in /projects/respoke-ios for the purposes of documentation:
 ```
-$ cd /projects/respoke-ios
-$ git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
-```
-These are a bunch of tools used during the build process, and they will need to be in your path so you will need to modify your .bash_profile (or other shell file) and modify the PATH line like so:
-```
-$ export PATH=/projects/respoke-ios/depot_tools:$PATH
-```
-Next you will need to restart your terminal or re-run your bash profile so that the changes take effect:
-```
-$ source ~/.bash_profile
-```
-Step 2: Download the WebRTC source code
----------------------------------------
+Step 1: Download build tools and WebRTC source code
+---------------------------------------------------
 
-A build script has been provided to pull the correct revision of the source code:
+To pull the sources:
 ```
-$ ./pull_webrtc_source.sh
+$ ./build_webrtc.sh pull
 ```
-This will pull all of the code and associated submodules from a variety of sources. Expect this to take a long time to finish, and will require ~1.5 GB of storage space. If you would like to use a newer version of the WebRTC source, then edit this file and change the first line to define the specific revision # you are interested in using. I highly recommend one of the stable releases, as the daily builds seem to break somewhat regularly.
+This will pull all of the code and associated submodules from a variety of sources. Expect this to take a long time to finish, and will require ~1.5 GB of storage space. If you would like to use a newer version of the WebRTC source, refer to the webrtc-build-scripts README for info on how to do that. I highly recommend one of the stable releases, as the daily builds seem to break somewhat regularly.
 
-Step 3: Build the libraries
+Step 2: Build the libraries
 ---------------------------
 
-Another build script has been provided to handle actually building the libraries.
+To build the sources:
 ```
-$ ./build_webrtc_libs.sh
+$ ./build_webrtc.sh build
 ```
-This will build the massive WebRTC source, combine the assorted libraries into universal simulator/device compatible libraries, and then replace the compiled libraries and associated headers inside of the Respoke iOS project with the new ones. Once it completes successfully, you should be able to open the XCode project, recompile and go.
 
 If you encounter an error during the build phase, there are a multitude of things that could have gone wrong. If you see this error in particular:
 ```
@@ -144,10 +130,28 @@ AssertionError: Multiple codesigning fingerprints for identity: iPhone Developer
 ```
 Go check out the "Curveball: codesigning" section of my blog post for workarounds. 
 
+NOTE: The build script will throw an error if it detects multiple code signing fingerprints. You should resolve the issue before proceeding. To proceed, you will have to change the line in the build script from:
+```
+check_code_signing "ERROR"
+```
+to:
+```
+check_code_signing "WARNING"
+```
+
+Step 3: Deploy the libraries
+-----------------------------
+
+To deploy the WebRTC binaries and headers:
+```
+$ ./build_webrtc.sh deploy
+```
+This will combine the assorted libraries into universal simulator/device compatible libraries, and then replace the compiled libraries and associated headers inside of the Respoke iOS project with the new ones. Once it completes successfully, you should be able to open the XCode project, recompile and go.
+
+NOTE: The WebRTC revision number will be saved in RespokeSDK/Public/libs/WEBRTC_REVISION.txt
+
 Notes about WebRTC libraries
 ----------------------------
-
-The open source WebRTC libraries currently do not build for the armv7s or arm64 architectures, so it's necessary that any XCode project using this library skip those architectures (they are part of the standard architectures defined for new projects). The libraries built here will still run on armv7s and arm64 devices (the newest) but will not be 100% optimized for them. You will get a build error if you try to build for the armv7s or arm64 architecture.
 
 The WebRTC libraries are also currently built in release mode. some of them are very large (greater than 50 MB), so they cannot be combined into a single library since it will be larger than some revision control systems (specifically Github) allow. To get around this, the libraries are all included into the project individually, with some of them marked as "optional" since they only apply to specific architectures (like the simulator or actual iOS devices). This will produce some warnings during the linking step of compilation, but they can be ignored. The libraries in question are:
 

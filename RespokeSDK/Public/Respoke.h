@@ -44,10 +44,5 @@
  */
 - (void)registerPushToken:(NSData*)token;
 
-/**
- *  Attempt to register push services for this device
- */
-- (void)registerPushServices;
-
 
 @end

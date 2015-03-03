@@ -20,4 +20,12 @@
 - (void)setBaseURL:(NSString*)newBaseURL;
 
 
+/**
+ *  Register push services for this client's connection
+ *
+ *  @param token    The push token to use
+ */
+- (void)registerPushServicesWithToken:(NSData*)token;
+
+
 @end

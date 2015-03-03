@@ -37,4 +37,10 @@
 - (void)client:(RespokeClient*)client connectedWithEndpoint:(NSString*)endpointID;
 
 
+/**
+ *  Attempt to register push services for this device
+ */
+- (void)registerPushServices;
+
+
 @end

@@ -8,6 +8,9 @@
 
 #import "RespokeClient.h"
 
+#define LAST_VALID_PUSH_TOKEN_KEY @"LAST_VALID_PUSH_TOKEN_KEY"
+#define LAST_VALID_PUSH_TOKEN_ID_KEY @"LAST_VALID_PUSH_TOKEN_ID_KEY"
+
 
 @interface RespokeClient (private)
 

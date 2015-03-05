@@ -9,6 +9,7 @@
 #import "RespokeSignalingChannel.h"
 #import "RespokeCall+private.h"
 #import "RespokeEndpoint+private.h"
+#import "RespokeClient+private.h"
 
 
 #define RESPOKE_SOCKETIO_PORT 443
@@ -222,7 +223,14 @@
 {
     self.connected = YES;
 
-    [self sendRESTMessage:@"post" url:@"/v1/connections" data:nil responseHandler:^(id response, NSString *errorMessage) {
+    NSDictionary *data;
+    NSString *lastKnownPushTokenId = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_VALID_PUSH_TOKEN_ID_KEY];
+    
+    if (lastKnownPushTokenId) {
+        data = @{@"pushTokenId": lastKnownPushTokenId};
+    }
+    
+    [self sendRESTMessage:@"post" url:@"/v1/connections" data:data responseHandler:^(id response, NSString *errorMessage) {
         if (errorMessage)
         {
             [self.delegate onError:[NSError errorWithDomain:NSURLErrorDomain code:5 userInfo:@{NSLocalizedDescriptionKey: @"Unexpected response received"}] sender:self];

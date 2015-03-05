@@ -314,9 +314,37 @@
 
 - (void)registerPushServicesWithToken:(NSData*)token
 {
-    NSDictionary *data = @{@"token": [self hexifyData:token], @"service": @"apple"};
-    [signalingChannel sendRESTMessage:@"post" url:[RESPOKE_BASE_URL stringByAppendingString:[NSString stringWithFormat:@"/v1/connections/%@/push-token", localConnectionID]] data:data responseHandler:^(id response, NSString *errorMessage) {
-        //TODO handle error; do something with received token for future connections, etc
+    NSString *tokenHexString = [self hexifyData:token];
+    
+    NSString *lastKnownPushTokenId = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_VALID_PUSH_TOKEN_ID_KEY];
+    NSString *lastKnownPushToken = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_VALID_PUSH_TOKEN_KEY];
+
+    NSString *httpMethod;
+    NSString *httpURI;
+    
+    if (!lastKnownPushTokenId)
+    {   // create a new pushToken
+        httpMethod = @"post";
+        httpURI = [NSString stringWithFormat:@"/v1/connections/%@/push-token", localConnectionID];
+    }
+    else if (lastKnownPushToken && ![lastKnownPushToken isEqualToString:tokenHexString])
+    {   // create the existing pushToken
+        httpMethod = @"put";
+        httpURI = [NSString stringWithFormat:@"/v1/connections/%@/push-token/%@", localConnectionID, lastKnownPushTokenId];
+    }
+    else
+    {   // nothing to do here
+        return;
+    }
+    
+    NSDictionary *data = @{@"token": tokenHexString, @"service": @"apple"};
+    [signalingChannel sendRESTMessage:httpMethod url:[RESPOKE_BASE_URL stringByAppendingString:httpURI] data:data responseHandler:^(id response, NSString *errorMessage) {
+        if ([response isKindOfClass:[NSDictionary class]])
+        {
+            [[NSUserDefaults standardUserDefaults] setObject:tokenHexString forKey:LAST_VALID_PUSH_TOKEN_KEY];
+            [[NSUserDefaults standardUserDefaults] setObject:[response objectForKey:@"id"] forKey:LAST_VALID_PUSH_TOKEN_ID_KEY];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
     }];
 }
 

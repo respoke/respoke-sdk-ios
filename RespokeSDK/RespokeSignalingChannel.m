@@ -233,7 +233,19 @@
     [self sendRESTMessage:@"post" url:@"/v1/connections" data:data responseHandler:^(id response, NSString *errorMessage) {
         if (errorMessage)
         {
-            [self.delegate onError:[NSError errorWithDomain:NSURLErrorDomain code:5 userInfo:@{NSLocalizedDescriptionKey: @"Unexpected response received"}] sender:self];
+            if (lastKnownPushTokenId)
+            {   // retry without the pushTokenId
+                [[NSUserDefaults standardUserDefaults] setObject:nil forKey:LAST_VALID_PUSH_TOKEN_KEY];
+                [[NSUserDefaults standardUserDefaults] setObject:nil forKey:LAST_VALID_PUSH_TOKEN_ID_KEY];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                
+                [self socketIODidConnect:socket];
+                
+            }
+            else
+            {
+                [self.delegate onError:[NSError errorWithDomain:NSURLErrorDomain code:5 userInfo:@{NSLocalizedDescriptionKey: @"Unexpected response received"}] sender:self];
+            }
         }
         else
         {

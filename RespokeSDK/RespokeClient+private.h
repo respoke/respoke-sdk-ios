@@ -8,6 +8,9 @@
 
 #import "RespokeClient.h"
 
+#define LAST_VALID_PUSH_TOKEN_KEY @"LAST_VALID_PUSH_TOKEN_KEY"
+#define LAST_VALID_PUSH_TOKEN_ID_KEY @"LAST_VALID_PUSH_TOKEN_ID_KEY"
+
 
 @interface RespokeClient (private)
 
@@ -18,6 +21,14 @@
  *  @param newBaseURL The URL to use
  */
 - (void)setBaseURL:(NSString*)newBaseURL;
+
+
+/**
+ *  Register push services for this client's connection
+ *
+ *  @param token    The push token to use
+ */
+- (void)registerPushServicesWithToken:(NSData*)token;
 
 
 @end

@@ -9,6 +9,7 @@
 #import "RespokeSignalingChannel.h"
 #import "RespokeCall+private.h"
 #import "RespokeEndpoint+private.h"
+#import "RespokeClient+private.h"
 
 
 #define RESPOKE_SOCKETIO_PORT 443
@@ -222,10 +223,29 @@
 {
     self.connected = YES;
 
-    [self sendRESTMessage:@"post" url:@"/v1/connections" data:nil responseHandler:^(id response, NSString *errorMessage) {
+    NSDictionary *data;
+    NSString *lastKnownPushTokenId = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_VALID_PUSH_TOKEN_ID_KEY];
+    
+    if (lastKnownPushTokenId) {
+        data = @{@"pushTokenId": lastKnownPushTokenId};
+    }
+    
+    [self sendRESTMessage:@"post" url:@"/v1/connections" data:data responseHandler:^(id response, NSString *errorMessage) {
         if (errorMessage)
         {
-            [self.delegate onError:[NSError errorWithDomain:NSURLErrorDomain code:5 userInfo:@{NSLocalizedDescriptionKey: @"Unexpected response received"}] sender:self];
+            if (lastKnownPushTokenId)
+            {   // retry without the pushTokenId
+                [[NSUserDefaults standardUserDefaults] setObject:nil forKey:LAST_VALID_PUSH_TOKEN_KEY];
+                [[NSUserDefaults standardUserDefaults] setObject:nil forKey:LAST_VALID_PUSH_TOKEN_ID_KEY];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                
+                [self socketIODidConnect:socket];
+                
+            }
+            else
+            {
+                [self.delegate onError:[NSError errorWithDomain:NSURLErrorDomain code:5 userInfo:@{NSLocalizedDescriptionKey: @"Unexpected response received"}] sender:self];
+            }
         }
         else
         {
@@ -233,7 +253,7 @@
             {   
                 connectionID = [response objectForKey:@"id"];
                 NSString *endpointID = [response objectForKey:@"endpointId"];
-                [self.delegate onConnect:self endpointID:endpointID];
+                [self.delegate onConnect:self endpointID:endpointID connectionID:connectionID];
             }
             else
             {

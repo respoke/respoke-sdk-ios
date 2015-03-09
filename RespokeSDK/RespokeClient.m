@@ -21,6 +21,7 @@
 
 @interface RespokeClient () <SocketIODelegate, RespokeSignalingChannelDelegate> {
     NSString *localEndpointID;  ///< The local endpoint ID
+    NSString *localConnectionID;  ///< The local connection ID
     NSString *applicationToken;  ///< The application token to use
     RespokeSignalingChannel *signalingChannel;  ///< The signaling channel to use
     NSMutableArray *calls;  ///< An array of the active calls
@@ -311,6 +312,43 @@
 }
 
 
+- (void)registerPushServicesWithToken:(NSData*)token
+{
+    NSString *tokenHexString = [self hexifyData:token];
+    
+    NSString *lastKnownPushTokenId = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_VALID_PUSH_TOKEN_ID_KEY];
+    NSString *lastKnownPushToken = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_VALID_PUSH_TOKEN_KEY];
+
+    NSString *httpMethod;
+    NSString *httpURI;
+    
+    if (!lastKnownPushTokenId)
+    {   // create a new pushToken
+        httpMethod = @"post";
+        httpURI = [NSString stringWithFormat:@"/v1/connections/%@/push-token", localConnectionID];
+    }
+    else if (lastKnownPushToken && ![lastKnownPushToken isEqualToString:tokenHexString])
+    {   // create the existing pushToken
+        httpMethod = @"put";
+        httpURI = [NSString stringWithFormat:@"/v1/connections/%@/push-token/%@", localConnectionID, lastKnownPushTokenId];
+    }
+    else
+    {   // nothing to do here
+        return;
+    }
+    
+    NSDictionary *data = @{@"token": tokenHexString, @"service": @"apple"};
+    [signalingChannel sendRESTMessage:httpMethod url:[RESPOKE_BASE_URL stringByAppendingString:httpURI] data:data responseHandler:^(id response, NSString *errorMessage) {
+        if ([response isKindOfClass:[NSDictionary class]])
+        {
+            [[NSUserDefaults standardUserDefaults] setObject:tokenHexString forKey:LAST_VALID_PUSH_TOKEN_KEY];
+            [[NSUserDefaults standardUserDefaults] setObject:[response objectForKey:@"id"] forKey:LAST_VALID_PUSH_TOKEN_ID_KEY];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+    }];
+}
+
+
 #pragma mark - Private methods
 
 
@@ -356,11 +394,12 @@
 #pragma mark - RespokeSignalingChannelDelegate
 
 
-- (void)onConnect:(RespokeSignalingChannel*)sender endpointID:(NSString*)endpointID
+- (void)onConnect:(RespokeSignalingChannel*)sender endpointID:(NSString*)endpointID connectionID:(NSString*)connectionID
 {
     connectionInProgress = NO;
     reconnectCount = 0;
     localEndpointID = endpointID;
+    localConnectionID = connectionID;
 
     [[Respoke sharedInstance] client:self connectedWithEndpoint:endpointID];
     
@@ -556,6 +595,25 @@
 - (void)directConnectionAvailable:(RespokeDirectConnection*)directConnection endpoint:(RespokeEndpoint*)endpoint
 {
     [self.delegate onIncomingDirectConnection:directConnection endpoint:endpoint];
+}
+
+
+- (NSString*)hexifyData:(NSData *)data
+{
+    const unsigned char *dataBuffer = (const unsigned char *)[data bytes];
+    if (!dataBuffer)
+    {
+        return [NSString string];
+    }
+    
+    NSUInteger dataLength = [data length];
+    NSMutableString *hex = [NSMutableString stringWithCapacity:(dataLength * 2)];
+    for (int i = 0; i < dataLength; ++i)
+    {
+        [hex appendString:[NSString stringWithFormat:@"%02lx", (unsigned long)dataBuffer[i]]];
+    }
+    
+    return [NSString stringWithString:hex];
 }
 
 

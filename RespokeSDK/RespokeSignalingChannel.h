@@ -201,8 +201,9 @@
  *  @param groupID    The ID of the group to which the message was sent
  *  @param endpointID The ID of the endpoint that sent the message
  *  @param sender     The signaling channel that triggered the event
+ *  @param timestamp  The message timestamp
  */
-- (void)onGroupMessage:(NSString*)message groupID:(NSString*)groupID endpointID:(NSString*)endpointID sender:(RespokeSignalingChannel*)sender;
+- (void)onGroupMessage:(NSString*)message groupID:(NSString*)groupID endpointID:(NSString*)endpointID sender:(RespokeSignalingChannel*)sender timestamp:(NSDate*)timestamp;
 
 
 /**

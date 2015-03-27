@@ -535,7 +535,7 @@
 }
 
 
-- (void)onGroupMessage:(NSString*)message groupID:(NSString*)groupID endpointID:(NSString*)endpointID sender:(RespokeSignalingChannel*)sender
+- (void)onGroupMessage:(NSString*)message groupID:(NSString*)groupID endpointID:(NSString*)endpointID sender:(RespokeSignalingChannel*)sender timestamp:(NSDate*)timestamp
 {
     RespokeGroup *group = [groups objectForKey:groupID];
 
@@ -543,7 +543,7 @@
     {
         RespokeEndpoint *endpoint = [self getEndpointWithID:endpointID skipCreate:NO];
 
-        [group didReceiveMessage:message fromEndpoint:endpoint];
+        [group didReceiveMessage:message fromEndpoint:endpoint withTimestamp:timestamp];
     }
 }
 

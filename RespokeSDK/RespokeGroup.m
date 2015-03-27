@@ -197,9 +197,9 @@
 }
 
 
-- (void)didReceiveMessage:(NSString*)message fromEndpoint:(RespokeEndpoint*)endpoint
+- (void)didReceiveMessage:(NSString*)message fromEndpoint:(RespokeEndpoint*)endpoint withTimestamp:(NSDate*)timestamp
 {
-    [self.delegate onGroupMessage:message fromEndpoint:endpoint sender:self];
+    [self.delegate onGroupMessage:message fromEndpoint:endpoint sender:self timestamp:timestamp];
 }
 
 

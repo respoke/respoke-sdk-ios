@@ -360,8 +360,18 @@
                     NSDictionary *headerDict = [eachInstance objectForKey:@"header"];
                     NSString *groupID = [headerDict objectForKey:@"channel"];
                     NSString *endpoint = [headerDict objectForKey:@"from"];
-                    
-                    [self.delegate onGroupMessage:message groupID:groupID endpointID:endpoint sender:self];
+                    NSNumber *timestampNumber = [headerDict objectForKey:@"timestamp"];
+                    NSDate *timestamp = nil;
+                    if (timestampNumber)
+                    {
+                        NSTimeInterval timestampInterval = (NSTimeInterval) ([timestampNumber longLongValue] / 1000.0);
+                        timestamp = [NSDate dateWithTimeIntervalSince1970:timestampInterval];
+                    }
+                    else
+                    {
+                        timestamp = [NSDate date];
+                    }
+                    [self.delegate onGroupMessage:message groupID:groupID endpointID:endpoint sender:self timestamp: timestamp];
                 }
             }
             else if ([name isEqualToString:@"presence"])

@@ -266,7 +266,7 @@
 
         if (!newPresence)
         {
-            newPresence = @"available";
+            newPresence = @"unavailable";
         }
 
         presence = newPresence;

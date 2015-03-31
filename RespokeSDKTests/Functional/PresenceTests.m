@@ -98,6 +98,37 @@
 }
 
 
+- (void)testOfflineEndpointPresence
+{
+    // Create a client to test with
+    NSString *testEndpointID = [RespokeTestCase generateTestEndpointID];
+    RespokeClient *client = [self createTestClientWithEndpointID:testEndpointID delegate:self];
+
+    // Create a second random endpoint id to test with
+    NSString *secondTestEndpointID = [RespokeTestCase generateTestEndpointID];
+
+    // Get an endpoint object to represent the second endpoint which is not online
+    RespokeEndpoint *endpoint = [client getEndpointWithID:secondTestEndpointID skipCreate:NO];
+
+    XCTAssertNil([endpoint getPresence], @"Presence should be null if the client has not registered for presence updates yet");
+
+    asyncTaskDone = NO;
+    callbackDidSucceed = NO;
+    [endpoint registerPresenceWithSuccessHandler:^{
+        callbackDidSucceed = YES;
+        asyncTaskDone = YES;
+    } errorHandler:^(NSString *errorMessage){
+        XCTAssertTrue(NO, @"Should successfully register to receive presence updates. Error: [%@]", errorMessage);
+    }];
+
+    [self waitForCompletion:TEST_TIMEOUT];
+
+    XCTAssertTrue(callbackDidSucceed, @"Callback should succeed");
+    XCTAssertTrue([[endpoint getPresence] isKindOfClass:[NSString class]], @"Resolved presence should be a string");
+    XCTAssertTrue([((NSString*)[endpoint getPresence]) isEqualToString:@"unavailable"], @"Presence should be unavailable");
+}
+
+
 #pragma mark - RespokeClientDelegate methods
 
 

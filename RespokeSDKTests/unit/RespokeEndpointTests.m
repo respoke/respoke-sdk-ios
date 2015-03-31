@@ -96,7 +96,7 @@
     callbackPresence = nil;
     [presenceTestEndpoint resolvePresence];
     XCTAssertTrue(callbackDidSucceed, @"Presence delegate should be called");
-    XCTAssertTrue([@"available" isEqualToString:(NSString*)callbackPresence], @"Expected presence to be [%@] but found [%@]", @"available", callbackPresence);
+    XCTAssertTrue([@"unavailable" isEqualToString:(NSString*)callbackPresence], @"Expected presence to be [%@] but found [%@]", @"unavailable", callbackPresence);
     
     
     // Test presence with one connection
@@ -113,7 +113,7 @@
     callbackPresence = nil;
     [presenceTestEndpoint resolvePresence];
     XCTAssertTrue(callbackDidSucceed, @"Presence delegate should be called");
-    XCTAssertTrue([@"available" isEqualToString:(NSString*)[presenceTestEndpoint getPresence]], @"Should use the default presence value");
+    XCTAssertTrue([@"unavailable" isEqualToString:(NSString*)[presenceTestEndpoint getPresence]], @"Should use the default presence value");
     
     // Test for the standard presence values
     NSArray *options = @[@"chat", @"available", @"away", @"dnd", @"xa", @"unavailable"];

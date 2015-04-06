@@ -228,9 +228,11 @@
 }
 
 
-- (void)onGroupMessage:(NSString*)message fromEndpoint:(RespokeEndpoint*)endpoint sender:(RespokeGroup*)sender
+- (void)onGroupMessage:(NSString*)message fromEndpoint:(RespokeEndpoint*)endpoint sender:(RespokeGroup*)sender timestamp:(NSDate*)timestamp
 {
     XCTAssertNotNil(message, @"Message should not be nil");
+    XCTAssertNotNil(timestamp, @"Should include a timestamp");
+    XCTAssertTrue((fabs([[NSDate date] timeIntervalSinceDate:timestamp]) < TEST_TIMEOUT), @"Timestamp should be a reasonable value");
     XCTAssertTrue([message isEqualToString:TEST_GROUP_MESSAGE], @"Message should be correct");
     XCTAssertTrue(endpoint == secondEndpoint, @"Should reference the same endpoint object that sent the message");
     XCTAssertTrue(sender == firstClientGroup, @"Should reference the correct group object");

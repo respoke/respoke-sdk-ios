@@ -48,10 +48,11 @@
 /**
  *  Notify the group that a group message was received
  *
- *  @param message  The body of the message
- *  @param endpoint The endpoint that sent the message
+ *  @param message      The body of the message
+ *  @param endpoint     The endpoint that sent the message
+ *  @param timestamp    The message timestamp
  */
-- (void)didReceiveMessage:(NSString*)message fromEndpoint:(RespokeEndpoint*)endpoint;
+- (void)didReceiveMessage:(NSString*)message fromEndpoint:(RespokeEndpoint*)endpoint withTimestamp:(NSDate*)timestamp;
 
 
 @end

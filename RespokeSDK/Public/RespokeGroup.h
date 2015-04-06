@@ -100,11 +100,12 @@
 /**
  *  Receive a notification that a group message has been received
  *
- *  @param message  The body of the message
- *  @param endpoint The endpoint that sent the message
- *  @param sender   The group that received the message
+ *  @param message      The body of the message
+ *  @param endpoint     The endpoint that sent the message
+ *  @param sender       The group that received the message
+ *  @param timestamp    The message timestamp
  */
-- (void)onGroupMessage:(NSString*)message fromEndpoint:(RespokeEndpoint*)endpoint sender:(RespokeGroup*)sender;
+- (void)onGroupMessage:(NSString*)message fromEndpoint:(RespokeEndpoint*)endpoint sender:(RespokeGroup*)sender timestamp:(NSDate*)timestamp;
 
 
 @end

@@ -23,7 +23,6 @@
 /* Begin PBXBuildFile section */
 		180BE48D19F9A8DF005BA3A1 /* RespokeDirectConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 180BE48C19F9A8DF005BA3A1 /* RespokeDirectConnection.m */; };
 		182A2EFD1A86564A009148A1 /* DirectConnectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 182A2EFC1A86564A009148A1 /* DirectConnectionTests.m */; };
-		182CC3C61A150ABE0084E704 /* APIRegisterPushToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 182CC3C51A150ABE0084E704 /* APIRegisterPushToken.m */; };
 		1832F5051A7140A50096B5B6 /* PresenceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1832F5041A7140A50096B5B6 /* PresenceTests.m */; };
 		18440C281A66C99200592DEB /* libwebrtc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18440C271A66C99200592DEB /* libwebrtc.a */; };
 		18440DC21A66C9AF00592DEB /* SocketIO.m in Sources */ = {isa = PBXBuildFile; fileRef = 18440C311A66C9AE00592DEB /* SocketIO.m */; };
@@ -54,7 +53,6 @@
 		189CAB721A783274006E24E5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 189CAB681A783274006E24E5 /* LaunchScreen.xib */; };
 		189CAB731A783274006E24E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 189CAB6A1A783274006E24E5 /* Main.storyboard */; };
 		189CAB741A783274006E24E5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 189CAB6C1A783274006E24E5 /* Images.xcassets */; };
-		189CAB751A783274006E24E5 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 189CAB6D1A783274006E24E5 /* Info.plist */; };
 		189CAB761A783274006E24E5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 189CAB6E1A783274006E24E5 /* main.m */; };
 		189CAB771A783274006E24E5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189CAB701A783274006E24E5 /* ViewController.m */; };
 		189CAB791A783451006E24E5 /* CallingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 189CAB781A783451006E24E5 /* CallingTests.m */; };
@@ -116,8 +114,6 @@
 		180BE48C19F9A8DF005BA3A1 /* RespokeDirectConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RespokeDirectConnection.m; sourceTree = "<group>"; };
 		180BE49219F9A990005BA3A1 /* RespokeDirectConnection+private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RespokeDirectConnection+private.h"; sourceTree = "<group>"; };
 		182A2EFC1A86564A009148A1 /* DirectConnectionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectConnectionTests.m; sourceTree = "<group>"; };
-		182CC3C41A150ABE0084E704 /* APIRegisterPushToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIRegisterPushToken.h; sourceTree = "<group>"; };
-		182CC3C51A150ABE0084E704 /* APIRegisterPushToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIRegisterPushToken.m; sourceTree = "<group>"; };
 		1832F5041A7140A50096B5B6 /* PresenceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresenceTests.m; sourceTree = "<group>"; };
 		18440C271A66C99200592DEB /* libwebrtc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwebrtc.a; path = RespokeSDK/Public/libs/libwebrtc.a; sourceTree = SOURCE_ROOT; };
 		18440C301A66C9AE00592DEB /* SocketIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIO.h; sourceTree = "<group>"; };
@@ -635,7 +631,7 @@
 		18E942011993D46E00C8B142 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0620;
 				ORGANIZATIONNAME = "Digium, Inc.";
 				TargetAttributes = {
 					189CAB3C1A782D73006E24E5 = {
@@ -673,7 +669,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				189CAB751A783274006E24E5 /* Info.plist in Resources */,
 				189CAB741A783274006E24E5 /* Images.xcassets in Resources */,
 				189CAB721A783274006E24E5 /* LaunchScreen.xib in Resources */,
 				189CAB731A783274006E24E5 /* Main.storyboard in Resources */,
@@ -822,7 +817,6 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -840,7 +834,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
 		};
@@ -848,7 +841,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -879,7 +871,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				VALID_ARCHS = "armv7 armv7s i386";
 			};
 			name = Debug;
 		};
@@ -887,7 +878,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -912,7 +902,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = "armv7 armv7s i386";
 			};
 			name = Release;
 		};
@@ -929,7 +918,6 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = RespokeSDK;
 				SKIP_INSTALL = YES;
-				VALID_ARCHS = "arm64 armv7 armv7s i386";
 			};
 			name = Debug;
 		};
@@ -946,7 +934,6 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = RespokeSDK;
 				SKIP_INSTALL = YES;
-				VALID_ARCHS = "arm64 armv7 armv7s i386";
 			};
 			name = Release;
 		};
@@ -976,7 +963,6 @@
 				);
 				PRODUCT_NAME = RespokeSDKTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SDKTestUI.app/SDKTestUI";
-				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -1003,7 +989,6 @@
 				);
 				PRODUCT_NAME = RespokeSDKTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SDKTestUI.app/SDKTestUI";
-				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
@@ -1012,7 +997,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -1020,7 +1004,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
 		};

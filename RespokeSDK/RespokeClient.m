@@ -298,6 +298,12 @@
 }
 
 
+- (RespokeGroup*)getGroupWithID:(NSString*)groupID
+{
+    return [groups objectForKey:groupID];
+}
+
+
 - (void)setOnlineWithSuccessHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler
 {
     NSObject *newPresence = @"available";

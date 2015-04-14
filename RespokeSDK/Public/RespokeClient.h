@@ -169,6 +169,13 @@
 
 
 /**
+ *  Returns the group with the specified ID
+ *
+ *  @return The group with specified ID
+ */
+- (RespokeGroup*)getGroupWithID:(NSString*)groupID;
+
+/**
  *  Convenience method for setting presence to "available".
  *
  *  @param successHandler A block called when the operation is successful

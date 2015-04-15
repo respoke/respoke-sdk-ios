@@ -64,8 +64,11 @@
     
     asyncTaskDone = NO;
     [firstClient joinGroups:@[testGroupID] successHandler:^(NSArray *groups){
+        RespokeGroup *group = [firstClient getGroupWithID:testGroupID];
+        XCTAssertNotNil(group, @"Group should not be nil");
         XCTAssertNotNil(groups, @"Group list should not be nil");
         XCTAssertTrue(1 == [groups count], @"There should be 1 group that was joined");
+        XCTAssertTrue([group.getGroupID isEqualToString:testGroupID], @"Group id should be equal");
         firstClientGroup = [groups firstObject];
         asyncTaskDone = YES;
     } errorHandler:^(NSString *errorMessage){
@@ -98,8 +101,11 @@
     callbackSucceeded = NO;
     membershipChanged = NO;
     [secondClient joinGroups:@[testGroupID] successHandler:^(NSArray *groups){
+        RespokeGroup *group = [secondClient getGroupWithID:testGroupID];
+        XCTAssertNotNil(group, @"Group should not be nil");
         XCTAssertNotNil(groups, @"Group list should not be nil");
         XCTAssertTrue(1 == [groups count], @"There should be 1 group that was joined");
+        XCTAssertTrue([group.getGroupID isEqualToString:testGroupID], @"Group id should be equal");
         secondClientGroup = [groups firstObject];
         callbackSucceeded = YES;
         asyncTaskDone = membershipChanged;

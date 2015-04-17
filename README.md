@@ -170,3 +170,9 @@ libvpx_intrinsics_sse2.a
 libvpx_intrinsics_sse4_1.a 
 libvpx_intrinsics_ssse3.a
 libyuv_neon.a 
+
+
+License
+=======
+
+The Respoke SDK and demo applications are licensed under the MIT license. Please see the LICENSE file for details.

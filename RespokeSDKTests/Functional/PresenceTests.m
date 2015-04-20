@@ -80,6 +80,7 @@
         asyncTaskDone = remotePresenceReceived;
     } errorHandler:^(NSString *errorMessage){
         XCTAssertTrue(NO, @"Should successfully register to receive presence updates. Error: [%@]", errorMessage);
+        asyncTaskDone = YES;
     }];
     
     [self waitForCompletion:TEST_TIMEOUT];
@@ -94,6 +95,7 @@
         asyncTaskDone = remotePresenceReceived;
     } errorHandler:^(NSString *errorMessage){
         XCTAssertTrue(NO, @"Should successfully register to receive presence updates. Error: [%@]", errorMessage);
+        asyncTaskDone = YES;
     }];
     
     [self waitForCompletion:TEST_TIMEOUT];
@@ -124,6 +126,7 @@
         asyncTaskDone = YES;
     } errorHandler:^(NSString *errorMessage){
         XCTAssertTrue(NO, @"Should successfully register to receive presence updates. Error: [%@]", errorMessage);
+        asyncTaskDone = YES;
     }];
 
     [self waitForCompletion:TEST_TIMEOUT];

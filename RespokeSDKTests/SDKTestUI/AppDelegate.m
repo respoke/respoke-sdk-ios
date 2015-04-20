@@ -2,8 +2,13 @@
 //  AppDelegate.m
 //  SDKTestUI
 //
-//  Created by Jason Adams on 1/27/15.
-//  Copyright (c) 2015 Digium, Inc. All rights reserved.
+//  Copyright 2015, Digium, Inc.
+//  All rights reserved.
+//
+//  This source code is licensed under The MIT License found in the
+//  LICENSE file in the root directory of this source tree.
+//
+//  For all details and documentation:  https://www.respoke.io
 //
 
 #import "AppDelegate.h"

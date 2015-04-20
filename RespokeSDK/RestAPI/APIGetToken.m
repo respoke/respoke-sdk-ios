@@ -2,8 +2,13 @@
 //  APIGetToken.m
 //  Respoke SDK
 //
-//  Created by Jason Adams on 7/11/14.
-//  Copyright (c) 2014 Digium, Inc. All rights reserved.
+//  Copyright 2015, Digium, Inc.
+//  All rights reserved.
+//
+//  This source code is licensed under The MIT License found in the
+//  LICENSE file in the root directory of this source tree.
+//
+//  For all details and documentation:  https://www.respoke.io
 //
 
 #import "APIGetToken.h"

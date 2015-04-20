@@ -175,4 +175,4 @@ libyuv_neon.a
 License
 =======
 
-The Respoke SDK and demo applications are licensed under the MIT license. Please see the LICENSE file for details.
+The Respoke SDK and demo applications are licensed under the MIT license. Please see the [LICENSE](LICENSE) file for details.

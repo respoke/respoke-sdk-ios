@@ -14,6 +14,7 @@
 				18E945C819952B5300C8B142 /* ShellScript */,
 			);
 			dependencies = (
+				D473B5131AE70E3500CBCC9B /* PBXTargetDependency */,
 			);
 			name = UniversalLib;
 			productName = UniversalLib;
@@ -90,6 +91,13 @@
 			remoteInfo = SDKTestUI;
 		};
 		18E9421F1993D46E00C8B142 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 18E942011993D46E00C8B142 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 18E942081993D46E00C8B142;
+			remoteInfo = RespokeSDK;
+		};
+		D473B5121AE70E3500CBCC9B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 18E942011993D46E00C8B142 /* Project object */;
 			proxyType = 1;
@@ -768,6 +776,11 @@
 			isa = PBXTargetDependency;
 			target = 18E942081993D46E00C8B142 /* RespokeSDK */;
 			targetProxy = 18E9421F1993D46E00C8B142 /* PBXContainerItemProxy */;
+		};
+		D473B5131AE70E3500CBCC9B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 18E942081993D46E00C8B142 /* RespokeSDK */;
+			targetProxy = D473B5121AE70E3500CBCC9B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

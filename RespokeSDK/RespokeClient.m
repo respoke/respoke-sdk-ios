@@ -332,31 +332,39 @@
 
     NSString *httpMethod;
     NSString *httpURI;
-    
+    NSString *pushTokenStatus;
+
     if (!lastKnownPushTokenId)
     {   // create a new pushToken
         httpMethod = @"post";
         httpURI = [NSString stringWithFormat:@"/v1/connections/%@/push-token", localConnectionID];
+        pushTokenStatus = @"created";
     }
     else if (lastKnownPushToken && ![lastKnownPushToken isEqualToString:tokenHexString])
     {   // create the existing pushToken
         httpMethod = @"put";
         httpURI = [NSString stringWithFormat:@"/v1/connections/%@/push-token/%@", localConnectionID, lastKnownPushTokenId];
+        pushTokenStatus = @"renewed";
     }
     else
     {   // nothing to do here
-        return;
+        pushTokenStatus = @"reused";
     }
-    
-    NSDictionary *data = @{@"token": tokenHexString, @"service": @"apple"};
-    [signalingChannel sendRESTMessage:httpMethod url:[RESPOKE_BASE_URL stringByAppendingString:httpURI] data:data responseHandler:^(id response, NSString *errorMessage) {
-        if ([response isKindOfClass:[NSDictionary class]])
-        {
-            [[NSUserDefaults standardUserDefaults] setObject:tokenHexString forKey:LAST_VALID_PUSH_TOKEN_KEY];
-            [[NSUserDefaults standardUserDefaults] setObject:[response objectForKey:@"id"] forKey:LAST_VALID_PUSH_TOKEN_ID_KEY];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        }
-    }];
+
+    NSLog(@"Push token: %@ (%@)", tokenHexString, pushTokenStatus);
+
+    if (![pushTokenStatus isEqualToString:@"reuse"])
+    {
+        NSDictionary *data = @{@"token": tokenHexString, @"service": @"apple"};
+        [signalingChannel sendRESTMessage:httpMethod url:[RESPOKE_BASE_URL stringByAppendingString:httpURI] data:data responseHandler:^(id response, NSString *errorMessage) {
+            if ([response isKindOfClass:[NSDictionary class]])
+            {
+                [[NSUserDefaults standardUserDefaults] setObject:tokenHexString forKey:LAST_VALID_PUSH_TOKEN_KEY];
+                [[NSUserDefaults standardUserDefaults] setObject:[response objectForKey:@"id"] forKey:LAST_VALID_PUSH_TOKEN_ID_KEY];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            }
+        }];
+    }
 }
 
 

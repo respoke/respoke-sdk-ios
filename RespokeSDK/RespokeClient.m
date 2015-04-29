@@ -23,6 +23,10 @@
 
 #define RECONNECT_INTERVAL 0.5 ///< The exponential step interval between automatic reconnect attempts, in seconds
 
+#define TOKEN_STATUS_CREATED    @"created"
+#define TOKEN_STATUS_RENEWED    @"renewed"
+#define TOKEN_STATUS_REUSED     @"reused"
+
 
 @interface RespokeClient () <SocketIODelegate, RespokeSignalingChannelDelegate> {
     NSString *localEndpointID;  ///< The local endpoint ID
@@ -338,22 +342,22 @@
     {   // create a new pushToken
         httpMethod = @"post";
         httpURI = [NSString stringWithFormat:@"/v1/connections/%@/push-token", localConnectionID];
-        pushTokenStatus = @"created";
+        pushTokenStatus = TOKEN_STATUS_CREATED;
     }
     else if (lastKnownPushToken && ![lastKnownPushToken isEqualToString:tokenHexString])
     {   // create the existing pushToken
         httpMethod = @"put";
         httpURI = [NSString stringWithFormat:@"/v1/connections/%@/push-token/%@", localConnectionID, lastKnownPushTokenId];
-        pushTokenStatus = @"renewed";
+        pushTokenStatus = TOKEN_STATUS_RENEWED;
     }
     else
     {   // nothing to do here
-        pushTokenStatus = @"reused";
+        pushTokenStatus = TOKEN_STATUS_REUSED;
     }
 
     NSLog(@"Push token: %@ (%@)", tokenHexString, pushTokenStatus);
 
-    if (![pushTokenStatus isEqualToString:@"reuse"])
+    if (![pushTokenStatus isEqualToString:TOKEN_STATUS_REUSED])
     {
         NSDictionary *data = @{@"token": tokenHexString, @"service": @"apple"};
         [signalingChannel sendRESTMessage:httpMethod url:[RESPOKE_BASE_URL stringByAppendingString:httpURI] data:data responseHandler:^(id response, NSString *errorMessage) {

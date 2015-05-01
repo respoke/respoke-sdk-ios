@@ -23,6 +23,10 @@
 
 #define RECONNECT_INTERVAL 0.5 ///< The exponential step interval between automatic reconnect attempts, in seconds
 
+#define TOKEN_STATUS_CREATED    @"created"
+#define TOKEN_STATUS_RENEWED    @"renewed"
+#define TOKEN_STATUS_REUSED     @"reused"
+
 
 @interface RespokeClient () <SocketIODelegate, RespokeSignalingChannelDelegate> {
     NSString *localEndpointID;  ///< The local endpoint ID
@@ -332,31 +336,39 @@
 
     NSString *httpMethod;
     NSString *httpURI;
-    
+    NSString *pushTokenStatus;
+
     if (!lastKnownPushTokenId)
     {   // create a new pushToken
         httpMethod = @"post";
         httpURI = [NSString stringWithFormat:@"/v1/connections/%@/push-token", localConnectionID];
+        pushTokenStatus = TOKEN_STATUS_CREATED;
     }
     else if (lastKnownPushToken && ![lastKnownPushToken isEqualToString:tokenHexString])
     {   // create the existing pushToken
         httpMethod = @"put";
         httpURI = [NSString stringWithFormat:@"/v1/connections/%@/push-token/%@", localConnectionID, lastKnownPushTokenId];
+        pushTokenStatus = TOKEN_STATUS_RENEWED;
     }
     else
     {   // nothing to do here
-        return;
+        pushTokenStatus = TOKEN_STATUS_REUSED;
     }
-    
-    NSDictionary *data = @{@"token": tokenHexString, @"service": @"apple"};
-    [signalingChannel sendRESTMessage:httpMethod url:[RESPOKE_BASE_URL stringByAppendingString:httpURI] data:data responseHandler:^(id response, NSString *errorMessage) {
-        if ([response isKindOfClass:[NSDictionary class]])
-        {
-            [[NSUserDefaults standardUserDefaults] setObject:tokenHexString forKey:LAST_VALID_PUSH_TOKEN_KEY];
-            [[NSUserDefaults standardUserDefaults] setObject:[response objectForKey:@"id"] forKey:LAST_VALID_PUSH_TOKEN_ID_KEY];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        }
-    }];
+
+    NSLog(@"Push token: %@ (%@)", tokenHexString, pushTokenStatus);
+
+    if (![pushTokenStatus isEqualToString:TOKEN_STATUS_REUSED])
+    {
+        NSDictionary *data = @{@"token": tokenHexString, @"service": @"apple"};
+        [signalingChannel sendRESTMessage:httpMethod url:[RESPOKE_BASE_URL stringByAppendingString:httpURI] data:data responseHandler:^(id response, NSString *errorMessage) {
+            if ([response isKindOfClass:[NSDictionary class]])
+            {
+                [[NSUserDefaults standardUserDefaults] setObject:tokenHexString forKey:LAST_VALID_PUSH_TOKEN_KEY];
+                [[NSUserDefaults standardUserDefaults] setObject:[response objectForKey:@"id"] forKey:LAST_VALID_PUSH_TOKEN_ID_KEY];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            }
+        }];
+    }
 }
 
 

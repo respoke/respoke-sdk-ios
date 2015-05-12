@@ -2,8 +2,9 @@ Respoke SDK
 ================================
 
 This project uses git submodules. Please clone the repository from Github using the recursive flag to automatically grab the submodules:
+
 ```
-git clone --recursive https://<USER_NAME>@stash.digium.com/stash/scm/scl/respoke-sdk-ios.git
+git clone --recursive https://github.com/respoke/respoke-sdk-ios.git
 ```
 
 This repository contains several different parts used to build and test the Respoke SDK:

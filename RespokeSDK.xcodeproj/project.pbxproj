@@ -26,14 +26,6 @@
 		182A2EFD1A86564A009148A1 /* DirectConnectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 182A2EFC1A86564A009148A1 /* DirectConnectionTests.m */; };
 		1832F5051A7140A50096B5B6 /* PresenceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1832F5041A7140A50096B5B6 /* PresenceTests.m */; };
 		18440C281A66C99200592DEB /* libwebrtc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18440C271A66C99200592DEB /* libwebrtc.a */; };
-		18440DC21A66C9AF00592DEB /* SocketIO.m in Sources */ = {isa = PBXBuildFile; fileRef = 18440C311A66C9AE00592DEB /* SocketIO.m */; };
-		18440DC31A66C9AF00592DEB /* SocketIOJSONSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 18440C331A66C9AE00592DEB /* SocketIOJSONSerialization.m */; };
-		18440DC41A66C9AF00592DEB /* SocketIOPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 18440C351A66C9AE00592DEB /* SocketIOPacket.m */; };
-		18440DC51A66C9AF00592DEB /* SocketIOTransportWebsocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 18440C381A66C9AE00592DEB /* SocketIOTransportWebsocket.m */; };
-		18440DC61A66C9AF00592DEB /* SocketIOTransportXHR.m in Sources */ = {isa = PBXBuildFile; fileRef = 18440C3A1A66C9AE00592DEB /* SocketIOTransportXHR.m */; };
-		18440F331A66CA3300592DEB /* base64.c in Sources */ = {isa = PBXBuildFile; fileRef = 18440F2C1A66CA3300592DEB /* base64.c */; };
-		18440F341A66CA3300592DEB /* NSData+SRB64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 18440F2F1A66CA3300592DEB /* NSData+SRB64Additions.m */; };
-		18440F351A66CA3300592DEB /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 18440F321A66CA3300592DEB /* SRWebSocket.m */; };
 		18440F371A66CA7500592DEB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18440F361A66CA7500592DEB /* Security.framework */; };
 		18440F391A66CA7C00592DEB /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18440F381A66CA7C00592DEB /* CFNetwork.framework */; };
 		18440F3B1A66CA8200592DEB /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18440F3A1A66CA8200592DEB /* GLKit.framework */; };
@@ -124,24 +116,6 @@
 		182A2EFC1A86564A009148A1 /* DirectConnectionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectConnectionTests.m; sourceTree = "<group>"; };
 		1832F5041A7140A50096B5B6 /* PresenceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresenceTests.m; sourceTree = "<group>"; };
 		18440C271A66C99200592DEB /* libwebrtc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwebrtc.a; path = RespokeSDK/Public/libs/libwebrtc.a; sourceTree = SOURCE_ROOT; };
-		18440C301A66C9AE00592DEB /* SocketIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIO.h; sourceTree = "<group>"; };
-		18440C311A66C9AE00592DEB /* SocketIO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIO.m; sourceTree = "<group>"; };
-		18440C321A66C9AE00592DEB /* SocketIOJSONSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOJSONSerialization.h; sourceTree = "<group>"; };
-		18440C331A66C9AE00592DEB /* SocketIOJSONSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOJSONSerialization.m; sourceTree = "<group>"; };
-		18440C341A66C9AE00592DEB /* SocketIOPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOPacket.h; sourceTree = "<group>"; };
-		18440C351A66C9AE00592DEB /* SocketIOPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOPacket.m; sourceTree = "<group>"; };
-		18440C361A66C9AE00592DEB /* SocketIOTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOTransport.h; sourceTree = "<group>"; };
-		18440C371A66C9AE00592DEB /* SocketIOTransportWebsocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOTransportWebsocket.h; sourceTree = "<group>"; };
-		18440C381A66C9AE00592DEB /* SocketIOTransportWebsocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOTransportWebsocket.m; sourceTree = "<group>"; };
-		18440C391A66C9AE00592DEB /* SocketIOTransportXHR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOTransportXHR.h; sourceTree = "<group>"; };
-		18440C3A1A66C9AE00592DEB /* SocketIOTransportXHR.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOTransportXHR.m; sourceTree = "<group>"; };
-		18440F2C1A66CA3300592DEB /* base64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = base64.c; sourceTree = "<group>"; };
-		18440F2D1A66CA3300592DEB /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
-		18440F2E1A66CA3300592DEB /* NSData+SRB64Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+SRB64Additions.h"; sourceTree = "<group>"; };
-		18440F2F1A66CA3300592DEB /* NSData+SRB64Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+SRB64Additions.m"; sourceTree = "<group>"; };
-		18440F301A66CA3300592DEB /* SocketRocket-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SocketRocket-Prefix.pch"; sourceTree = "<group>"; };
-		18440F311A66CA3300592DEB /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRWebSocket.h; sourceTree = "<group>"; };
-		18440F321A66CA3300592DEB /* SRWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRWebSocket.m; sourceTree = "<group>"; };
 		18440F361A66CA7500592DEB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		18440F381A66CA7C00592DEB /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		18440F3A1A66CA8200592DEB /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
@@ -198,12 +172,6 @@
 		18E9424C1993D61000C8B142 /* APIGetToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIGetToken.m; sourceTree = "<group>"; };
 		18E9424D1993D61000C8B142 /* APITransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APITransaction.h; sourceTree = "<group>"; };
 		18E9424E1993D61000C8B142 /* APITransaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APITransaction.m; sourceTree = "<group>"; };
-		18E943B81993E2B100C8B142 /* SocketIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIO.h; sourceTree = "<group>"; };
-		18E943BA1993E2B100C8B142 /* SocketIOJSONSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOJSONSerialization.h; sourceTree = "<group>"; };
-		18E943BC1993E2B100C8B142 /* SocketIOPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOPacket.h; sourceTree = "<group>"; };
-		18E943BE1993E2B100C8B142 /* SocketIOTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOTransport.h; sourceTree = "<group>"; };
-		18E943BF1993E2B100C8B142 /* SocketIOTransportWebsocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOTransportWebsocket.h; sourceTree = "<group>"; };
-		18E943C11993E2B100C8B142 /* SocketIOTransportXHR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOTransportXHR.h; sourceTree = "<group>"; };
 		18E9444A1993EBF800C8B142 /* RespokeCall+private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RespokeCall+private.h"; sourceTree = "<group>"; };
 		18E9444B1993EBF800C8B142 /* RespokeClient+private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RespokeClient+private.h"; sourceTree = "<group>"; };
 		18E9444C1993EBF800C8B142 /* RespokeEndpoint+private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RespokeEndpoint+private.h"; sourceTree = "<group>"; };
@@ -243,12 +211,6 @@
 		D42AE9EB1A38DB8D00B1C9A1 /* RespokeDirectConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RespokeDirectConnection.h; path = Public/RespokeDirectConnection.h; sourceTree = "<group>"; };
 		D42AE9EC1A38DB8D00B1C9A1 /* RespokeEndpoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RespokeEndpoint.h; path = Public/RespokeEndpoint.h; sourceTree = "<group>"; };
 		D42AE9ED1A38DB8D00B1C9A1 /* RespokeGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RespokeGroup.h; path = Public/RespokeGroup.h; sourceTree = "<group>"; };
-		D44877651A39100F005D78E9 /* SocketIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SocketIO.h; path = "socket.IO-objc/SocketIO.h"; sourceTree = "<group>"; };
-		D44877661A39100F005D78E9 /* SocketIOJSONSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SocketIOJSONSerialization.h; path = "socket.IO-objc/SocketIOJSONSerialization.h"; sourceTree = "<group>"; };
-		D44877671A39100F005D78E9 /* SocketIOPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SocketIOPacket.h; path = "socket.IO-objc/SocketIOPacket.h"; sourceTree = "<group>"; };
-		D44877681A39100F005D78E9 /* SocketIOTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SocketIOTransport.h; path = "socket.IO-objc/SocketIOTransport.h"; sourceTree = "<group>"; };
-		D44877691A39100F005D78E9 /* SocketIOTransportWebsocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SocketIOTransportWebsocket.h; path = "socket.IO-objc/SocketIOTransportWebsocket.h"; sourceTree = "<group>"; };
-		D448776A1A39100F005D78E9 /* SocketIOTransportXHR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SocketIOTransportXHR.h; path = "socket.IO-objc/SocketIOTransportXHR.h"; sourceTree = "<group>"; };
 		D452EDB01A68A8EE0080D954 /* RespokeMediaStats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RespokeMediaStats.m; sourceTree = "<group>"; };
 		D452EDB21A68A9250080D954 /* RespokeMediaStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RespokeMediaStats.h; path = Public/RespokeMediaStats.h; sourceTree = "<group>"; };
 		D452EDB31A69C01D0080D954 /* RespokeMediaStats+private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RespokeMediaStats+private.h"; sourceTree = "<group>"; };
@@ -303,44 +265,9 @@
 		18440C261A66C8DB00592DEB /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				18440C291A66C9AE00592DEB /* socket.IO-objc */,
 				18440C271A66C99200592DEB /* libwebrtc.a */,
 			);
 			name = Libraries;
-			sourceTree = "<group>";
-		};
-		18440C291A66C9AE00592DEB /* socket.IO-objc */ = {
-			isa = PBXGroup;
-			children = (
-				18440F2B1A66CA3300592DEB /* SocketRocket */,
-				18440C301A66C9AE00592DEB /* SocketIO.h */,
-				18440C311A66C9AE00592DEB /* SocketIO.m */,
-				18440C321A66C9AE00592DEB /* SocketIOJSONSerialization.h */,
-				18440C331A66C9AE00592DEB /* SocketIOJSONSerialization.m */,
-				18440C341A66C9AE00592DEB /* SocketIOPacket.h */,
-				18440C351A66C9AE00592DEB /* SocketIOPacket.m */,
-				18440C361A66C9AE00592DEB /* SocketIOTransport.h */,
-				18440C371A66C9AE00592DEB /* SocketIOTransportWebsocket.h */,
-				18440C381A66C9AE00592DEB /* SocketIOTransportWebsocket.m */,
-				18440C391A66C9AE00592DEB /* SocketIOTransportXHR.h */,
-				18440C3A1A66C9AE00592DEB /* SocketIOTransportXHR.m */,
-			);
-			path = "socket.IO-objc";
-			sourceTree = SOURCE_ROOT;
-		};
-		18440F2B1A66CA3300592DEB /* SocketRocket */ = {
-			isa = PBXGroup;
-			children = (
-				18440F2C1A66CA3300592DEB /* base64.c */,
-				18440F2D1A66CA3300592DEB /* base64.h */,
-				18440F2E1A66CA3300592DEB /* NSData+SRB64Additions.h */,
-				18440F2F1A66CA3300592DEB /* NSData+SRB64Additions.m */,
-				18440F301A66CA3300592DEB /* SocketRocket-Prefix.pch */,
-				18440F311A66CA3300592DEB /* SRWebSocket.h */,
-				18440F321A66CA3300592DEB /* SRWebSocket.m */,
-			);
-			name = SocketRocket;
-			path = "submodules/socket-rocket/SocketRocket";
 			sourceTree = "<group>";
 		};
 		189CAB651A783274006E24E5 /* SDKTestUI */ = {
@@ -385,7 +312,6 @@
 		18E942001993D46E00C8B142 = {
 			isa = PBXGroup;
 			children = (
-				D44877641A390FD7005D78E9 /* SocketIO */,
 				18E9420E1993D46E00C8B142 /* RespokeSDK */,
 				18E942221993D46E00C8B142 /* RespokeSDKTests */,
 				18E9420B1993D46E00C8B142 /* Frameworks */,
@@ -451,7 +377,6 @@
 				18E942461993D61000C8B142 /* RespokeSignalingChannel.h */,
 				18E942471993D61000C8B142 /* RespokeSignalingChannel.m */,
 				18E942481993D61000C8B142 /* RestAPI */,
-				18E943B11993E2B000C8B142 /* socketIOobjc */,
 				18E9420F1993D46E00C8B142 /* Supporting Files */,
 				18E945C919952CF000C8B142 /* WebRTC */,
 			);
@@ -502,20 +427,6 @@
 			path = RestAPI;
 			sourceTree = "<group>";
 		};
-		18E943B11993E2B000C8B142 /* socketIOobjc */ = {
-			isa = PBXGroup;
-			children = (
-				18E943B81993E2B100C8B142 /* SocketIO.h */,
-				18E943BA1993E2B100C8B142 /* SocketIOJSONSerialization.h */,
-				18E943BC1993E2B100C8B142 /* SocketIOPacket.h */,
-				18E943BE1993E2B100C8B142 /* SocketIOTransport.h */,
-				18E943BF1993E2B100C8B142 /* SocketIOTransportWebsocket.h */,
-				18E943C11993E2B100C8B142 /* SocketIOTransportXHR.h */,
-			);
-			name = socketIOobjc;
-			path = ../../Respoke/socketIOobjc;
-			sourceTree = "<group>";
-		};
 		18E945C919952CF000C8B142 /* WebRTC */ = {
 			isa = PBXGroup;
 			children = (
@@ -562,19 +473,6 @@
 				D42AE9ED1A38DB8D00B1C9A1 /* RespokeGroup.h */,
 			);
 			name = PublicHeaders;
-			sourceTree = "<group>";
-		};
-		D44877641A390FD7005D78E9 /* SocketIO */ = {
-			isa = PBXGroup;
-			children = (
-				D44877651A39100F005D78E9 /* SocketIO.h */,
-				D44877661A39100F005D78E9 /* SocketIOJSONSerialization.h */,
-				D44877671A39100F005D78E9 /* SocketIOPacket.h */,
-				D44877681A39100F005D78E9 /* SocketIOTransport.h */,
-				D44877691A39100F005D78E9 /* SocketIOTransportWebsocket.h */,
-				D448776A1A39100F005D78E9 /* SocketIOTransportXHR.h */,
-			);
-			name = SocketIO;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -744,19 +642,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				187510441A6EA3DE00E7200E /* RespokeTestCase.m in Sources */,
-				18440F341A66CA3300592DEB /* NSData+SRB64Additions.m in Sources */,
-				18440DC41A66C9AF00592DEB /* SocketIOPacket.m in Sources */,
 				189CAB791A783451006E24E5 /* CallingTests.m in Sources */,
-				18440F331A66CA3300592DEB /* base64.c in Sources */,
 				1832F5051A7140A50096B5B6 /* PresenceTests.m in Sources */,
-				18440DC51A66C9AF00592DEB /* SocketIOTransportWebsocket.m in Sources */,
-				18440DC21A66C9AF00592DEB /* SocketIO.m in Sources */,
 				18FB22471A72C0CA00057C1B /* RespokeGroupTests.m in Sources */,
 				18C7DAB81A70514300D60F0A /* RespokeEndpointTests.m in Sources */,
 				18C7DAB61A70514300D60F0A /* MessagingTests.m in Sources */,
-				18440F351A66CA3300592DEB /* SRWebSocket.m in Sources */,
-				18440DC31A66C9AF00592DEB /* SocketIOJSONSerialization.m in Sources */,
-				18440DC61A66C9AF00592DEB /* SocketIOTransportXHR.m in Sources */,
 				182A2EFD1A86564A009148A1 /* DirectConnectionTests.m in Sources */,
 				18FB22451A72AD2100057C1B /* GroupTests.m in Sources */,
 				18C7DAB71A70514300D60F0A /* RespokeClientTests.m in Sources */,

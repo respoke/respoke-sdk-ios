@@ -1,6 +1,4 @@
 .DS_Store
-RespokeSDK/Public/libs/libRespokeSDK.a
 build/
-RespokeSDK.xcodeproj/project.xcworkspace/xcuserdata/
-RespokeSDK.xcodeproj/xcuserdata
+xcuserdata
 webrtc-build-scripts

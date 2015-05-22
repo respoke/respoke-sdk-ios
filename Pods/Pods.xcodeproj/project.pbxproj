@@ -1,0 +1,694 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		06C7514CCE5703F712B0B598 /* Pods-RespokeSDKTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C3342737900AFE01237B8F /* Pods-RespokeSDKTests-dummy.m */; };
+		0DF33E4BDFFDB3DF67FC37AF /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEE2B9D118695F9767FF1717 /* CFNetwork.framework */; };
+		1C482ED08EFFD1D35F58A4C3 /* SocketIOTransportXHR.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F560AFF7B308BFA21A3451 /* SocketIOTransportXHR.m */; };
+		231A53B403B9823B4089B9DC /* SocketIO.m in Sources */ = {isa = PBXBuildFile; fileRef = 98470402FE80C3948E721403 /* SocketIO.m */; };
+		342A729E8CBCE02075EE11DB /* Pods-RespokeSDKTests-RespokeSocketRocket-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = BD1815B2A1F2FC3FB80059EA /* Pods-RespokeSDKTests-RespokeSocketRocket-dummy.m */; };
+		40167AD70D223970C27A9DEE /* SocketIOTransportXHR.h in Headers */ = {isa = PBXBuildFile; fileRef = CF9C0827B6EDE60991B35E4E /* SocketIOTransportXHR.h */; };
+		4588E4BFA464CF80ABF45B68 /* SRWebSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = D2D5B645C90303C2CB55A22E /* SRWebSocket.h */; };
+		5BFDE98D0C54197DF95FBCAC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43547488AED6E4A40B257E54 /* Foundation.framework */; };
+		666B717D27E0E2DE0AA48D97 /* SocketIOTransportWebsocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 9232CDFBB8E57E4FD41E5EFA /* SocketIOTransportWebsocket.m */; };
+		676AB65859E390A46DF55A27 /* SocketIO.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C8ED87487D7FD697E80E769 /* SocketIO.h */; };
+		7028F3F74FE08EE7F3A2998E /* SocketIOTransport.h in Headers */ = {isa = PBXBuildFile; fileRef = CA6D357ED2DD2B53CBCF1A9F /* SocketIOTransport.h */; };
+		904708B9A5816070D8EDD98E /* SocketIOJSONSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7E9EB1413C1D73C5F9D5B5 /* SocketIOJSONSerialization.m */; };
+		9FC2B900B1244FA9F710CA78 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43547488AED6E4A40B257E54 /* Foundation.framework */; };
+		B482AD0156EF2A5358108450 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83E33DC59828FB238C6D69C5 /* Security.framework */; };
+		BB0230D5759044386D3A7A4A /* SocketIOTransportWebsocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 0605731E0CE4CF1CA5854D8D /* SocketIOTransportWebsocket.h */; };
+		C7393AFB7E903422837E6150 /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F4DF2A2C3A658D53F741660 /* SRWebSocket.m */; };
+		D174318086170073DDB75F68 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43547488AED6E4A40B257E54 /* Foundation.framework */; };
+		DAB48018DFD132291856EAE4 /* SocketIOPacket.h in Headers */ = {isa = PBXBuildFile; fileRef = A0779C7F72DD2B4B7160B243 /* SocketIOPacket.h */; };
+		DAE0474109DAB29CF6B22843 /* Pods-RespokeSDKTests-RespokeSocket.IO-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F4FD1C7C55002B773E87A9E0 /* Pods-RespokeSDKTests-RespokeSocket.IO-dummy.m */; };
+		E22E63E797EEE808D12C645A /* SocketIOPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = B38C401D63C61F51D76B402C /* SocketIOPacket.m */; };
+		FB732BE6279473F64CB951DB /* SocketIOJSONSerialization.h in Headers */ = {isa = PBXBuildFile; fileRef = 0824E203BEF7CA4F7AA80F13 /* SocketIOJSONSerialization.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		19223943A023E8411CA1542D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A2FA1AE3771D26826FDA6AB3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A15B32517A2488F4B2DDF738;
+			remoteInfo = "Pods-RespokeSDKTests-RespokeSocketRocket";
+		};
+		60C647823754D8B70707CF79 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A2FA1AE3771D26826FDA6AB3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7387A5784F6A3CB2ED4DB62A;
+			remoteInfo = "Pods-RespokeSDKTests-RespokeSocket.IO";
+		};
+		70DAD804EC91D99AF280DE9B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A2FA1AE3771D26826FDA6AB3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A15B32517A2488F4B2DDF738;
+			remoteInfo = "Pods-RespokeSDKTests-RespokeSocketRocket";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		003069E285A29BDB4AE9FA60 /* Pods-RespokeSDKTests-RespokeSocket.IO-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-RespokeSDKTests-RespokeSocket.IO-prefix.pch"; sourceTree = "<group>"; };
+		0605731E0CE4CF1CA5854D8D /* SocketIOTransportWebsocket.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SocketIOTransportWebsocket.h; sourceTree = "<group>"; };
+		0824E203BEF7CA4F7AA80F13 /* SocketIOJSONSerialization.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SocketIOJSONSerialization.h; sourceTree = "<group>"; };
+		0B71314AD8E65AF3C5E66448 /* RTCPeerConnection.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCPeerConnection.h; path = libjingle_peerconnection/Headers/RTCPeerConnection.h; sourceTree = "<group>"; };
+		1CB15E1C53063C5A954916E5 /* Pods-RespokeSDKTests-RespokeSocket.IO-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RespokeSDKTests-RespokeSocket.IO-Private.xcconfig"; sourceTree = "<group>"; };
+		1DFCCE449C6FFAB165630BD2 /* Pods-RespokeSDKTests-RespokeSocketRocket-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-RespokeSDKTests-RespokeSocketRocket-prefix.pch"; sourceTree = "<group>"; };
+		2341B31C695133A6BEBCAFF8 /* RTCSessionDescription.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCSessionDescription.h; path = libjingle_peerconnection/Headers/RTCSessionDescription.h; sourceTree = "<group>"; };
+		263363EB08353DC40118F94B /* Pods-RespokeSDKTests-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-RespokeSDKTests-environment.h"; sourceTree = "<group>"; };
+		2A06D1CEE475D48B597267B1 /* RTCMediaSource.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCMediaSource.h; path = libjingle_peerconnection/Headers/RTCMediaSource.h; sourceTree = "<group>"; };
+		2C8ED87487D7FD697E80E769 /* SocketIO.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SocketIO.h; sourceTree = "<group>"; };
+		3ED7D2B506F4C12059D0C930 /* RTCPeerConnectionDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCPeerConnectionDelegate.h; path = libjingle_peerconnection/Headers/RTCPeerConnectionDelegate.h; sourceTree = "<group>"; };
+		43547488AED6E4A40B257E54 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		461A4A8CC741D84321023EE0 /* Pods-RespokeSDKTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-RespokeSDKTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		47720A03D5F4270FEFA0BA64 /* RTCMediaStream.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCMediaStream.h; path = libjingle_peerconnection/Headers/RTCMediaStream.h; sourceTree = "<group>"; };
+		4B55C2AF6865C23236D7F4C4 /* Pods-RespokeSDKTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-RespokeSDKTests-resources.sh"; sourceTree = "<group>"; };
+		4D7E9EB1413C1D73C5F9D5B5 /* SocketIOJSONSerialization.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SocketIOJSONSerialization.m; sourceTree = "<group>"; };
+		50CE5B5E860A87EC1D2FA9D1 /* libPods-RespokeSDKTests-RespokeSocketRocket.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RespokeSDKTests-RespokeSocketRocket.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		57F560AFF7B308BFA21A3451 /* SocketIOTransportXHR.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SocketIOTransportXHR.m; sourceTree = "<group>"; };
+		57F8619CCEA6BC9184E893BA /* RTCICEServer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCICEServer.h; path = libjingle_peerconnection/Headers/RTCICEServer.h; sourceTree = "<group>"; };
+		5CCB186A80E7A7D9FF40D630 /* RTCStatsReport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCStatsReport.h; path = libjingle_peerconnection/Headers/RTCStatsReport.h; sourceTree = "<group>"; };
+		5D66F568E0CC63C60ACF4CF5 /* RTCMediaStreamTrack.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCMediaStreamTrack.h; path = libjingle_peerconnection/Headers/RTCMediaStreamTrack.h; sourceTree = "<group>"; };
+		5E20AEE789F080081200A444 /* RTCPeerConnectionFactory.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCPeerConnectionFactory.h; path = libjingle_peerconnection/Headers/RTCPeerConnectionFactory.h; sourceTree = "<group>"; };
+		5ED6DA8893F3FAF07A688AB2 /* RTCVideoRenderer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCVideoRenderer.h; path = libjingle_peerconnection/Headers/RTCVideoRenderer.h; sourceTree = "<group>"; };
+		61B88CAA85D0C46486B47C7F /* Pods-RespokeSDKTests-RespokeSocketRocket.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RespokeSDKTests-RespokeSocketRocket.xcconfig"; sourceTree = "<group>"; };
+		7E5E7843721E3A3A5C52D32B /* libPods-RespokeSDKTests-RespokeSocket.IO.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RespokeSDKTests-RespokeSocket.IO.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		83E33DC59828FB238C6D69C5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		852A6FE9EB240E1FD33FA5AE /* RTCMediaConstraints.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCMediaConstraints.h; path = libjingle_peerconnection/Headers/RTCMediaConstraints.h; sourceTree = "<group>"; };
+		870F172EC4CD5822AAD53E27 /* RTCOpenGLVideoRenderer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCOpenGLVideoRenderer.h; path = libjingle_peerconnection/Headers/RTCOpenGLVideoRenderer.h; sourceTree = "<group>"; };
+		8F4B8AD9896F92A298239BDF /* RTCSessionDescriptionDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCSessionDescriptionDelegate.h; path = libjingle_peerconnection/Headers/RTCSessionDescriptionDelegate.h; sourceTree = "<group>"; };
+		8F4DF2A2C3A658D53F741660 /* SRWebSocket.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRWebSocket.m; path = SocketRocket/SRWebSocket.m; sourceTree = "<group>"; };
+		915661ECA35303E9C4AA1B16 /* RTCEAGLVideoView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCEAGLVideoView.h; path = libjingle_peerconnection/Headers/RTCEAGLVideoView.h; sourceTree = "<group>"; };
+		9232CDFBB8E57E4FD41E5EFA /* SocketIOTransportWebsocket.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SocketIOTransportWebsocket.m; sourceTree = "<group>"; };
+		98470402FE80C3948E721403 /* SocketIO.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SocketIO.m; sourceTree = "<group>"; };
+		98D45B56D09EDF13D51C24E0 /* RTCPair.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCPair.h; path = libjingle_peerconnection/Headers/RTCPair.h; sourceTree = "<group>"; };
+		9B00354FEED037DF81B095CD /* RTCVideoCapturer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCVideoCapturer.h; path = libjingle_peerconnection/Headers/RTCVideoCapturer.h; sourceTree = "<group>"; };
+		9C02300A2006870C85D4B6B7 /* RTCAVFoundationVideoSource.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCAVFoundationVideoSource.h; path = libjingle_peerconnection/Headers/RTCAVFoundationVideoSource.h; sourceTree = "<group>"; };
+		A0779C7F72DD2B4B7160B243 /* SocketIOPacket.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SocketIOPacket.h; sourceTree = "<group>"; };
+		A7A80529954B9F7E91803A18 /* RTCStatsDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCStatsDelegate.h; path = libjingle_peerconnection/Headers/RTCStatsDelegate.h; sourceTree = "<group>"; };
+		ACC84E2D81A14F203ACF8537 /* RTCTypes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCTypes.h; path = libjingle_peerconnection/Headers/RTCTypes.h; sourceTree = "<group>"; };
+		B3336E586B5C72560FFE1ABB /* Pods-RespokeSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RespokeSDKTests.release.xcconfig"; sourceTree = "<group>"; };
+		B38C401D63C61F51D76B402C /* SocketIOPacket.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SocketIOPacket.m; sourceTree = "<group>"; };
+		B8C3342737900AFE01237B8F /* Pods-RespokeSDKTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-RespokeSDKTests-dummy.m"; sourceTree = "<group>"; };
+		BC7FDAC43CB61E171620D813 /* Pods-RespokeSDKTests-RespokeSocket.IO.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RespokeSDKTests-RespokeSocket.IO.xcconfig"; sourceTree = "<group>"; };
+		BD1815B2A1F2FC3FB80059EA /* Pods-RespokeSDKTests-RespokeSocketRocket-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-RespokeSDKTests-RespokeSocketRocket-dummy.m"; sourceTree = "<group>"; };
+		C21CED75F66AD6F49C0B7A72 /* RTCNSGLVideoView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCNSGLVideoView.h; path = libjingle_peerconnection/Headers/RTCNSGLVideoView.h; sourceTree = "<group>"; };
+		C940705FADE048A925C1EA2D /* RTCI420Frame.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCI420Frame.h; path = libjingle_peerconnection/Headers/RTCI420Frame.h; sourceTree = "<group>"; };
+		C9AEC1489CDF18E605DA3569 /* libWebRTC.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libWebRTC.a; path = libjingle_peerconnection/libWebRTC.a; sourceTree = "<group>"; };
+		CA6D357ED2DD2B53CBCF1A9F /* SocketIOTransport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SocketIOTransport.h; sourceTree = "<group>"; };
+		CA8E7B845F71E1F5A551FAFC /* RTCAudioTrack.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCAudioTrack.h; path = libjingle_peerconnection/Headers/RTCAudioTrack.h; sourceTree = "<group>"; };
+		CAA22C44D98E73250BE712C3 /* Pods-RespokeSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RespokeSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
+		CEE2B9D118695F9767FF1717 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
+		CF9C0827B6EDE60991B35E4E /* SocketIOTransportXHR.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SocketIOTransportXHR.h; sourceTree = "<group>"; };
+		D0E54224C3680126285837CE /* RTCDataChannel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCDataChannel.h; path = libjingle_peerconnection/Headers/RTCDataChannel.h; sourceTree = "<group>"; };
+		D2D5B645C90303C2CB55A22E /* SRWebSocket.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRWebSocket.h; path = SocketRocket/SRWebSocket.h; sourceTree = "<group>"; };
+		D723BD2FA7F443DAC8C591A6 /* RTCVideoTrack.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCVideoTrack.h; path = libjingle_peerconnection/Headers/RTCVideoTrack.h; sourceTree = "<group>"; };
+		DB251F364D238DD295791CD0 /* RTCAudioSource.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCAudioSource.h; path = libjingle_peerconnection/Headers/RTCAudioSource.h; sourceTree = "<group>"; };
+		E33E9D065D4143AD2B902F05 /* RTCICECandidate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCICECandidate.h; path = libjingle_peerconnection/Headers/RTCICECandidate.h; sourceTree = "<group>"; };
+		E8CAF007C6066BCA2E22B198 /* Pods-RespokeSDKTests-RespokeSocketRocket-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RespokeSDKTests-RespokeSocketRocket-Private.xcconfig"; sourceTree = "<group>"; };
+		F0D35B7ADDCE55DC4E1004CD /* libPods-RespokeSDKTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RespokeSDKTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F42E8907A919395974A36B9B /* RTCVideoSource.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCVideoSource.h; path = libjingle_peerconnection/Headers/RTCVideoSource.h; sourceTree = "<group>"; };
+		F4FD1C7C55002B773E87A9E0 /* Pods-RespokeSDKTests-RespokeSocket.IO-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-RespokeSDKTests-RespokeSocket.IO-dummy.m"; sourceTree = "<group>"; };
+		F5E73993AF93D5EAE2BC7A9F /* Pods-RespokeSDKTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-RespokeSDKTests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		F6DB30EE589248B9E7E90890 /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		164F89EBBB6F16D25122C49C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0DF33E4BDFFDB3DF67FC37AF /* CFNetwork.framework in Frameworks */,
+				D174318086170073DDB75F68 /* Foundation.framework in Frameworks */,
+				B482AD0156EF2A5358108450 /* Security.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91C925C58144A42FBCE38B68 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9FC2B900B1244FA9F710CA78 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DBE9BEDA1DFEAA2F228B3121 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5BFDE98D0C54197DF95FBCAC /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		224C7338B53C0039FA9B0F10 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				CEE2B9D118695F9767FF1717 /* CFNetwork.framework */,
+				43547488AED6E4A40B257E54 /* Foundation.framework */,
+				83E33DC59828FB238C6D69C5 /* Security.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		2CAC3B55937699DCE01ED96B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				224C7338B53C0039FA9B0F10 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5D5A3252231271AEFCA3E9A4 /* libjingle_peerconnection */ = {
+			isa = PBXGroup;
+			children = (
+				9C02300A2006870C85D4B6B7 /* RTCAVFoundationVideoSource.h */,
+				DB251F364D238DD295791CD0 /* RTCAudioSource.h */,
+				CA8E7B845F71E1F5A551FAFC /* RTCAudioTrack.h */,
+				D0E54224C3680126285837CE /* RTCDataChannel.h */,
+				915661ECA35303E9C4AA1B16 /* RTCEAGLVideoView.h */,
+				C940705FADE048A925C1EA2D /* RTCI420Frame.h */,
+				E33E9D065D4143AD2B902F05 /* RTCICECandidate.h */,
+				57F8619CCEA6BC9184E893BA /* RTCICEServer.h */,
+				852A6FE9EB240E1FD33FA5AE /* RTCMediaConstraints.h */,
+				2A06D1CEE475D48B597267B1 /* RTCMediaSource.h */,
+				47720A03D5F4270FEFA0BA64 /* RTCMediaStream.h */,
+				5D66F568E0CC63C60ACF4CF5 /* RTCMediaStreamTrack.h */,
+				C21CED75F66AD6F49C0B7A72 /* RTCNSGLVideoView.h */,
+				870F172EC4CD5822AAD53E27 /* RTCOpenGLVideoRenderer.h */,
+				98D45B56D09EDF13D51C24E0 /* RTCPair.h */,
+				0B71314AD8E65AF3C5E66448 /* RTCPeerConnection.h */,
+				3ED7D2B506F4C12059D0C930 /* RTCPeerConnectionDelegate.h */,
+				5E20AEE789F080081200A444 /* RTCPeerConnectionFactory.h */,
+				2341B31C695133A6BEBCAFF8 /* RTCSessionDescription.h */,
+				8F4B8AD9896F92A298239BDF /* RTCSessionDescriptionDelegate.h */,
+				A7A80529954B9F7E91803A18 /* RTCStatsDelegate.h */,
+				5CCB186A80E7A7D9FF40D630 /* RTCStatsReport.h */,
+				ACC84E2D81A14F203ACF8537 /* RTCTypes.h */,
+				9B00354FEED037DF81B095CD /* RTCVideoCapturer.h */,
+				5ED6DA8893F3FAF07A688AB2 /* RTCVideoRenderer.h */,
+				F42E8907A919395974A36B9B /* RTCVideoSource.h */,
+				D723BD2FA7F443DAC8C591A6 /* RTCVideoTrack.h */,
+				92B6824B36EF6C495E2B27C8 /* Frameworks */,
+			);
+			path = libjingle_peerconnection;
+			sourceTree = "<group>";
+		};
+		682AFB10AB4E83E77C936D2F /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				BC7FDAC43CB61E171620D813 /* Pods-RespokeSDKTests-RespokeSocket.IO.xcconfig */,
+				1CB15E1C53063C5A954916E5 /* Pods-RespokeSDKTests-RespokeSocket.IO-Private.xcconfig */,
+				F4FD1C7C55002B773E87A9E0 /* Pods-RespokeSDKTests-RespokeSocket.IO-dummy.m */,
+				003069E285A29BDB4AE9FA60 /* Pods-RespokeSDKTests-RespokeSocket.IO-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Pods-RespokeSDKTests-RespokeSocket.IO";
+			sourceTree = "<group>";
+		};
+		8880513B22F533DFA47F49AD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F0D35B7ADDCE55DC4E1004CD /* libPods-RespokeSDKTests.a */,
+				7E5E7843721E3A3A5C52D32B /* libPods-RespokeSDKTests-RespokeSocket.IO.a */,
+				50CE5B5E860A87EC1D2FA9D1 /* libPods-RespokeSDKTests-RespokeSocketRocket.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		89EEBE935E4842F785A93E3E /* Pods-RespokeSDKTests */ = {
+			isa = PBXGroup;
+			children = (
+				F5E73993AF93D5EAE2BC7A9F /* Pods-RespokeSDKTests-acknowledgements.markdown */,
+				461A4A8CC741D84321023EE0 /* Pods-RespokeSDKTests-acknowledgements.plist */,
+				B8C3342737900AFE01237B8F /* Pods-RespokeSDKTests-dummy.m */,
+				263363EB08353DC40118F94B /* Pods-RespokeSDKTests-environment.h */,
+				4B55C2AF6865C23236D7F4C4 /* Pods-RespokeSDKTests-resources.sh */,
+				CAA22C44D98E73250BE712C3 /* Pods-RespokeSDKTests.debug.xcconfig */,
+				B3336E586B5C72560FFE1ABB /* Pods-RespokeSDKTests.release.xcconfig */,
+			);
+			name = "Pods-RespokeSDKTests";
+			path = "Target Support Files/Pods-RespokeSDKTests";
+			sourceTree = "<group>";
+		};
+		92B6824B36EF6C495E2B27C8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C9AEC1489CDF18E605DA3569 /* libWebRTC.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DB9AF96EE78C272E5C56925C /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				89EEBE935E4842F785A93E3E /* Pods-RespokeSDKTests */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		E7682E3EA4183DB646385B81 /* RespokeSocket.IO */ = {
+			isa = PBXGroup;
+			children = (
+				2C8ED87487D7FD697E80E769 /* SocketIO.h */,
+				98470402FE80C3948E721403 /* SocketIO.m */,
+				0824E203BEF7CA4F7AA80F13 /* SocketIOJSONSerialization.h */,
+				4D7E9EB1413C1D73C5F9D5B5 /* SocketIOJSONSerialization.m */,
+				A0779C7F72DD2B4B7160B243 /* SocketIOPacket.h */,
+				B38C401D63C61F51D76B402C /* SocketIOPacket.m */,
+				CA6D357ED2DD2B53CBCF1A9F /* SocketIOTransport.h */,
+				0605731E0CE4CF1CA5854D8D /* SocketIOTransportWebsocket.h */,
+				9232CDFBB8E57E4FD41E5EFA /* SocketIOTransportWebsocket.m */,
+				CF9C0827B6EDE60991B35E4E /* SocketIOTransportXHR.h */,
+				57F560AFF7B308BFA21A3451 /* SocketIOTransportXHR.m */,
+				682AFB10AB4E83E77C936D2F /* Support Files */,
+			);
+			path = RespokeSocket.IO;
+			sourceTree = "<group>";
+		};
+		EC54BBE5BD22EEEEF7D813EF /* RespokeSocketRocket */ = {
+			isa = PBXGroup;
+			children = (
+				D2D5B645C90303C2CB55A22E /* SRWebSocket.h */,
+				8F4DF2A2C3A658D53F741660 /* SRWebSocket.m */,
+				F547CE2A7B23D5BB46ADAE24 /* Support Files */,
+			);
+			path = RespokeSocketRocket;
+			sourceTree = "<group>";
+		};
+		EC6E9F95689FB1711693C21D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E7682E3EA4183DB646385B81 /* RespokeSocket.IO */,
+				EC54BBE5BD22EEEEF7D813EF /* RespokeSocketRocket */,
+				5D5A3252231271AEFCA3E9A4 /* libjingle_peerconnection */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		F547CE2A7B23D5BB46ADAE24 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				61B88CAA85D0C46486B47C7F /* Pods-RespokeSDKTests-RespokeSocketRocket.xcconfig */,
+				E8CAF007C6066BCA2E22B198 /* Pods-RespokeSDKTests-RespokeSocketRocket-Private.xcconfig */,
+				BD1815B2A1F2FC3FB80059EA /* Pods-RespokeSDKTests-RespokeSocketRocket-dummy.m */,
+				1DFCCE449C6FFAB165630BD2 /* Pods-RespokeSDKTests-RespokeSocketRocket-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Pods-RespokeSDKTests-RespokeSocketRocket";
+			sourceTree = "<group>";
+		};
+		F7920668EB651B6C7C0C1385 = {
+			isa = PBXGroup;
+			children = (
+				F6DB30EE589248B9E7E90890 /* Podfile */,
+				2CAC3B55937699DCE01ED96B /* Frameworks */,
+				EC6E9F95689FB1711693C21D /* Pods */,
+				8880513B22F533DFA47F49AD /* Products */,
+				DB9AF96EE78C272E5C56925C /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		00B475C668624C30B7FB1724 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4588E4BFA464CF80ABF45B68 /* SRWebSocket.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BC08666B451E009F4E028443 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				676AB65859E390A46DF55A27 /* SocketIO.h in Headers */,
+				FB732BE6279473F64CB951DB /* SocketIOJSONSerialization.h in Headers */,
+				DAB48018DFD132291856EAE4 /* SocketIOPacket.h in Headers */,
+				7028F3F74FE08EE7F3A2998E /* SocketIOTransport.h in Headers */,
+				BB0230D5759044386D3A7A4A /* SocketIOTransportWebsocket.h in Headers */,
+				40167AD70D223970C27A9DEE /* SocketIOTransportXHR.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		257130309FD1BBF414455E8A /* Pods-RespokeSDKTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4FCF113710359751C59AB116 /* Build configuration list for PBXNativeTarget "Pods-RespokeSDKTests" */;
+			buildPhases = (
+				600030571A4C96E66E606212 /* Sources */,
+				91C925C58144A42FBCE38B68 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D8DE21E976935DD1CD77E3FD /* PBXTargetDependency */,
+				F90DF1865C4FFFCB683867CE /* PBXTargetDependency */,
+			);
+			name = "Pods-RespokeSDKTests";
+			productName = "Pods-RespokeSDKTests";
+			productReference = F0D35B7ADDCE55DC4E1004CD /* libPods-RespokeSDKTests.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		7387A5784F6A3CB2ED4DB62A /* Pods-RespokeSDKTests-RespokeSocket.IO */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F4C2615B4BED06467F531DB5 /* Build configuration list for PBXNativeTarget "Pods-RespokeSDKTests-RespokeSocket.IO" */;
+			buildPhases = (
+				ADC7DD22EBBD5C85365D682B /* Sources */,
+				DBE9BEDA1DFEAA2F228B3121 /* Frameworks */,
+				BC08666B451E009F4E028443 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E1C32897F6779BA1BFA571C9 /* PBXTargetDependency */,
+			);
+			name = "Pods-RespokeSDKTests-RespokeSocket.IO";
+			productName = "Pods-RespokeSDKTests-RespokeSocket.IO";
+			productReference = 7E5E7843721E3A3A5C52D32B /* libPods-RespokeSDKTests-RespokeSocket.IO.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		A15B32517A2488F4B2DDF738 /* Pods-RespokeSDKTests-RespokeSocketRocket */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D3A23E0F2A2B43C2809F844 /* Build configuration list for PBXNativeTarget "Pods-RespokeSDKTests-RespokeSocketRocket" */;
+			buildPhases = (
+				1F98DFA614818D158383B62C /* Sources */,
+				164F89EBBB6F16D25122C49C /* Frameworks */,
+				00B475C668624C30B7FB1724 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-RespokeSDKTests-RespokeSocketRocket";
+			productName = "Pods-RespokeSDKTests-RespokeSocketRocket";
+			productReference = 50CE5B5E860A87EC1D2FA9D1 /* libPods-RespokeSDKTests-RespokeSocketRocket.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A2FA1AE3771D26826FDA6AB3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+			};
+			buildConfigurationList = 19C6F6B74CCFB43A84C05534 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F7920668EB651B6C7C0C1385;
+			productRefGroup = 8880513B22F533DFA47F49AD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				257130309FD1BBF414455E8A /* Pods-RespokeSDKTests */,
+				7387A5784F6A3CB2ED4DB62A /* Pods-RespokeSDKTests-RespokeSocket.IO */,
+				A15B32517A2488F4B2DDF738 /* Pods-RespokeSDKTests-RespokeSocketRocket */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1F98DFA614818D158383B62C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				342A729E8CBCE02075EE11DB /* Pods-RespokeSDKTests-RespokeSocketRocket-dummy.m in Sources */,
+				C7393AFB7E903422837E6150 /* SRWebSocket.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		600030571A4C96E66E606212 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				06C7514CCE5703F712B0B598 /* Pods-RespokeSDKTests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ADC7DD22EBBD5C85365D682B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAE0474109DAB29CF6B22843 /* Pods-RespokeSDKTests-RespokeSocket.IO-dummy.m in Sources */,
+				231A53B403B9823B4089B9DC /* SocketIO.m in Sources */,
+				904708B9A5816070D8EDD98E /* SocketIOJSONSerialization.m in Sources */,
+				E22E63E797EEE808D12C645A /* SocketIOPacket.m in Sources */,
+				666B717D27E0E2DE0AA48D97 /* SocketIOTransportWebsocket.m in Sources */,
+				1C482ED08EFFD1D35F58A4C3 /* SocketIOTransportXHR.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D8DE21E976935DD1CD77E3FD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-RespokeSDKTests-RespokeSocket.IO";
+			target = 7387A5784F6A3CB2ED4DB62A /* Pods-RespokeSDKTests-RespokeSocket.IO */;
+			targetProxy = 60C647823754D8B70707CF79 /* PBXContainerItemProxy */;
+		};
+		E1C32897F6779BA1BFA571C9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-RespokeSDKTests-RespokeSocketRocket";
+			target = A15B32517A2488F4B2DDF738 /* Pods-RespokeSDKTests-RespokeSocketRocket */;
+			targetProxy = 19223943A023E8411CA1542D /* PBXContainerItemProxy */;
+		};
+		F90DF1865C4FFFCB683867CE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-RespokeSDKTests-RespokeSocketRocket";
+			target = A15B32517A2488F4B2DDF738 /* Pods-RespokeSDKTests-RespokeSocketRocket */;
+			targetProxy = 70DAD804EC91D99AF280DE9B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0D23E531FAC0BF5C2096D950 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1CC0A45F10B67CEC6EEBBBA0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B3336E586B5C72560FFE1ABB /* Pods-RespokeSDKTests.release.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		2D5FAB591AE4B15B3698DE72 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CAA22C44D98E73250BE712C3 /* Pods-RespokeSDKTests.debug.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		310128A1EF4E7C9F10CB1BB7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		3646049CDA822F6068BC6748 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8CAF007C6066BCA2E22B198 /* Pods-RespokeSDKTests-RespokeSocketRocket-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-RespokeSDKTests-RespokeSocketRocket/Pods-RespokeSDKTests-RespokeSocketRocket-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		7D6CF02320D159406EE000A1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1CB15E1C53063C5A954916E5 /* Pods-RespokeSDKTests-RespokeSocket.IO-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-RespokeSDKTests-RespokeSocket.IO/Pods-RespokeSDKTests-RespokeSocket.IO-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		AFF9CBE814A21CAC8EE7837C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1CB15E1C53063C5A954916E5 /* Pods-RespokeSDKTests-RespokeSocket.IO-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-RespokeSDKTests-RespokeSocket.IO/Pods-RespokeSDKTests-RespokeSocket.IO-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		FED070B5CBD52413A7C050FC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8CAF007C6066BCA2E22B198 /* Pods-RespokeSDKTests-RespokeSocketRocket-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-RespokeSDKTests-RespokeSocketRocket/Pods-RespokeSDKTests-RespokeSocketRocket-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		19C6F6B74CCFB43A84C05534 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				310128A1EF4E7C9F10CB1BB7 /* Debug */,
+				0D23E531FAC0BF5C2096D950 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4D3A23E0F2A2B43C2809F844 /* Build configuration list for PBXNativeTarget "Pods-RespokeSDKTests-RespokeSocketRocket" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FED070B5CBD52413A7C050FC /* Debug */,
+				3646049CDA822F6068BC6748 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4FCF113710359751C59AB116 /* Build configuration list for PBXNativeTarget "Pods-RespokeSDKTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2D5FAB591AE4B15B3698DE72 /* Debug */,
+				1CC0A45F10B67CEC6EEBBBA0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F4C2615B4BED06467F531DB5 /* Build configuration list for PBXNativeTarget "Pods-RespokeSDKTests-RespokeSocket.IO" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7D6CF02320D159406EE000A1 /* Debug */,
+				AFF9CBE814A21CAC8EE7837C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A2FA1AE3771D26826FDA6AB3 /* Project object */;
+}

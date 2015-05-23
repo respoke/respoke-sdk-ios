@@ -20,7 +20,7 @@
 
 // libjingle_peerconnection
 #define COCOAPODS_POD_AVAILABLE_libjingle_peerconnection
-#define COCOAPODS_VERSION_MAJOR_libjingle_peerconnection 9252
+#define COCOAPODS_VERSION_MAJOR_libjingle_peerconnection 9257
 #define COCOAPODS_VERSION_MINOR_libjingle_peerconnection 2
 #define COCOAPODS_VERSION_PATCH_libjingle_peerconnection 0
 

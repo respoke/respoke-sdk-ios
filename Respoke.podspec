@@ -17,5 +17,5 @@ Pod::Spec.new do |s|
   s.source_files = 'RespokeSDK/**/*.{h,m}'
 
   s.dependency 'RespokeSocket.IO', '~> 0.5.3'
-  s.dependency 'libjingle_peerconnection', '~> 9252.2.0'
+  s.dependency 'libjingle_peerconnection'
 end

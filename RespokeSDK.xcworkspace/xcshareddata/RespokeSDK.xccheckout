@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>0FE787A1-D494-4AE7-9B26-5E995283C557</string>
+	<key>IDESourceControlProjectName</key>
+	<string>RespokeSDK</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>14F6686CB62C38D15756BEE16C4690BA1A66CB88</key>
+		<string>https://stash.digium.com/stash/scm/scl/respoke-sdk-ios.git</string>
+		<key>A4DB131B153FB1D0EF4EC090C0247B31FB895829</key>
+		<string>https://stash.digium.com/stash/scm/sa/respoke-ios.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>RespokeSDK.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>14F6686CB62C38D15756BEE16C4690BA1A66CB88</key>
+		<string>..</string>
+		<key>A4DB131B153FB1D0EF4EC090C0247B31FB895829</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://stash.digium.com/stash/scm/scl/respoke-sdk-ios.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>14F6686CB62C38D15756BEE16C4690BA1A66CB88</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>A4DB131B153FB1D0EF4EC090C0247B31FB895829</string>
+			<key>IDESourceControlWCCName</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>14F6686CB62C38D15756BEE16C4690BA1A66CB88</string>
+			<key>IDESourceControlWCCName</key>
+			<string>RespokeSDK</string>
+		</dict>
+	</array>
+</dict>
+</plist>

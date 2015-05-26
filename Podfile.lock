@@ -6,24 +6,7 @@ PODS:
 
 DEPENDENCIES:
   - libjingle_peerconnection (= 9208.0.0)
-  - RespokeSocket.IO (from `https://github.com/respoke/socket.IO-objc.git`, tag `0.5.3`)
-  - RespokeSocketRocket (from `https://github.com/respoke/SocketRocket`, tag `0.3.2`)
-
-EXTERNAL SOURCES:
-  RespokeSocket.IO:
-    :git: https://github.com/respoke/socket.IO-objc.git
-    :tag: 0.5.3
-  RespokeSocketRocket:
-    :git: https://github.com/respoke/SocketRocket
-    :tag: 0.3.2
-
-CHECKOUT OPTIONS:
-  RespokeSocket.IO:
-    :git: https://github.com/respoke/socket.IO-objc.git
-    :tag: 0.5.3
-  RespokeSocketRocket:
-    :git: https://github.com/respoke/SocketRocket
-    :tag: 0.3.2
+  - RespokeSocket.IO (~> 0.5.3)
 
 SPEC CHECKSUMS:
   libjingle_peerconnection: dafcdc32446509db70bb8d3f6a950256287595e4

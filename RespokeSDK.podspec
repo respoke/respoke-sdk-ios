@@ -1,14 +1,14 @@
 Pod::Spec.new do |s|
-  s.name             = "Respoke"
+  s.name             = "RespokeSDK"
   s.version          = "0.0.9"
-  s.summary          = "Respoke goodness."
-  s.homepage         = "https://stash.digium.com/stash/scm/scl/respoke-sdk-ios"
+  s.summary          = "Add live voice, video, text and data features to your mobile app."
+  s.homepage         = "https://www.respoke.io"
   s.license          = 'MIT'
   s.author           = {
     "Respoke" => "info@respoke.io"
   }
   s.source           = {
-    :git => "https://stash.digium.com/stash/scm/scl/respoke-sdk-ios.git",
+    :git => "https://github.com/respoke/respoke-sdk-ios.git",
     :tag => s.version.to_s
   }
 

@@ -12,7 +12,7 @@ The Respoke iOS SDK is available to install via CocoaPods.
 
 Add the following to your Podfile:
 
-    ipod 'RespokeSDK'
+    pod 'RespokeSDK'
 
 
 Then run:
@@ -29,7 +29,7 @@ Running the SDK test cases
 
 The functional test cases that use RespokeCall require a specific Web application based on Respoke.js that is set up to automatically respond to certain actions that the SDK test cases perform. Because the web application will use audio and video, it requires special user permissions from browsers that support WebRTC and typically requires user interaction. Therefore it must run from either the context of a web server, or by loading the html file from the file system with specific command line parameters for Chrome. 
 
-Additionally, the Android Studio test project has been set up to expect that the web application will connect to Respoke with a specific endpoint ID in the following format:
+Additionally, the XCode test project has been set up to expect that the web application will connect to Respoke with a specific endpoint ID in the following format:
 
 testbot-username
 
@@ -48,9 +48,9 @@ To set up your system to perform these tests, do one of the following:
     --allow-file-access-from-files \
     ./RespokeSDKTests/WebTestBot/index.html &
 
-2) Once the file has loaded, append your local username to the URL to match what Android Studio will search for as the tests run:
+2) Once the file has loaded, append your local username to the URL to match what XCode will search for as the tests run:
 
-    file:///respoke-android-sdk/respokeSDK/WebTestBot/index.html#?un=mymacusername
+    file:///respoke-sdk-ios/RespokeSDKTests/WebTestBot/index.html#?un=mymacusername
 
 3) Run the SDK test cases
 

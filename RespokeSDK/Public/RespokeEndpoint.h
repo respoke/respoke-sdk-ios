@@ -58,10 +58,11 @@
  *  Send a message to the endpoint through the infrastructure.
  *
  *  @param message        The message to send
+ *  @param push           A flag indicating if a push notificaion should be sent for this message
  *  @param successHandler A block called when the message is sent successfully
  *  @param errorHandler   A block called when an error occurred, passing a description of the error
  */
-- (void)sendMessage:(NSString*)message successHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler;
+- (void)sendMessage:(NSString*)message push:(BOOL)push successHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler;
 
 
 /**

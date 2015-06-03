@@ -150,7 +150,7 @@
     asyncTaskDone = NO;
     callbackSucceeded = NO;
     membershipChanged = NO;
-    [secondClientGroup sendMessage:TEST_GROUP_MESSAGE successHandler:^{
+    [secondClientGroup sendMessage:TEST_GROUP_MESSAGE push:NO successHandler:^{
         callbackSucceeded = YES;
         asyncTaskDone = messageReceived;
     } errorHandler:^(NSString *errorMessage){

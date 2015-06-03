@@ -52,7 +52,7 @@
     XCTAssertTrue(![group isJoined], @"Should indicate group is not joined");
     
     callbackSucceeded = NO;
-    [group sendMessage:@"A message" successHandler:^{
+    [group sendMessage:@"A message" push:NO successHandler:^{
         XCTAssertTrue(NO, @"Should not send a message to a group that is not joined");
     } errorHandler:^(NSString *errorMessage){
         XCTAssertTrue([errorMessage isEqualToString:@"Not a member of this group anymore."]);

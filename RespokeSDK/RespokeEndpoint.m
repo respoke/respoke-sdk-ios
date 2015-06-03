@@ -49,11 +49,12 @@
 }
 
 
-- (void)sendMessage:(NSString*)message successHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler
+- (void)sendMessage:(NSString*)message push:(BOOL)push successHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler
 {
     if (signalingChannel && signalingChannel.connected)
     {
-        NSDictionary *data = @{@"to": self.endpointID, @"message": message};
+        NSNumber *pushFlag = [NSNumber numberWithBool:push];
+        NSDictionary *data = @{@"to": self.endpointID, @"message": message, @"push": pushFlag};
 
         [signalingChannel sendRESTMessage:@"post" url:@"/v1/messages" data:data responseHandler:^(id response, NSString *errorMessage) {
             if (errorMessage)

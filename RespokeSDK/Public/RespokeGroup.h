@@ -69,7 +69,7 @@
  *  Send a message to the entire group.
  *
  *  @param message        The message to send
- *  @param push           A flag indicating if a push notificaion should be sent for this message
+ *  @param push           A flag indicating if a push notification should be sent for this message
  *  @param successHandler A block called when the action is successful
  *  @param errorHandler   A block called when an error occurs, passing a string describing the error
  */

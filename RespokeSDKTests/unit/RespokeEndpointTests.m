@@ -68,7 +68,7 @@
     XCTAssertNotNil(mutableConnections, @"Should return an empty list of connections when not connected");
     XCTAssertTrue(0 == [mutableConnections count], @"Should return an empty list of connections when not connected");
     
-    [endpoint sendMessage:@"Hi there!" successHandler:^{
+    [endpoint sendMessage:@"Hi there!" push:NO successHandler:^{
         XCTAssertTrue(NO, @"Should not call success handler");
     } errorHandler:^(NSString *errorMessage){
         callbackDidSucceed = YES;

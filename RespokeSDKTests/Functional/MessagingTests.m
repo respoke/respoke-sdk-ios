@@ -72,7 +72,7 @@
     
     asyncTaskDone = NO;
     callbackDidSucceed = NO;
-    [firstEndpoint sendMessage:TEST_MESSAGE successHandler:^{
+    [firstEndpoint sendMessage:TEST_MESSAGE push:NO successHandler:^{
         callbackDidSucceed = YES;
         asyncTaskDone = messageReceived; // If the delegate message fired first, signal the task is done
     } errorHandler:^(NSString *errorMessage){

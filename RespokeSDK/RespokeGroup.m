@@ -155,13 +155,14 @@
 }
 
 
-- (void)sendMessage:(NSString*)message successHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler
+- (void)sendMessage:(NSString*)message push:(BOOL)push successHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler
 {
     if ([self isJoined])
     {
         if ([groupID length])
         {
-            NSDictionary *data = @{@"endpointId": [client getEndpointID], @"message": message};
+            NSNumber *pushFlag = [NSNumber numberWithBool:push];
+            NSDictionary *data = @{@"endpointId": [client getEndpointID], @"message": message, @"push": pushFlag};
 
             NSString *urlEndpoint = [NSString stringWithFormat:@"/v1/channels/%@/publish/", groupID];
             

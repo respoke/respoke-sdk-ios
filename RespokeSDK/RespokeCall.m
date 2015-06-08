@@ -538,8 +538,8 @@
     RTCMediaConstraints* constraints = nil;
     
     constraints = [[RTCMediaConstraints alloc]
-                    initWithMandatoryConstraints:@[[[RTCPair alloc] initWithKey:@"OfferToReceiveAudio" value:@"true"],
-                                                   [[RTCPair alloc] initWithKey:@"OfferToReceiveVideo" value:self.audioOnly ? @"false" : @"true"]]
+                    initWithMandatoryConstraints:@[[[RTCPair alloc] initWithKey:@"OfferToReceiveAudio" value:directConnectionOnly ? @"false" : @"true"],
+                                                   [[RTCPair alloc] initWithKey:@"OfferToReceiveVideo" value:(directConnectionOnly || self.audioOnly) ? @"false" : @"true"]]
                     optionalConstraints:@[[[RTCPair alloc] initWithKey:@"internalSctpDataChannels" value:@"true"],
                                           [[RTCPair alloc] initWithKey:@"DtlsSrtpKeyAgreement" value:@"true"]]];
     
@@ -623,8 +623,8 @@
 
 - (void)createOffer
 {
-    RTCPair* audio = [[RTCPair alloc] initWithKey:@"OfferToReceiveAudio" value:@"true"];
-    RTCPair* video = [[RTCPair alloc] initWithKey:@"OfferToReceiveVideo" value:self.audioOnly ? @"false" : @"true"];
+    RTCPair* audio = [[RTCPair alloc] initWithKey:@"OfferToReceiveAudio" value:directConnectionOnly ? @"false" : @"true"];
+    RTCPair* video = [[RTCPair alloc] initWithKey:@"OfferToReceiveVideo" value:(directConnectionOnly || self.audioOnly) ? @"false" : @"true"];
     NSArray* mandatory = @[ audio, video ];
     RTCMediaConstraints* constraints = [[RTCMediaConstraints alloc] initWithMandatoryConstraints:mandatory optionalConstraints:nil];
     

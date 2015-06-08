@@ -36,4 +36,10 @@
 - (void)registerPushServicesWithToken:(NSData*)token;
 
 
+/**
+ *  Unregister push services for this client
+ */
+- (void)unregisterFromPushServices;
+
+
 @end

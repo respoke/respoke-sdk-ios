@@ -43,6 +43,15 @@
 
 
 /**
+ *  Unregister a client that is no longer active so that it will no longer receive push notifications and it's
+ *  resources can be deallocated
+ *
+ *  @param client  The client to unregister
+ */
+- (void)unregisterClient:(RespokeClient*)client;
+
+
+/**
  *  Notify the Respoke SDK that this device should register itself for push notifications
  *
  *  @param token  The token that identifies the device to APS.

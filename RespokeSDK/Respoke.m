@@ -107,6 +107,7 @@
 
 - (void)unregisterClient:(RespokeClient*)client
 {
+    [client unregisterFromPushServices];
     [instances removeObject:client];
 }
 

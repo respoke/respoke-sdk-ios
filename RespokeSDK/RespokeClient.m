@@ -64,13 +64,6 @@
 }
 
 
-- (void)dealloc
-{
-    // Inform the shared singleton that this client is going away
-    [[Respoke sharedInstance] unregisterClient:self];
-}
-
-
 - (void)connectWithEndpointID:(NSString*)endpoint appID:(NSString*)appID reconnect:(BOOL)shouldReconnect initialPresence:(NSObject*)newPresence errorHandler:(void (^)(NSString*))errorHandler
 {
     if (([endpoint length]) && ([appID length]))
@@ -161,7 +154,7 @@
 
 - (void)joinGroups:(NSArray*)groupNames successHandler:(void (^)(NSArray*))successHandler errorHandler:(void (^)(NSString*))errorHandler
 {
-    if (signalingChannel && signalingChannel.connected)
+    if ([self isConnected])
     {
         if ([groupNames count])
         {
@@ -270,7 +263,7 @@
 - (void)setPresence:(NSObject*)newPresence successHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler
 {
 
-    if (signalingChannel && signalingChannel.connected)
+    if ([self isConnected])
     {
         NSObject *presenceToSet = newPresence;
 
@@ -368,6 +361,33 @@
                 [[NSUserDefaults standardUserDefaults] synchronize];
             }
         }];
+    }
+}
+
+
+- (void)unregisterFromPushServices
+{
+    if ([self isConnected])
+    {
+        NSString *lastKnownPushTokenId = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_VALID_PUSH_TOKEN_ID_KEY];
+
+        if (lastKnownPushTokenId)
+        {
+            // A push token has previously been registered successfully
+            NSString *httpURI = [NSString stringWithFormat:@"/v1/connections/%@/push-token/%@", localConnectionID, lastKnownPushTokenId];
+            [signalingChannel sendRESTMessage:@"DELETE" url:[RESPOKE_BASE_URL stringByAppendingString:httpURI] data:nil responseHandler:^(id response, NSString *errorMessage) {
+                if (!errorMessage)
+                {
+                    [[NSUserDefaults standardUserDefaults] removeObjectForKey:LAST_VALID_PUSH_TOKEN_KEY];
+                    [[NSUserDefaults standardUserDefaults] removeObjectForKey:LAST_VALID_PUSH_TOKEN_ID_KEY];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                }
+                else
+                {
+                    NSLog(@"Error deregistering from push notifications: %@", errorMessage);
+                }
+            }];
+        }
     }
 }
 

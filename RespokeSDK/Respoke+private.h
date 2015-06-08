@@ -29,14 +29,6 @@
 
 
 /**
- *  Inform the Respoke singleton that the specified client is no longer active
- *
- *  @param client  The client to unregister
- */
-- (void)unregisterClient:(RespokeClient*)client;
-
-
-/**
  *
  */
 - (void)client:(RespokeClient*)client connectedWithEndpoint:(NSString*)endpointID;

@@ -169,17 +169,27 @@
         }
     }
     
-    [activeClient unregisterFromPushServicesWithSuccessHandler:^(){
-        if (successHandler)
-        {
-            successHandler();
-        }
-    } errorHandler:^(NSString* errorMessage){
+    if (activeClient)
+    {
+        [activeClient unregisterFromPushServicesWithSuccessHandler:^(){
+            if (successHandler)
+            {
+                successHandler();
+            }
+        } errorHandler:^(NSString* errorMessage){
+            if (errorHandler)
+            {
+                errorHandler(errorMessage);
+            }
+        }];
+    }
+    else
+    {
         if (errorHandler)
         {
-            errorHandler(errorMessage);
+            errorHandler(@"There is no active client to unregister");
         }
-    }];
+    }
 }
 
 

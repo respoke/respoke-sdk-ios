@@ -49,6 +49,13 @@
                     $scope.local_user = "bamboo";
                 }
 
+                $scope.respoke_app_id = "" + $location.search()["app_id"];
+
+                if ($scope.respoke_app_id === "undefined") {
+                    $scope.messages.push({'endpointID':'testbot', 'content':'Respoke App ID not specified! Please pass your Respoke App ID on the URL like this: index.html#?un=myusername&app_id=a365a9ea-18ab-4473-b812-b743b39573f9'});
+                    $scope.$apply();
+                }
+
                 $scope.username = "testbot-" + $scope.local_user;
                 $scope.testGroupID = "robots are taking over " + $scope.local_user;
                 $scope.activeCall = null;
@@ -84,8 +91,7 @@
                 $scope.messages = [];
 
                 $scope.client = respoke.Client({
-                    appId: "a8c5a9ea-1bab-4353-b8e9-b743bde220f9",
-                    baseURL: "https://api-int.respoke.io",
+                    appId: $scope.respoke_app_id,
                     developmentMode: true
                 });
 

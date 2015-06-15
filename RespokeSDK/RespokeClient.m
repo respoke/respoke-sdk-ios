@@ -353,8 +353,12 @@
     if (![pushTokenStatus isEqualToString:TOKEN_STATUS_REUSED])
     {
         NSDictionary *data = @{@"token": tokenHexString, @"service": @"apple"};
-        [signalingChannel sendRESTMessage:httpMethod url:[RESPOKE_BASE_URL stringByAppendingString:httpURI] data:data responseHandler:^(id response, NSString *errorMessage) {
-            if ([response isKindOfClass:[NSDictionary class]])
+        [signalingChannel sendRESTMessage:httpMethod url:httpURI data:data responseHandler:^(id response, NSString *errorMessage) {
+            if (errorMessage)
+            {
+                NSLog(@"Error registering for push notifications: %@", errorMessage);
+            }
+            else if ([response isKindOfClass:[NSDictionary class]])
             {
                 [[NSUserDefaults standardUserDefaults] setObject:tokenHexString forKey:LAST_VALID_PUSH_TOKEN_KEY];
                 [[NSUserDefaults standardUserDefaults] setObject:[response objectForKey:@"id"] forKey:LAST_VALID_PUSH_TOKEN_ID_KEY];
@@ -365,7 +369,7 @@
 }
 
 
-- (void)unregisterFromPushServices
+- (void)unregisterFromPushServicesWithSuccessHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler
 {
     if ([self isConnected])
     {
@@ -375,19 +379,36 @@
         {
             // A push token has previously been registered successfully
             NSString *httpURI = [NSString stringWithFormat:@"/v1/connections/%@/push-token/%@", localConnectionID, lastKnownPushTokenId];
-            [signalingChannel sendRESTMessage:@"DELETE" url:[RESPOKE_BASE_URL stringByAppendingString:httpURI] data:nil responseHandler:^(id response, NSString *errorMessage) {
-                if (!errorMessage)
+            [signalingChannel sendRESTMessage:@"delete" url:httpURI data:nil responseHandler:^(id response, NSString *errorMessage) {
+                if (errorMessage)
+                {
+                    if (errorHandler)
+                    {
+                        errorHandler(errorMessage);
+                    }
+                }
+                else
                 {
                     [[NSUserDefaults standardUserDefaults] removeObjectForKey:LAST_VALID_PUSH_TOKEN_KEY];
                     [[NSUserDefaults standardUserDefaults] removeObjectForKey:LAST_VALID_PUSH_TOKEN_ID_KEY];
                     [[NSUserDefaults standardUserDefaults] synchronize];
-                }
-                else
-                {
-                    NSLog(@"Error deregistering from push notifications: %@", errorMessage);
+                    
+                    if (successHandler)
+                    {
+                        successHandler();
+                    }
                 }
             }];
         }
+        else
+        {
+            // Nothing to unregister
+            successHandler();
+        }
+    }
+    else
+    {
+        errorHandler(@"Can't complete request when not connected. Please reconnect!");
     }
 }
 

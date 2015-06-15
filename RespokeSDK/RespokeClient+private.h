@@ -39,7 +39,7 @@
 /**
  *  Unregister push services for this client
  */
-- (void)unregisterFromPushServices;
+- (void)unregisterFromPushServicesWithSuccessHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler;
 
 
 @end

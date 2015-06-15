@@ -107,7 +107,6 @@
 
 - (void)unregisterClient:(RespokeClient*)client
 {
-    [client unregisterFromPushServices];
     [instances removeObject:client];
 }
 
@@ -137,15 +136,50 @@
 
 - (void)registerPushServices
 {
-    if ([instances count] && pushToken) {
+    if ([instances count] && pushToken)
+    {
+        RespokeClient *activeClient = nil;
+        
         for (RespokeClient *eachInstance in instances)
         {
             if ([eachInstance isConnected])
             {
-                [eachInstance registerPushServicesWithToken:pushToken];
+                // The push service only supports one endpoint per device, so the token only needs to be registered for the first active client (if there is more than one)
+                activeClient = eachInstance;
+                break;
             }
         }
+        
+        [activeClient registerPushServicesWithToken:pushToken];
     }
+}
+
+
+- (void)unregisterPushServicesWithSuccessHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler
+{
+    RespokeClient *activeClient = nil;
+    
+    for (RespokeClient *eachInstance in instances)
+    {
+        if ([eachInstance isConnected])
+        {
+            // The push service only supports one endpoint per device, so the token only needs to be cleared for the first active client (if there is more than one)
+            activeClient = eachInstance;
+            break;
+        }
+    }
+    
+    [activeClient unregisterFromPushServicesWithSuccessHandler:^(){
+        if (successHandler)
+        {
+            successHandler();
+        }
+    } errorHandler:^(NSString* errorMessage){
+        if (errorHandler)
+        {
+            errorHandler(errorMessage);
+        }
+    }];
 }
 
 

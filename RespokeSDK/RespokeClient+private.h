@@ -36,4 +36,10 @@
 - (void)registerPushServicesWithToken:(NSData*)token;
 
 
+/**
+ *  Unregister push services for this client
+ */
+- (void)unregisterFromPushServicesWithSuccessHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler;
+
+
 @end

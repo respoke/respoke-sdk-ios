@@ -14,8 +14,8 @@
 #import <XCTest/XCTest.h>
 #import "RespokeClient+private.h"
 
-#define TEST_RESPOKE_BASE_URL @"https://api-int.respoke.io"
-#define TEST_APP_ID @"a8c5a9ea-1bab-4353-b8e9-b743bde220f9" // integration
+#define TEST_RESPOKE_BASE_URL @"https://api.respoke.io"
+#define TEST_APP_ID @"REPLACE_ME"
 #define TEST_TIMEOUT 30 // timeout in seconds
 #define CALL_TEST_TIMEOUT 60 // timeout in seconds for calling tests (which take longer to setup)
 #define TEST_BOT_ENDPOINT_ID [NSString stringWithFormat:@"testbot-%@", [[NSProcessInfo processInfo] environment][@"TEST_BOT_SUFFIX"]]

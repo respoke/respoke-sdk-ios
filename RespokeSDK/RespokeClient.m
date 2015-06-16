@@ -64,13 +64,6 @@
 }
 
 
-- (void)dealloc
-{
-    // Inform the shared singleton that this client is going away
-    [[Respoke sharedInstance] unregisterClient:self];
-}
-
-
 - (void)connectWithEndpointID:(NSString*)endpoint appID:(NSString*)appID reconnect:(BOOL)shouldReconnect initialPresence:(NSObject*)newPresence errorHandler:(void (^)(NSString*))errorHandler
 {
     if (([endpoint length]) && ([appID length]))
@@ -161,7 +154,7 @@
 
 - (void)joinGroups:(NSArray*)groupNames successHandler:(void (^)(NSArray*))successHandler errorHandler:(void (^)(NSString*))errorHandler
 {
-    if (signalingChannel && signalingChannel.connected)
+    if ([self isConnected])
     {
         if ([groupNames count])
         {
@@ -270,7 +263,7 @@
 - (void)setPresence:(NSObject*)newPresence successHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler
 {
 
-    if (signalingChannel && signalingChannel.connected)
+    if ([self isConnected])
     {
         NSObject *presenceToSet = newPresence;
 
@@ -360,14 +353,62 @@
     if (![pushTokenStatus isEqualToString:TOKEN_STATUS_REUSED])
     {
         NSDictionary *data = @{@"token": tokenHexString, @"service": @"apple"};
-        [signalingChannel sendRESTMessage:httpMethod url:[RESPOKE_BASE_URL stringByAppendingString:httpURI] data:data responseHandler:^(id response, NSString *errorMessage) {
-            if ([response isKindOfClass:[NSDictionary class]])
+        [signalingChannel sendRESTMessage:httpMethod url:httpURI data:data responseHandler:^(id response, NSString *errorMessage) {
+            if (errorMessage)
+            {
+                NSLog(@"Error registering for push notifications: %@", errorMessage);
+            }
+            else if ([response isKindOfClass:[NSDictionary class]])
             {
                 [[NSUserDefaults standardUserDefaults] setObject:tokenHexString forKey:LAST_VALID_PUSH_TOKEN_KEY];
                 [[NSUserDefaults standardUserDefaults] setObject:[response objectForKey:@"id"] forKey:LAST_VALID_PUSH_TOKEN_ID_KEY];
                 [[NSUserDefaults standardUserDefaults] synchronize];
             }
         }];
+    }
+}
+
+
+- (void)unregisterFromPushServicesWithSuccessHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler
+{
+    if ([self isConnected])
+    {
+        NSString *lastKnownPushTokenId = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_VALID_PUSH_TOKEN_ID_KEY];
+
+        if (lastKnownPushTokenId)
+        {
+            // A push token has previously been registered successfully
+            NSString *httpURI = [NSString stringWithFormat:@"/v1/connections/%@/push-token/%@", localConnectionID, lastKnownPushTokenId];
+            [signalingChannel sendRESTMessage:@"delete" url:httpURI data:nil responseHandler:^(id response, NSString *errorMessage) {
+                if (errorMessage)
+                {
+                    if (errorHandler)
+                    {
+                        errorHandler(errorMessage);
+                    }
+                }
+                else
+                {
+                    [[NSUserDefaults standardUserDefaults] removeObjectForKey:LAST_VALID_PUSH_TOKEN_KEY];
+                    [[NSUserDefaults standardUserDefaults] removeObjectForKey:LAST_VALID_PUSH_TOKEN_ID_KEY];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    
+                    if (successHandler)
+                    {
+                        successHandler();
+                    }
+                }
+            }];
+        }
+        else
+        {
+            // Nothing to unregister
+            successHandler();
+        }
+    }
+    else
+    {
+        errorHandler(@"Can't complete request when not connected. Please reconnect!");
     }
 }
 

@@ -43,11 +43,29 @@
 
 
 /**
+ *  Unregister a client that is no longer active so that it's resources can be
+ *  deallocated
+ *
+ *  @param client  The client to unregister
+ */
+- (void)unregisterClient:(RespokeClient*)client;
+
+
+/**
  *  Notify the Respoke SDK that this device should register itself for push notifications
  *
  *  @param token  The token that identifies the device to APS.
  */
 - (void)registerPushToken:(NSData*)token;
+
+
+/**
+ *  Unregister this device from the Respoke push notification service and stop any future notifications until it is re-registered
+ *
+ *  @param successHandler A block to call upon success
+ *  @param errorHandler   A block to call upon an error, passing the error message
+ */
+- (void)unregisterPushServicesWithSuccessHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler;
 
 
 @end

@@ -33,7 +33,7 @@
 
 /**
  *  This is one of two possible entry points for interating with the library. This method creates a new Client object
- *  which represence your app's connection to the cloud infrastructure.  This method does NOT automatically call the
+ *  which represents your app's connection to the cloud infrastructure.  This method does NOT automatically call the
  *  client.connect() method after the client is created, so your app will need to call it when it is ready to
  *  connect.
  *

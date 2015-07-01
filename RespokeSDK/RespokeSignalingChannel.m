@@ -163,16 +163,24 @@
 }
 
 
-- (void)sendSignalMessage:(NSObject*)message toEndpointID:(NSString*)toEndpointID successHandler:(void (^)())successHandler errorHandler:(void (^)(NSString*))errorHandler
+- (void)sendSignalMessage:(NSObject*)message toEndpointID:(NSString*)toEndpointID toConnectionID:(NSString*)toConnectionID toType:(NSString*)toType successHandler:(void (^)())successHandler errorHandler:(void (^)(NSString*))errorHandler
 {
     NSError *jsonError = nil;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:message options:0 error:&jsonError];
 
+    if (toType == nil) {
+        toType = @"web";
+    }
+    
     if (!jsonError)
     {
         NSString *jsonSignal = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        NSDictionary *data = @{@"signal": jsonSignal, @"to": toEndpointID, @"toType": @"web"};
+        NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:@{@"signal": jsonSignal, @"to": toEndpointID, @"toType": toType}];
 
+        if (toConnectionID != nil) {
+            [data setObject:toConnectionID forKey:@"toConnection"];
+        }
+        
         [self sendRESTMessage:@"post" url:@"/v1/signaling" data:data responseHandler:^(id response, NSString *errorMessage) {
             if (errorMessage)
             {

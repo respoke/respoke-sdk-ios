@@ -244,7 +244,7 @@ static RTCPeerConnectionFactory* peerConnectionFactory = nil;  ///< The WebRTC p
     {
         NSDictionary *signalData = @{@"signalType": @"bye", @"target": directConnectionOnly ? @"directConnection" : @"call", @"to": endpoint.endpointID, @"sessionId": sessionID, @"signalId": [Respoke makeGUID], @"version": @"1.0"};
         
-        [signalingChannel sendSignalMessage:signalData toEndpointID:endpoint.endpointID successHandler:^(){
+        [signalingChannel sendSignalMessage:signalData toEndpointID:endpoint.endpointID toConnectionID:nil toType:nil successHandler:^(){
             [self.delegate onHangup:self];
         } errorHandler:^(NSString *errorMessage) {
             [self.delegate onError:errorMessage sender:self];
@@ -413,7 +413,7 @@ static RTCPeerConnectionFactory* peerConnectionFactory = nil;  ///< The WebRTC p
 
     NSDictionary *signalData = @{@"signalType": @"connected", @"target": directConnectionOnly ? @"directConnection" : @"call", @"to": endpoint.endpointID, @"connectionId": toConnection, @"sessionId": sessionID, @"signalId": [Respoke makeGUID], @"version": @"1.0"};
 
-    [signalingChannel sendSignalMessage:signalData toEndpointID:endpoint.endpointID successHandler:^(){
+    [signalingChannel sendSignalMessage:signalData toEndpointID:endpoint.endpointID toConnectionID:nil toType:nil successHandler:^(){
         [self processRemoteSDP];
         [self.delegate onConnected:self];
         isConnected = YES;
@@ -889,7 +889,7 @@ static RTCPeerConnectionFactory* peerConnectionFactory = nil;  ///< The WebRTC p
 
             NSDictionary *signalData = @{@"signalType": sdp.type, @"target": directConnectionOnly ? @"directConnection" : @"call", @"to": endpoint.endpointID, @"sessionId": sessionID, @"sessionDescription": @{@"sdp": sdp.description, @"type": sdp.type}, @"signalId": [Respoke makeGUID], @"version": @"1.0"};
     
-            [signalingChannel sendSignalMessage:signalData toEndpointID:endpoint.endpointID successHandler:^(){
+            [signalingChannel sendSignalMessage:signalData toEndpointID:endpoint.endpointID toConnectionID:nil toType:nil successHandler:^(){
                 // Do nothing
             } errorHandler:^(NSString *errorMessage) {
                 [self.delegate onError:errorMessage sender:self];
@@ -968,7 +968,7 @@ static RTCPeerConnectionFactory* peerConnectionFactory = nil;  ///< The WebRTC p
     NSDictionary *candidateDict = @{@"sdpMLineIndex": [NSNumber numberWithInteger:candidate.sdpMLineIndex], @"sdpMid": candidate.sdpMid, @"candidate": candidate.sdp};
     NSDictionary *signalData = @{@"signalType": @"iceCandidates", @"target": directConnectionOnly ? @"directConnection" : @"call", @"to": endpoint.endpointID, @"toConnection": toConnection, @"iceCandidates": @[candidateDict], @"sessionId": sessionID, @"signalId": [Respoke makeGUID], @"version": @"1.0"};
     
-    [signalingChannel sendSignalMessage:signalData toEndpointID:endpoint.endpointID successHandler:^(){
+    [signalingChannel sendSignalMessage:signalData toEndpointID:endpoint.endpointID toConnectionID:nil toType:nil successHandler:^(){
         // Do nothing
     } errorHandler:^(NSString *errorMessage) {
         [self.delegate onError:errorMessage sender:self];

@@ -146,7 +146,7 @@
  *  @param sender        The signaling channel that triggered the event
  *  @param timestamp     The call timestamp
  */
-- (void)onIncomingCallWithSDP:(NSDictionary*)sdp sessionID:(NSString*)sessionID connectionID:(NSString*)connectionID endpointID:(NSString*)endpointID sender:(RespokeSignalingChannel*)sender timestamp:(NSDate*)timestamp;
+- (void)onIncomingCallWithSDP:(NSDictionary*)sdp sessionID:(NSString*)sessionID connectionID:(NSString*)connectionID endpointID:(NSString*)endpointID fromType:(NSString*)fromType sender:(RespokeSignalingChannel*)sender timestamp:(NSDate*)timestamp;
 
 
 /**

@@ -46,7 +46,7 @@
  *
  *  @return A newly initialized RespokeCall instance
  */
-- (instancetype)initWithSignalingChannel:(RespokeSignalingChannel*)channel incomingCallSDP:(NSDictionary*)sdp sessionID:(NSString*)sessionID connectionID:(NSString*)connectionID endpoint:(RespokeEndpoint*)endpoint directConnectionOnly:(BOOL)directConnectionOnly timestamp:(NSDate*)timestamp;
+- (instancetype)initWithSignalingChannel:(RespokeSignalingChannel*)channel incomingCallSDP:(NSDictionary*)sdp sessionID:(NSString*)sessionID connectionID:(NSString*)connectionID endpointID:(NSString*)endpointID fromType:(NSString*)fromType endpoint:(RespokeEndpoint*)endpoint directConnectionOnly:(BOOL)directConnectionOnly timestamp:(NSDate*)timestamp;
 
 
 /**

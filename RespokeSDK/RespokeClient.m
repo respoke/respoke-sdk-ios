@@ -496,20 +496,22 @@
 }
 
 
-- (void)onIncomingCallWithSDP:(NSDictionary*)sdp sessionID:(NSString*)sessionID connectionID:(NSString*)connectionID endpointID:(NSString*)endpointID sender:(RespokeSignalingChannel*)sender timestamp:(NSDate*)timestamp
+- (void)onIncomingCallWithSDP:(NSDictionary*)sdp sessionID:(NSString*)sessionID connectionID:(NSString*)connectionID endpointID:(NSString*)endpointID fromType:(NSString*)fromType sender:(RespokeSignalingChannel*)sender timestamp:(NSDate*)timestamp
 {
-    RespokeEndpoint *endpoint = [self getEndpointWithID:endpointID skipCreate:NO];
-
-    if (endpoint)
-    { 
-        // A remote device is trying to call us, so create a call instance to deal with it
-        RespokeCall *call = [[RespokeCall alloc] initWithSignalingChannel:signalingChannel incomingCallSDP:sdp sessionID:sessionID connectionID:connectionID endpoint:endpoint directConnectionOnly:NO timestamp:timestamp];
-        [self.delegate onCall:call sender:self];
+    RespokeEndpoint *endpoint = nil;
+    RespokeCall *call;
+    
+    if ([fromType isEqualToString:@"web"]) {
+        endpoint = [self getEndpointWithID:endpointID skipCreate:NO];
+    
+        if (endpoint == nil) {
+            NSLog(@"------Error: Could not create Endpoint for incoming call");
+            return;
+        }
     }
-    else
-    {
-        NSLog(@"------Error: Could not create Endpoint for incoming call");
-    }
+    
+    call = [[RespokeCall alloc] initWithSignalingChannel:signalingChannel incomingCallSDP:sdp sessionID:sessionID connectionID:connectionID endpointID:endpointID fromType:fromType endpoint:endpoint directConnectionOnly:NO timestamp:timestamp];
+    [self.delegate onCall:call sender:self];
 }
 
 
@@ -521,7 +523,7 @@
     if (endpoint)
     {
         // A remote device is trying to create a direct connection with us, so create a call instance to deal with it
-        (void) [[RespokeCall alloc] initWithSignalingChannel:signalingChannel incomingCallSDP:sdp sessionID:sessionID connectionID:connectionID endpoint:endpoint directConnectionOnly:YES timestamp:timestamp];
+        (void) [[RespokeCall alloc] initWithSignalingChannel:signalingChannel incomingCallSDP:sdp sessionID:sessionID connectionID:connectionID endpointID:endpointID fromType:@"web" endpoint:endpoint directConnectionOnly:YES timestamp:timestamp];
     }
     else
     {

@@ -420,7 +420,12 @@
     NSDictionary *signal = [message objectForKey:@"body"];
     NSDictionary *header = [message objectForKey:@"header"];
     NSString *from = [header objectForKey:@"from"];
+    NSString *fromType = [header objectForKey:@"fromType"];
     NSString *fromConnection = [header objectForKey:@"fromConnection"];
+    
+    if (fromType == nil) {
+        fromType = @"web";
+    }
 
     if (signal && from)
     {
@@ -431,74 +436,73 @@
 
         if (sessionID && signalType)
         {
-            BOOL isDirectConnection = [target isEqualToString:@"directConnection"];
+            BOOL isDirectConnection = (target != nil) ? [target isEqualToString:@"directConnection"] : false;
             RespokeCall *call = [self.delegate callWithID:sessionID];
 
-            if (([target isEqualToString:@"call"]) || (isDirectConnection))
-            {
-                if (call)
-                {
-                    if ([signalType isEqualToString:@"bye"])
-                    {
-                        [call hangupReceived];
-                    }
-                    else if ([signalType isEqualToString:@"answer"])
-                    {
-                        NSDictionary *sdp = [signal objectForKey:@"sessionDescription"];
 
-                        [call answerReceived:sdp fromConnection:fromConnection];
-                    }
-                    else if ([signalType isEqualToString:@"connected"])
-                    {
-                        if ([toConnection isEqualToString:connectionID])
-                        {
-                            [call connectedReceived];
-                        }
-                        else
-                        {
-                            NSLog(@"Another device answered, hanging up.");
-                            [call hangupReceived];
-                        }
-                    }
-                    else if ([signalType isEqualToString:@"iceCandidates"])
-                    {
-                        NSArray *candidates = [signal objectForKey:@"iceCandidates"];
-                        [call iceCandidatesReceived:candidates];
-                    }
+            if (call)
+            {
+                if ([signalType isEqualToString:@"bye"])
+                {
+                    [call hangupReceived];
                 }
-                else if ([signalType isEqualToString:@"offer"])
+                else if ([signalType isEqualToString:@"answer"])
                 {
                     NSDictionary *sdp = [signal objectForKey:@"sessionDescription"];
                     
-                    if (sdp)
+                    [call answerReceived:sdp fromConnection:fromConnection];
+                }
+                else if ([signalType isEqualToString:@"connected"])
+                {
+                    if ([toConnection isEqualToString:connectionID])
                     {
-                        NSNumber *timestampNumber = [header objectForKey:@"timestamp"];
-                        NSDate *timestamp = nil;
-                        if (timestampNumber)
-                        {
-                            NSTimeInterval timestampInterval = (NSTimeInterval) ([timestampNumber longLongValue] / 1000.0);
-                            timestamp = [NSDate dateWithTimeIntervalSince1970:timestampInterval];
-                        }
-                        else
-                        {
-                            timestamp = [NSDate date];
-                        }
-
-                        if (isDirectConnection)
-                        {
-                            [self.delegate onIncomingDirectConnectionWithSDP:sdp sessionID:sessionID connectionID:fromConnection endpointID:from sender:self timestamp:timestamp];
-                        }
-                        else
-                        {
-                            [self.delegate onIncomingCallWithSDP:sdp sessionID:sessionID connectionID:fromConnection endpointID:from sender:self timestamp:timestamp];
-                        }
+                        [call connectedReceived];
                     }
                     else
                     {
-                        NSLog(@"------Error: Offer missing sdp");
+                        NSLog(@"Another device answered, hanging up.");
+                        [call hangupReceived];
                     }
                 }
+                else if ([signalType isEqualToString:@"iceCandidates"])
+                {
+                    NSArray *candidates = [signal objectForKey:@"iceCandidates"];
+                    [call iceCandidatesReceived:candidates];
+                }
             }
+            else if ([signalType isEqualToString:@"offer"])
+            {
+                NSDictionary *sdp = [signal objectForKey:@"sessionDescription"];
+                
+                if (sdp)
+                {
+                    NSNumber *timestampNumber = [header objectForKey:@"timestamp"];
+                    NSDate *timestamp = nil;
+                    if (timestampNumber)
+                    {
+                        NSTimeInterval timestampInterval = (NSTimeInterval) ([timestampNumber longLongValue] / 1000.0);
+                        timestamp = [NSDate dateWithTimeIntervalSince1970:timestampInterval];
+                    }
+                    else
+                    {
+                        timestamp = [NSDate date];
+                    }
+                    
+                    if (isDirectConnection)
+                    {
+                        [self.delegate onIncomingDirectConnectionWithSDP:sdp sessionID:sessionID connectionID:fromConnection endpointID:from sender:self timestamp:timestamp];
+                    }
+                    else
+                    {
+                        [self.delegate onIncomingCallWithSDP:sdp sessionID:sessionID connectionID:fromConnection endpointID:from fromType:fromType sender:self timestamp:timestamp];
+                    }
+                }
+                else
+                {
+                    NSLog(@"------Error: Offer missing sdp");
+                }
+            }
+
         }
         else
         {

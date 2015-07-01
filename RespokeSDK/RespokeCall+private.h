@@ -33,6 +33,17 @@
  */
 - (instancetype)initWithSignalingChannel:(RespokeSignalingChannel*)channel endpoint:(RespokeEndpoint*)endpoint audioOnly:(BOOL)audioOnly directConnectionOnly:(BOOL)directConnectionOnly;
 
+/**
+ *  Initialize a new Call with the specified signaling channel
+ *
+ *  @param channel   The signaling channel to use
+ *  @param endpointID  The remote endpointID
+ *  @param type The remote endpointID type
+ *  @param audioOnly If true, only audio is supported on this call
+ *
+ *  @return A newly initialized RespokeCall instance
+ */
+- (instancetype)initWithSignalingChannel:(RespokeSignalingChannel*)channel endpointID:(NSString*)endpointID type:(NSString*)type audioOnly:(BOOL)newAudioOnly;
 
 /**
  *  Initialize a new Call with the specified signaling channel and incoming SDP configuration

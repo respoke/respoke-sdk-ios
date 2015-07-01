@@ -40,6 +40,50 @@
 
 @implementation CallingTests
 
+- (void)testConferenceCalling
+{
+    // Create a client to test with
+    NSString *testEndpointID = [RespokeTestCase generateTestEndpointID];
+    RespokeClient *client = [self createTestClientWithEndpointID:testEndpointID delegate:self];
+    RespokeCall *call = [client joinConferenceWithDelegate:self conferenceID:@"happytest"];
+    
+    asyncTaskDone = NO;
+    [self waitForCompletion:CALL_TEST_TIMEOUT];
+    XCTAssertTrue(didConnect, @"Call should be established");
+    XCTAssertTrue([call isCaller], @"Call should indicate that it is the caller");
+    XCTAssertTrue(call.audioOnly, @"Should indicate this is an audio-only call");
+    
+    // Let the call run for a while to make sure it is stable
+    asyncTaskDone = NO;
+    [self waitForCompletion:1 assertOnTimeout:NO];
+    XCTAssertTrue([call hasAudio], @"Should indicate the call has audio");
+    XCTAssertTrue(![call hasVideo], @"Should indicate the call does not have video");
+    XCTAssertTrue(![call audioIsMuted], @"Audio should not be muted");
+    XCTAssertTrue([call videoIsMuted], @"Video should be considered muted");
+    
+    // Mute the audio
+    [call muteAudio:YES];
+    asyncTaskDone = NO;
+    [self waitForCompletion:1 assertOnTimeout:NO];
+    
+    XCTAssertTrue([call audioIsMuted], @"Audio should now be muted");
+    XCTAssertTrue([call videoIsMuted], @"Video should be considered muted");
+    XCTAssertTrue(!didHangup, @"Should not have hung up the call yet");
+    
+    // un-Mute the audio
+    [call muteAudio:NO];
+    asyncTaskDone = NO;
+    [self waitForCompletion:1 assertOnTimeout:NO];
+    
+    XCTAssertTrue(![call audioIsMuted], @"Audio should not be muted");
+    XCTAssertTrue([call videoIsMuted], @"Video should be considered muted");
+    XCTAssertTrue(!didHangup, @"Should not have hung up the call yet");
+    
+    asyncTaskDone = NO;
+    [call hangup:YES];
+    [self waitForCompletion:1 assertOnTimeout:NO];
+    XCTAssertTrue(didHangup, @"Should have hung up the call");
+}
 
 - (void)testVoiceCalling
 {

@@ -137,6 +137,21 @@
     baseURL = newBaseURL;
 }
 
+- (RespokeCall*)joinConferenceWithDelegate:(id <RespokeCallDelegate>)delegate conferenceID:(NSString*)conferenceID
+{
+    RespokeCall *call = nil;
+    
+    if (signalingChannel && signalingChannel.connected)
+    {
+        call = [[RespokeCall alloc] initWithSignalingChannel:signalingChannel endpointID:conferenceID type:@"conference" audioOnly:YES];
+        call.delegate = delegate;
+        
+        [call startCall];
+    }
+    
+    return call;
+}
+
 
 - (RespokeCall*)startVideoCallWithDelegate:(id <RespokeCallDelegate>)delegate endpointID:(NSString*)endpointID remoteVideoView:(UIView*)newRemoteView localVideoView:(UIView*)newLocalView
 {

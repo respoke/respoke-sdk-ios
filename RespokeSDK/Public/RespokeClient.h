@@ -95,6 +95,15 @@
  */
 - (RespokeCall*)startAudioCallWithDelegate:(id <RespokeCallDelegate>)delegate endpointID:(NSString*)endpointID;
 
+/**
+ *  Initiate a call to a conference.
+ *
+ *  @param delegate     The delegate to receive notifications about the new call
+ *  @param conferenceID   The ID of the conference to call
+ *
+ *  @return A reference to the new RespokeCall object representing this call
+ */
+- (RespokeCall*)joinConferenceWithDelegate:(id <RespokeCallDelegate>)delegate conferenceID:(NSString*)conferenceID;
 
 /**
  *  Join a list of Groups and begin keeping track of them.

@@ -45,7 +45,6 @@
     RespokeSignalingChannel *signalingChannel;  ///< The signaling channel to use
     NSMutableArray *iceServers;  ///< The ICE servers to evaluate
     RTCPeerConnection* peerConnection;  ///< The WebRTC peer connection to use
-    RTCPeerConnectionFactory* peerConnectionFactory;  ///< The WebRTC peer connection factory to use
     NSMutableArray* queuedRemoteCandidates;  ///< Remote ICE candidates that need to be evaluated
     NSMutableArray *queuedLocalCandidates;  ///< Local ICE candidates that need to be evaluated
     RTCEAGLVideoView* localVideoView;  ///< The WebRTC extension for displaying the local video stream
@@ -81,6 +80,8 @@
 
 @implementation RespokeCall
 
+static RTCPeerConnectionFactory* peerConnectionFactory = nil;  ///< The WebRTC peer connection factory to use
+
 @synthesize audioOnly;
 
 
@@ -94,8 +95,12 @@
         iceServers = [[NSMutableArray alloc] init];
         queuedLocalCandidates = [[NSMutableArray alloc] init];
         queuedRemoteCandidates = [[NSMutableArray alloc] init];
-        [RTCPeerConnectionFactory initializeSSL];
-        peerConnectionFactory = [[RTCPeerConnectionFactory alloc] init];
+        
+        if (peerConnectionFactory == nil) {
+            [RTCPeerConnectionFactory initializeSSL];
+            peerConnectionFactory = [[RTCPeerConnectionFactory alloc] init];
+        }
+        
         sessionID = [Respoke makeGUID];
         [signalingChannel.delegate callCreated:self];
 

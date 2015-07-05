@@ -156,7 +156,7 @@
 #pragma mark - RespokeEndpointDelegate methods
 
 
-- (void)onMessage:(NSString*)message sender:(RespokeEndpoint*)sender timestamp:(NSDate*)timestamp
+- (void)onMessage:(NSString*)message endpoint:(RespokeEndpoint*)endpoint timestamp:(NSDate*)timestamp didSend:(BOOL)didSend
 {
     XCTAssertTrue(NO, @"No messages should have been received through the Respoke service");
 }

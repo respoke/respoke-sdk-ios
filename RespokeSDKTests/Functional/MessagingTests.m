@@ -72,7 +72,7 @@
     
     asyncTaskDone = NO;
     callbackDidSucceed = NO;
-    [firstEndpoint sendMessage:TEST_MESSAGE push:NO successHandler:^{
+    [firstEndpoint sendMessage:TEST_MESSAGE push:NO ccSelf:NO successHandler:^{
         callbackDidSucceed = YES;
         asyncTaskDone = messageReceived; // If the delegate message fired first, signal the task is done
     } errorHandler:^(NSString *errorMessage){
@@ -122,10 +122,10 @@
 #pragma mark - RespokeEndpointDelegate methods
 
 
-- (void)onMessage:(NSString*)message sender:(RespokeEndpoint*)sender timestamp:(NSDate*)timestamp
+- (void)onMessage:(NSString*)message endpoint:(RespokeEndpoint*)endpoint timestamp:(NSDate*)timestamp didSend:(BOOL)didSend
 {
     XCTAssertTrue([message isEqualToString:TEST_MESSAGE], @"Message sent should be the message received");
-    XCTAssertTrue([sender.endpointID isEqualToString:secondEndpoint.endpointID], @"Should indicate correct sender endpoint ID");
+    XCTAssertTrue([endpoint.endpointID isEqualToString:secondEndpoint.endpointID], @"Should indicate correct sender endpoint ID");
     XCTAssertNotNil(timestamp, @"Should include a timestamp");
     XCTAssertTrue((fabs([[NSDate date] timeIntervalSinceDate:timestamp]) < TEST_TIMEOUT), @"Timestamp should be a reasonable value");
     messageReceived = YES;

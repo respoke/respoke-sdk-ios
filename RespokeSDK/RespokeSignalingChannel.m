@@ -334,7 +334,8 @@
                 for (NSDictionary *eachInstance in args)
                 {
                     NSDictionary *header = [eachInstance objectForKey:@"header"];
-                    NSString *endpoint = [header objectForKey:@"from"];
+                    NSString *fromEndpoint = [header objectForKey:@"from"];
+                    NSString *toEndpoint = [header objectForKey:@"toOriginal"];
                     NSString *message = [eachInstance objectForKey:@"body"];
                     NSNumber *timestampNumber = [header objectForKey:@"timestamp"];
                     NSDate *timestamp = nil;
@@ -347,7 +348,7 @@
                     {
                         timestamp = [NSDate date];
                     }
-                    [self.delegate onMessage:message fromEndpointID:endpoint sender:self timestamp:timestamp];
+                    [self.delegate onMessage:message fromEndpointID:fromEndpoint toEndpointID:toEndpoint sender:self timestamp:timestamp];
                 }
             }
             else if ([name isEqualToString:@"signal"])

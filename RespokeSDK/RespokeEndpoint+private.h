@@ -59,6 +59,15 @@
 
 
 /**
+ *  Process a sent message
+ *
+ *  @param message The body of the message
+ *  @param timestamp The message timestamp
+ */
+- (void)didSendMessage:(NSString*)message withTimestamp:(NSDate*)timestamp;
+
+
+/**
  *  Set the presence value for this endpoint
  *
  *  @param newPresence The new presence value

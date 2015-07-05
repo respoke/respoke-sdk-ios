@@ -588,13 +588,25 @@
 }
 
 
-- (void)onMessage:(NSString*)message fromEndpointID:(NSString*)endpointID sender:(RespokeSignalingChannel*)sender timestamp:(NSDate *)timestamp
+- (void)onMessage:(NSString*)message fromEndpointID:(NSString*)fromEndpointID toEndpointID:(NSString *)toEndpointID sender:(RespokeSignalingChannel *)sender timestamp:(NSDate *)timestamp
 {
-    RespokeEndpoint *endpoint = [self getEndpointWithID:endpointID skipCreate:YES];
-
-    if (endpoint)
+    if ([localEndpointID isEqualToString:fromEndpointID])
     {
-        [endpoint didReceiveMessage:message withTimestamp:timestamp];
+        // The local endpoint sent this message to the remote endpoint from another device (ccSelf)
+        RespokeEndpoint *remoteEndpoint = [self getEndpointWithID:toEndpointID skipCreate:YES];
+        if (remoteEndpoint)
+        {
+            [remoteEndpoint didReceiveMessage:message withTimestamp:timestamp];
+        }
+    }
+    else
+    {
+        // The remote endpoint sent a message to the local endpoint
+        RespokeEndpoint *remoteEndpoint = [self getEndpointWithID:fromEndpointID skipCreate:YES];
+        if (remoteEndpoint)
+        {
+            [remoteEndpoint didSendMessage:message withTimestamp:timestamp];
+        }
     }
 }
 

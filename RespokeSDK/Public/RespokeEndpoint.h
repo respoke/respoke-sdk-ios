@@ -125,12 +125,14 @@
 
 
 /**
- *  Handle messages sent to the logged-in user from this one Endpoint.
+ *  A notification that a message has been sent. The notification indicates that the specified endpoint
+ *  sent a message to the logged in user if didSend is YES. The notification indicates that the specified
+ *  endpoint received a message sent by the logged in user from another device (ccSelf).
  *
  *  @param message      The message
- *  @param endpoint     The endpoint
+ *  @param endpoint     The endpoint that sent or received the message
  *  @param timestamp    The message timestamp
- *  @param didSend      YES if the endpoint sent the message, NO if the endpoint received the message
+ *  @param didSend      YES if the specified endpoint sent the message, NO if the endpoint received the message
  */
 - (void)onMessage:(NSString*)message endpoint:(RespokeEndpoint*)endpoint timestamp:(NSDate*)timestamp didSend:(BOOL)didSend;
 

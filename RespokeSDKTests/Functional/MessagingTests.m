@@ -21,9 +21,11 @@
 
 @interface MessagingTests : RespokeTestCase <RespokeClientDelegate, RespokeEndpointDelegate> {
     BOOL callbackDidSucceed;
-    BOOL messageReceived;
-    RespokeEndpoint *firstEndpoint;
-    RespokeEndpoint *secondEndpoint;
+    BOOL messageDelivered;
+    BOOL messageCopied;
+    BOOL doCopySelf;
+    RespokeEndpoint *recipientEndpoint;
+    RespokeEndpoint *senderEndpoint;
 }
 
 @end
@@ -53,35 +55,81 @@
  */
 - (void)testEndpointMessaging
 {
+    doCopySelf = NO;
+    [self runMessageTest];
+}
+
+
+/**
+ *  This test will create two client instances with unique endpoint IDs. It will then send messages between the two to test functionality.
+ */
+- (void)testEndpointMessagingCCSelf
+{
+    doCopySelf = YES;
+    [self runMessageTest];
+}
+
+
+- (void)runMessageTest
+{
+
     // Create a client to test with
-    NSString *testEndpointID = [RespokeTestCase generateTestEndpointID];
-    RespokeClient *firstClient = [self createTestClientWithEndpointID:testEndpointID delegate:self];
-    
+    NSString *recipientEndpointID = [RespokeTestCase generateTestEndpointID];
+    RespokeClient *recipientClient = [self createTestClientWithEndpointID:recipientEndpointID delegate:self];
+
     // Create a second client to test with
-    NSString *secondTestEndpointID = [RespokeTestCase generateTestEndpointID];
-    RespokeClient *secondClient = [self createTestClientWithEndpointID:secondTestEndpointID delegate:self];
-    
+    NSString *senderEndpointID = [RespokeTestCase generateTestEndpointID];
+    RespokeClient *senderClient = [self createTestClientWithEndpointID:senderEndpointID delegate:self];
+
     // Build references to each of the endpoints
-    firstEndpoint = [secondClient getEndpointWithID:testEndpointID skipCreate:NO];
-    XCTAssertNotNil(firstEndpoint, @"Should create endpoint instance");
-    firstEndpoint.delegate = self;
-    
-    secondEndpoint = [firstClient getEndpointWithID:secondTestEndpointID skipCreate:NO];
-    XCTAssertNotNil(secondEndpoint, @"Should create endpoint instance");
-    secondEndpoint.delegate = self;
-    
+    recipientEndpoint = [senderClient getEndpointWithID:recipientEndpointID skipCreate:NO];
+    XCTAssertNotNil(recipientEndpoint, @"Should create endpoint instance");
+    recipientEndpoint.delegate = self;
+
+    senderEndpoint = [recipientClient getEndpointWithID:senderEndpointID skipCreate:NO];
+    XCTAssertNotNil(senderEndpoint, @"Should create endpoint instance");
+    senderEndpoint.delegate = self;
+
+    // Create new client and endpoint for copying self
+    if (doCopySelf)
+    {
+        RespokeClient *senderCCClient = [self createTestClientWithEndpointID:senderEndpointID delegate:self];
+        XCTAssertNotNil(senderCCClient, @"Should create sender CC client");
+
+        RespokeEndpoint *recipientCCEndpoint = [senderCCClient getEndpointWithID:recipientEndpointID skipCreate:NO];
+        XCTAssertNotNil(recipientCCEndpoint, @"Should create endpoint instance");
+        recipientCCEndpoint.delegate = self;
+    }
+
+    messageCopied = NO;
+    messageDelivered = NO;
     asyncTaskDone = NO;
     callbackDidSucceed = NO;
-    [firstEndpoint sendMessage:TEST_MESSAGE push:NO ccSelf:NO successHandler:^{
+    [recipientEndpoint sendMessage:TEST_MESSAGE push:NO ccSelf:doCopySelf successHandler:^{
         callbackDidSucceed = YES;
-        asyncTaskDone = messageReceived; // If the delegate message fired first, signal the task is done
+        [self tryCompleteTask]; // If the delegate message fired first, signal the task is done
     } errorHandler:^(NSString *errorMessage){
         XCTAssertTrue(NO, @"Should successfully send a message. Error: [%@]", errorMessage);
     }];
-    
+
     [self waitForCompletion:TEST_TIMEOUT];
     XCTAssertTrue(callbackDidSucceed, @"sendMessage should call successHandler");
-    XCTAssertTrue(messageReceived, @"Should call onMessage delegate when a message is received");
+    XCTAssertTrue(messageDelivered, @"Should call onMessage delegate when a message is delivered");
+
+    if (doCopySelf)
+    {
+        XCTAssertTrue(messageCopied, @"Should call onMessage delegate when a message is copied");
+    }
+}
+
+
+- (void)tryCompleteTask
+{
+    asyncTaskDone = callbackDidSucceed && messageDelivered;
+    if (doCopySelf)
+    {
+        asyncTaskDone = asyncTaskDone && messageCopied;
+    }
 }
 
 
@@ -125,11 +173,27 @@
 - (void)onMessage:(NSString*)message endpoint:(RespokeEndpoint*)endpoint timestamp:(NSDate*)timestamp didSend:(BOOL)didSend
 {
     XCTAssertTrue([message isEqualToString:TEST_MESSAGE], @"Message sent should be the message received");
-    XCTAssertTrue([endpoint.endpointID isEqualToString:secondEndpoint.endpointID], @"Should indicate correct sender endpoint ID");
     XCTAssertNotNil(timestamp, @"Should include a timestamp");
     XCTAssertTrue((fabs([[NSDate date] timeIntervalSinceDate:timestamp]) < TEST_TIMEOUT), @"Timestamp should be a reasonable value");
-    messageReceived = YES;
-    asyncTaskDone = callbackDidSucceed; // Only signal the task is done if the other callback has already fired
+
+    if (!doCopySelf)
+    {
+        XCTAssertTrue(didSend, @"Endoint should always be the sender");
+    }
+
+    if (didSend)
+    {
+        XCTAssertTrue([endpoint.endpointID isEqualToString:senderEndpoint.endpointID], @"Should indicate correct sender endpoint ID");
+        messageDelivered = YES;
+    }
+    else
+    {
+        XCTAssertTrue([endpoint.endpointID isEqualToString:recipientEndpoint.endpointID], @"Should indicate correct recipient endpoint ID");
+        XCTAssertTrue(doCopySelf, @"Endpiont should only be the recipient if ccSelf is enabled");
+        messageCopied = YES;
+    }
+
+    [self tryCompleteTask];
 }
 
 

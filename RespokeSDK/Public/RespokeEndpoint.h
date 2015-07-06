@@ -59,10 +59,11 @@
  *
  *  @param message        The message to send
  *  @param push           A flag indicating if a push notification should be sent for this message
+ *  @param ccSelf         A flag indicating if the message should be copied to other devices the client might be logged into
  *  @param successHandler A block called when the message is sent successfully
  *  @param errorHandler   A block called when an error occurred, passing a description of the error
  */
-- (void)sendMessage:(NSString*)message push:(BOOL)push successHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler;
+- (void)sendMessage:(NSString*)message push:(BOOL)push ccSelf:(BOOL)ccSelf successHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler;
 
 
 /**
@@ -124,13 +125,16 @@
 
 
 /**
- *  Handle messages sent to the logged-in user from this one Endpoint.
+ *  A notification that a message has been sent. The notification indicates that the specified endpoint
+ *  sent a message to the logged in user if didSend is YES. The notification indicates that the specified
+ *  endpoint received a message sent by the logged in user from another device (ccSelf).
  *
- *  @param message   The message
- *  @param sender    The remote endpoint that sent the message
- *  @param timestamp The message timestamp
+ *  @param message      The message
+ *  @param endpoint     The endpoint that sent or received the message
+ *  @param timestamp    The message timestamp
+ *  @param didSend      YES if the specified endpoint sent the message, NO if the endpoint received the message
  */
-- (void)onMessage:(NSString*)message sender:(RespokeEndpoint*)sender timestamp:(NSDate*)timestamp;
+- (void)onMessage:(NSString*)message endpoint:(RespokeEndpoint*)endpoint timestamp:(NSDate*)timestamp didSend:(BOOL)didSend;
 
 
 /**

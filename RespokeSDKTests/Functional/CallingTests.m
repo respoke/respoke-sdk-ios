@@ -58,7 +58,7 @@
     // Send a quick message to make sure the test UI is running and produce a meaningful test error message
     asyncTaskDone = NO;
     callbackDidSucceed = NO;
-    [testbotEndpoint sendMessage:TEST_BOT_HELLO_MESSAGE push:NO successHandler:^{
+    [testbotEndpoint sendMessage:TEST_BOT_HELLO_MESSAGE push:NO ccSelf:NO successHandler:^{
         callbackDidSucceed = YES;
         asyncTaskDone = messageReceived; // If the delegate message fired first, signal the task is done
     } errorHandler:^(NSString *errorMessage){
@@ -137,7 +137,7 @@
     // Send a quick message to make sure the test UI is running and produce a meaningful test error message
     asyncTaskDone = NO;
     callbackDidSucceed = NO;
-    [testbotEndpoint sendMessage:TEST_BOT_HELLO_MESSAGE push:NO successHandler:^{
+    [testbotEndpoint sendMessage:TEST_BOT_HELLO_MESSAGE push:NO ccSelf:NO successHandler:^{
         callbackDidSucceed = YES;
         asyncTaskDone = messageReceived; // If the delegate message fired first, signal the task is done
     } errorHandler:^(NSString *errorMessage){
@@ -221,7 +221,7 @@
     incomingCallReceived = NO;
     didConnect = NO;
     didHangup = NO;
-    [testbotEndpoint sendMessage:TEST_BOT_CALL_ME_MESSAGE push:NO successHandler:^{
+    [testbotEndpoint sendMessage:TEST_BOT_CALL_ME_MESSAGE push:NO ccSelf:NO successHandler:^{
         callbackDidSucceed = YES;
         asyncTaskDone = incomingCallReceived; // If the delegate message fired first, signal the task is done
     } errorHandler:^(NSString *errorMessage){
@@ -255,7 +255,7 @@
     // Send a message to the testbot asking it to hangup the call so that we can test detecting that event
     asyncTaskDone = NO;
     callbackDidSucceed = NO;
-    [testbotEndpoint sendMessage:TEST_BOT_HANGUP_MESSAGE push:NO successHandler:^{
+    [testbotEndpoint sendMessage:TEST_BOT_HANGUP_MESSAGE push:NO ccSelf:NO successHandler:^{
         callbackDidSucceed = YES;
         asyncTaskDone = didHangup; // If the delegate message fired first, signal the task is done
     } errorHandler:^(NSString *errorMessage){
@@ -289,7 +289,7 @@
     incomingCallReceived = NO;
     didConnect = NO;
     didHangup = NO;
-    [testbotEndpoint sendMessage:TEST_BOT_CALL_ME_VIDEO_MESSAGE push:NO successHandler:^{
+    [testbotEndpoint sendMessage:TEST_BOT_CALL_ME_VIDEO_MESSAGE push:NO ccSelf:NO successHandler:^{
         callbackDidSucceed = YES;
         asyncTaskDone = incomingCallReceived; // If the delegate message fired first, signal the task is done
     } errorHandler:^(NSString *errorMessage){
@@ -326,7 +326,7 @@
     // Send a message to the testbot asking it to hangup the call so that we can test detecting that event
     asyncTaskDone = NO;
     callbackDidSucceed = NO;
-    [testbotEndpoint sendMessage:TEST_BOT_HANGUP_MESSAGE push:NO successHandler:^{
+    [testbotEndpoint sendMessage:TEST_BOT_HANGUP_MESSAGE push:NO ccSelf:NO successHandler:^{
         callbackDidSucceed = YES;
         asyncTaskDone = didHangup; // If the delegate message fired first, signal the task is done
     } errorHandler:^(NSString *errorMessage){
@@ -379,7 +379,7 @@
 #pragma mark - RespokeEndpointDelegate methods
 
 
-- (void)onMessage:(NSString*)message sender:(RespokeEndpoint*)sender timestamp:(NSDate*)timestamp
+- (void)onMessage:(NSString*)message endpoint:(RespokeEndpoint*)endpoint timestamp:(NSDate*)timestamp didSend:(BOOL)didSend
 {
     testbotIsListening = [message isEqualToString:TEST_BOT_HELLO_REPLY];
     messageReceived = YES;

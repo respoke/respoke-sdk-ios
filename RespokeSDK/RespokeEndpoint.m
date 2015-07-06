@@ -49,13 +49,13 @@
 }
 
 
-- (void)sendMessage:(NSString*)message push:(BOOL)push successHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler
+- (void)sendMessage:(NSString*)message push:(BOOL)push ccSelf:(BOOL)ccSelf successHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler
 {
     if (signalingChannel && signalingChannel.connected)
     {
         NSNumber *pushFlag = [NSNumber numberWithBool:push];
-        NSDictionary *data = @{@"to": self.endpointID, @"message": message, @"push": pushFlag};
-
+        NSNumber *ccSelfFlag = [NSNumber numberWithBool:ccSelf];
+        NSDictionary *data = @{@"to": self.endpointID, @"message": message, @"push": pushFlag, @"ccSelf": ccSelfFlag};
         [signalingChannel sendRESTMessage:@"post" url:@"/v1/messages" data:data responseHandler:^(id response, NSString *errorMessage) {
             if (errorMessage)
             {
@@ -151,7 +151,13 @@
 
 - (void)didReceiveMessage:(NSString*)message withTimestamp:(NSDate*)timestamp
 {
-    [self.delegate onMessage:message sender:self timestamp:timestamp];
+    [self.delegate onMessage:message endpoint:self timestamp:timestamp didSend:NO];
+}
+
+
+- (void)didSendMessage:(NSString*)message withTimestamp:(NSDate*)timestamp
+{
+    [self.delegate onMessage:message endpoint:self timestamp:timestamp didSend:YES];
 }
 
 

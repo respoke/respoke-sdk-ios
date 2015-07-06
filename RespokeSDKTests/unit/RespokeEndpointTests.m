@@ -68,7 +68,7 @@
     XCTAssertNotNil(mutableConnections, @"Should return an empty list of connections when not connected");
     XCTAssertTrue(0 == [mutableConnections count], @"Should return an empty list of connections when not connected");
     
-    [endpoint sendMessage:@"Hi there!" push:NO successHandler:^{
+    [endpoint sendMessage:@"Hi there!" push:NO ccSelf:NO successHandler:^{
         XCTAssertTrue(NO, @"Should not call success handler");
     } errorHandler:^(NSString *errorMessage){
         callbackDidSucceed = YES;
@@ -224,7 +224,7 @@
 #pragma mark - RespokeEndpointDelegate methods
 
 
-- (void)onMessage:(NSString*)message sender:(RespokeEndpoint*)sender timestamp:(NSDate*)timestamp
+- (void)onMessage:(NSString*)message endpoint:(RespokeEndpoint*)endpoint timestamp:(NSDate*)timestamp didSend:(BOOL)didSend
 {
     // Not under test
 }

@@ -189,14 +189,15 @@
 
 
 /**
- *  Receive a notification from the signaling channel that a message has been sent to this group
+ *  Receive a notification from the signaling channel that a message has been sent
  *
- *  @param message    The body of the message
- *  @param endpointID The ID of the endpoint sending the message
- *  @param sender     The signaling channel that triggered the event
- *  @param timestamp  The message timestamp
+ *  @param message          The body of the message
+ *  @param fromEndpointID   The ID of the endpoint sending the message
+ *  @param toEndpointID     The ID of the endpoint receiving this message
+ *  @param sender           The signaling channel that triggered the event
+ *  @param timestamp        The message timestamp
  */
-- (void)onMessage:(NSString*)message fromEndpointID:(NSString*)endpointID sender:(RespokeSignalingChannel*)sender timestamp:(NSDate *)timestamp;
+- (void)onMessage:(NSString*)message fromEndpointID:(NSString*)fromEndpointID toEndpointID:(NSString*)toEndpointID sender:(RespokeSignalingChannel*)sender timestamp:(NSDate *)timestamp;
 
 
 /**

@@ -174,7 +174,7 @@
 #pragma mark - RespokeEndpointDelegate methods
 
 
-- (void)onMessage:(NSString*)message sender:(RespokeEndpoint*)sender timestamp:(NSDate*)timestamp
+- (void)onMessage:(NSString*)message sender:(RespokeEndpoint*)sender timestamp:(NSDate*)timestamp didSend:(BOOL)didSend
 {
     // Not under test
 }

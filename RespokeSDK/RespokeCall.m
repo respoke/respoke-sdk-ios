@@ -142,7 +142,7 @@ static RTCPeerConnectionFactory* peerConnectionFactory = nil;  ///< The WebRTC p
     return [self initWithSignalingChannel:channel incomingCallSDP:nil sessionID:[Respoke makeGUID] connectionID:nil endpoint:nil endpointID:endpointID type:type audioOnly:newAudioOnly directConnectionOnly:NO timestamp:[NSDate date] isCaller:YES];
 }
 
-- (instancetype)initWithSignalingChannel:(RespokeSignalingChannel*)channel incomingCallSDP:(NSDictionary*)sdp sessionID:(NSString*)newID connectionID:(NSString*)newConnectionID endpointID:endpointID fromType:fromType endpoint:(RespokeEndpoint*)newEndpoint directConnectionOnly:(BOOL)dcOnly timestamp:(NSDate*)timestamp
+- (instancetype)initWithSignalingChannel:(RespokeSignalingChannel*)channel incomingCallSDP:(NSDictionary*)sdp sessionID:(NSString*)newID connectionID:(NSString*)newConnectionID endpointID:(NSString*)endpointID fromType:(NSString*)fromType endpoint:(RespokeEndpoint*)newEndpoint directConnectionOnly:(BOOL)dcOnly timestamp:(NSDate*)timestamp
 {
     BOOL newAudioOnly = sdp && ![RespokeCall sdpHasVideo:[sdp objectForKey:@"sdp"]];
     return [self initWithSignalingChannel:channel incomingCallSDP:sdp sessionID:newID connectionID:newConnectionID endpoint:newEndpoint endpointID:endpointID type:fromType audioOnly:newAudioOnly directConnectionOnly:dcOnly timestamp:timestamp isCaller:NO];

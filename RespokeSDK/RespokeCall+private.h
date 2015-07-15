@@ -24,10 +24,10 @@
 /**
  *  Initialize a new Call with the specified signaling channel
  *
- *  @param channel   The signaling channel to use
- *  @param endpoint  The remote endpoint
- *  @param audioOnly If true, only audio is supported on this call
- *  @param directConnectionOnly  Indicates that this call is only for a direct connection
+ *  @param channel              The signaling channel to use
+ *  @param endpoint             The remote endpoint
+ *  @param audioOnly            If true, only audio is supported on this call
+ *  @param directConnectionOnly Indicates that this call is only for a direct connection
  *
  *  @return A newly initialized RespokeCall instance
  */
@@ -36,10 +36,10 @@
 /**
  *  Initialize a new Call with the specified signaling channel
  *
- *  @param channel   The signaling channel to use
- *  @param endpointID  The remote endpointID
- *  @param type The remote endpointID type
- *  @param audioOnly If true, only audio is supported on this call
+ *  @param channel    The signaling channel to use
+ *  @param endpointID The remote endpointID
+ *  @param type       The remote endpointID type
+ *  @param audioOnly  If true, only audio is supported on this call
  *
  *  @return A newly initialized RespokeCall instance
  */
@@ -52,6 +52,8 @@
  *  @param sdp                   Incoming SDP configuration from a remote party attempting to call this client
  *  @param sessionID             The session ID of the incoming call
  *  @param connectionID          The remote connection ID initiating the call
+ *  @param endpointID            The endpointID used as the signaling destination
+ *  @param fromType              The type of the signaling destination
  *  @param endpoint              The remote endpoint
  *  @param directConnectionOnly  Indicates that this call is only for a direct connection
  *

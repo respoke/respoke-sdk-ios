@@ -99,7 +99,7 @@
  *  Initiate a call to a conference.
  *
  *  @param delegate     The delegate to receive notifications about the new call
- *  @param conferenceID   The ID of the conference to call
+ *  @param conferenceID The ID of the conference to call
  *
  *  @return A reference to the new RespokeCall object representing this call
  */

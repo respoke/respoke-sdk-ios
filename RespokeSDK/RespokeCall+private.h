@@ -38,7 +38,7 @@
  *
  *  @param channel    The signaling channel to use
  *  @param endpointID The remote endpointID
- *  @param type       The remote endpointID type
+ *  @param type       The remote endpoint type
  *  @param audioOnly  If true, only audio is supported on this call
  *
  *  @return A newly initialized RespokeCall instance

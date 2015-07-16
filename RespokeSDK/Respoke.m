@@ -13,7 +13,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Respoke+private.h"
-#import "RTCPeerConnectionFactory.h"
+#import "RespokeCall+private.h"
 #import "RespokeClient+private.h"
 
 
@@ -130,7 +130,7 @@
 
 - (void)applicationWillTerminate
 {
-    [RTCPeerConnectionFactory deinitializeSSL];
+    [RespokeCall deinitializeSSL];
 }
 
 

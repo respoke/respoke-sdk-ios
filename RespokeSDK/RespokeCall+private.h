@@ -22,6 +22,12 @@
 
 
 /**
+ *  Trigger SSL deinitialization if necessary
+ */
++ (void)deinitializeSSL;
+
+
+/**
  *  Initialize a new Call with the specified signaling channel
  *
  *  @param channel              The signaling channel to use

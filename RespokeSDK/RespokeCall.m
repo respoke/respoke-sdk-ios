@@ -87,6 +87,16 @@ static RTCPeerConnectionFactory* peerConnectionFactory = nil;  ///< The WebRTC p
 @synthesize audioOnly;
 
 
++ (void)deinitializeSSL
+{
+    if (peerConnectionFactory != nil)
+    {
+        // Only deinitialize if it was initialized in the first place
+        [RTCPeerConnectionFactory deinitializeSSL];
+    }
+}
+
+
 - (instancetype)initWithSignalingChannel:(RespokeSignalingChannel*)channel incomingCallSDP:(NSDictionary*)sdp sessionID:(NSString*)newID connectionID:(NSString*)newConnectionID endpoint:(RespokeEndpoint*)newEndpoint endpointID:(NSString*)endpointID type:(NSString*)type audioOnly:(BOOL)newAudioOnly directConnectionOnly:(BOOL)dcOnly timestamp:(NSDate*)timestamp isCaller:(BOOL)isCaller
 {
     if (self = [super init])

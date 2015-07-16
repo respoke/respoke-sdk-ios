@@ -79,10 +79,12 @@
  *
  *  @param message        Message to send
  *  @param toEndpointID   Destination endpoint ID
+ *  @param toConnectionID Destination connection ID (or nil for broadcast)
+ *  @param toType         Destination type (or nil for 'web')
  *  @param successHandler A block to call upon successful transmission
  *  @param errorHandler   A block to call upon an error, passing the error message
  */
-- (void)sendSignalMessage:(NSObject*)message toEndpointID:(NSString*)toEndpointID successHandler:(void (^)())successHandler errorHandler:(void (^)(NSString*))errorHandler;
+- (void)sendSignalMessage:(NSObject*)message toEndpointID:(NSString*)toEndpointID toConnectionID:(NSString*)toConnectionID toType:(NSString*)toType successHandler:(void (^)())successHandler errorHandler:(void (^)(NSString*))errorHandler;
 
 
 /**
@@ -144,7 +146,7 @@
  *  @param sender        The signaling channel that triggered the event
  *  @param timestamp     The call timestamp
  */
-- (void)onIncomingCallWithSDP:(NSDictionary*)sdp sessionID:(NSString*)sessionID connectionID:(NSString*)connectionID endpointID:(NSString*)endpointID sender:(RespokeSignalingChannel*)sender timestamp:(NSDate*)timestamp;
+- (void)onIncomingCallWithSDP:(NSDictionary*)sdp sessionID:(NSString*)sessionID connectionID:(NSString*)connectionID endpointID:(NSString*)endpointID fromType:(NSString*)fromType sender:(RespokeSignalingChannel*)sender timestamp:(NSDate*)timestamp;
 
 
 /**

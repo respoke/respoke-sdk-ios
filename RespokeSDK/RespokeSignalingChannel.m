@@ -163,7 +163,7 @@
 }
 
 
-- (void)sendSignalMessage:(NSObject*)message toEndpointID:(NSString*)toEndpointID toConnectionID:(NSString*)toConnectionID toType:(NSString*)toType successHandler:(void (^)())successHandler errorHandler:(void (^)(NSString*))errorHandler
+- (void)sendSignalMessage:(NSObject*)message toEndpointID:(NSString*)toEndpointID toConnectionID:(NSString*)toConnectionID toType:(NSString*)toType ccSelf:(BOOL)ccSelf successHandler:(void (^)())successHandler errorHandler:(void (^)(NSString*))errorHandler
 {
     NSError *jsonError = nil;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:message options:0 error:&jsonError];
@@ -175,7 +175,8 @@
     if (!jsonError)
     {
         NSString *jsonSignal = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:@{@"signal": jsonSignal, @"to": toEndpointID, @"toType": toType}];
+        NSNumber *ccSelfFlag = [NSNumber numberWithBool:ccSelf];
+        NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:@{@"signal": jsonSignal, @"to": toEndpointID, @"toType": toType, @"ccSelf": ccSelfFlag}];
 
         if (toConnectionID != nil) {
             [data setObject:toConnectionID forKey:@"toConnection"];

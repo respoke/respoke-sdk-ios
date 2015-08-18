@@ -55,6 +55,7 @@
 		18FB22471A72C0CA00057C1B /* RespokeGroupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FB22461A72C0CA00057C1B /* RespokeGroupTests.m */; };
 		CAB34B845D7D1D2274322D25 /* libPods-RespokeSDKTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CB385E2D5CFEC2D3DBD4235 /* libPods-RespokeSDKTests.a */; };
 		D452EDB11A68A8EE0080D954 /* RespokeMediaStats.m in Sources */ = {isa = PBXBuildFile; fileRef = D452EDB01A68A8EE0080D954 /* RespokeMediaStats.m */; };
+		D47DC5AB1B82A39F0022087C /* HangupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D47DC5AA1B82A39F0022087C /* HangupTests.m */; };
 		D48B3A741B0E7B8C00F5C4CB /* libRespokeSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E942091993D46E00C8B142 /* libRespokeSDK.a */; };
 /* End PBXBuildFile section */
 
@@ -167,6 +168,7 @@
 		D452EDB01A68A8EE0080D954 /* RespokeMediaStats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RespokeMediaStats.m; sourceTree = "<group>"; };
 		D452EDB21A68A9250080D954 /* RespokeMediaStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RespokeMediaStats.h; path = Public/RespokeMediaStats.h; sourceTree = "<group>"; };
 		D452EDB31A69C01D0080D954 /* RespokeMediaStats+private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RespokeMediaStats+private.h"; sourceTree = "<group>"; };
+		D47DC5AA1B82A39F0022087C /* HangupTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HangupTests.m; sourceTree = "<group>"; };
 		D4A68E001B0FEA990018307F /* RTCAudioSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCAudioSource.h; sourceTree = "<group>"; };
 		D4A68E011B0FEA990018307F /* RTCAudioTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCAudioTrack.h; sourceTree = "<group>"; };
 		D4A68E021B0FEA990018307F /* RTCAVFoundationVideoSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCAVFoundationVideoSource.h; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 				189CAB781A783451006E24E5 /* CallingTests.m */,
 				182A2EFC1A86564A009148A1 /* DirectConnectionTests.m */,
 				18FB22441A72AD2100057C1B /* GroupTests.m */,
+				D47DC5AA1B82A39F0022087C /* HangupTests.m */,
 				18C7DAB11A70514300D60F0A /* MessagingTests.m */,
 				1832F5041A7140A50096B5B6 /* PresenceTests.m */,
 			);
@@ -674,6 +677,7 @@
 				187510441A6EA3DE00E7200E /* RespokeTestCase.m in Sources */,
 				189CAB791A783451006E24E5 /* CallingTests.m in Sources */,
 				1832F5051A7140A50096B5B6 /* PresenceTests.m in Sources */,
+				D47DC5AB1B82A39F0022087C /* HangupTests.m in Sources */,
 				18FB22471A72C0CA00057C1B /* RespokeGroupTests.m in Sources */,
 				18C7DAB81A70514300D60F0A /* RespokeEndpointTests.m in Sources */,
 				18C7DAB61A70514300D60F0A /* MessagingTests.m in Sources */,

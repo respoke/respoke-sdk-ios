@@ -130,14 +130,15 @@
                             $scope.messages.push({'endpointID':evt.endpoint.id, 'content':'[Answering audio call]'});
                             $scope.activeCall.answer(audioOptions);
                         }
-
-                        $scope.activeCall.listen('hangup', function (evt) {
-                            $scope.messages.push({'endpointID':$scope.friendId, 'content':'[Call hung up]'});
-                            $scope.activeCall = null;
-                            $scope.directConnection = null;
-                            $scope.$apply();
-                        });
                     }
+
+                    $scope.activeCall.listen('hangup', function (evt) {
+                        $scope.messages.push({'endpointID':$scope.friendId, 'content':'[Call hung up]'});
+                        $scope.activeCall = null;
+                        $scope.directConnection = null;
+                        $scope.$apply();
+                    });
+
                     $scope.$apply();
                 });
 

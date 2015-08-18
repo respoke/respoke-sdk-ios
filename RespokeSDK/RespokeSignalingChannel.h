@@ -81,10 +81,11 @@
  *  @param toEndpointID   Destination endpoint ID
  *  @param toConnectionID Destination connection ID (or nil for broadcast)
  *  @param toType         Destination type (or nil for 'web')
+ *  @param ccSelf         Flag indicating if other clients logged in as the same endpoint should be notified
  *  @param successHandler A block to call upon successful transmission
  *  @param errorHandler   A block to call upon an error, passing the error message
  */
-- (void)sendSignalMessage:(NSObject*)message toEndpointID:(NSString*)toEndpointID toConnectionID:(NSString*)toConnectionID toType:(NSString*)toType successHandler:(void (^)())successHandler errorHandler:(void (^)(NSString*))errorHandler;
+- (void)sendSignalMessage:(NSObject*)message toEndpointID:(NSString*)toEndpointID toConnectionID:(NSString*)toConnectionID toType:(NSString*)toType ccSelf:(BOOL)ccSelf successHandler:(void (^)())successHandler errorHandler:(void (^)(NSString*))errorHandler;
 
 
 /**

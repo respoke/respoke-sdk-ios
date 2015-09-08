@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "RespokeSDK"
-  s.version          = "1.1.0"
+  s.version          = "1.1.1"
   s.summary          = "Add live voice, video, text and data features to your mobile app."
   s.homepage         = "https://www.respoke.io"
   s.license          = 'MIT'
@@ -17,5 +17,5 @@ Pod::Spec.new do |s|
   s.source_files = 'RespokeSDK/**/*.{h,m}'
 
   s.dependency 'RespokeSocket.IO', '~> 0.5.3'
-  s.dependency 'libjingle_peerconnection', '9208.0.0'
+  s.dependency 'libjingle_peerconnection', '9208.2.0'
 end

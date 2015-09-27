@@ -73,6 +73,16 @@
 
 
 /**
+ *  Retrieve the SDK header sent with HTTP and WS requests. Includes
+ *  the version of the SDK and the iOS version in the format
+ *  "Respoke-iOS/<sdk_version> (<os name> <os version>)"
+ *
+ *  @return The SDK header
+ */
++ (NSString*)getSDKHeader;
+
+
+/**
  *  Initialize the transaction class and specify the base URL of the Respoke service
  *
  *  @param newBaseURL The base URL of the Respoke service

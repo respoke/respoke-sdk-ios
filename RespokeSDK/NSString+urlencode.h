@@ -16,7 +16,8 @@
 @interface NSString (NSString_Extended)
 
 /**
- *  Url-encodes a string, suitable for placing into a url as a portion of the query string
+ *  Url-encodes a string, suitable for placing into a url as a portion of the query string. 
+ *  Source taken from http://stackoverflow.com/a/8088484/355743
  *
  * @return The url-encoded version of the string
  */

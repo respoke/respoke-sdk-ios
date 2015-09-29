@@ -11,13 +11,22 @@
 //  For all details and documentation:  https://www.respoke.io
 //
 
+#import <UIKit/UIKit.h>
 #import "APITransaction.h"
+#import "RespokeVersion.h"
 
 #define HTTP_TIMEOUT 10.0f
 
 
 @implementation APITransaction
 
++ (NSString*)getSDKHeader
+{
+    const NSString *osName = [UIDevice currentDevice].systemName;
+    const NSString *osVersion = [UIDevice currentDevice].systemVersion;
+    const NSString *sdkVersion = getSDKVersion();
+    return [NSString stringWithFormat:@"Respoke-iOS/%@ (%@ %@)", sdkVersion, osName, osVersion];
+}
 
 - (instancetype)initWithBaseUrl:(NSString*)newBaseURL
 {
@@ -56,11 +65,13 @@
     }
     else
     {
+        NSString *sdkHeader = [APITransaction getSDKHeader];
         NSURL *theURL = [NSURL URLWithString:self.baseURL];
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:theURL cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:HTTP_TIMEOUT];
         [request setHTTPMethod:httpMethod];
         [request setValue:@"application/xml" forHTTPHeaderField:@"Accept"];
         [request setValue:contentType forHTTPHeaderField:@"Content-Type"];
+        [request setValue:sdkHeader forHTTPHeaderField:@"Respoke-SDK"];
         [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[data length]] forHTTPHeaderField:@"Content-length"];
         [request setHTTPBody:data];
         connection = [NSURLConnection connectionWithRequest:request delegate:self];

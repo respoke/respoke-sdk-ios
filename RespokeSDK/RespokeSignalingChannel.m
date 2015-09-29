@@ -15,7 +15,8 @@
 #import "RespokeCall+private.h"
 #import "RespokeEndpoint+private.h"
 #import "RespokeClient+private.h"
-
+#import "NSString+urlencode.h"
+#import "APITransaction.h"
 
 #define RESPOKE_SOCKETIO_PORT 443
 
@@ -54,8 +55,8 @@
 {
     socketIO = [[SocketIO alloc] initWithDelegate:self];
     socketIO.useSecure = useHTTPS;
-    
-    [socketIO connectToHost:baseURL onPort:RESPOKE_SOCKETIO_PORT withParams:[NSDictionary dictionaryWithObjectsAndKeys:appToken, @"app-token", @"0.10.0", @"__sails_io_sdk_version", nil]];
+    NSString *sdkHeader = [APITransaction getSDKHeader];
+    [socketIO connectToHost:baseURL onPort:RESPOKE_SOCKETIO_PORT withParams:[NSDictionary dictionaryWithObjectsAndKeys:appToken, @"app-token", @"0.10.0", @"__sails_io_sdk_version", [sdkHeader urlencode], @"Respoke-SDK", nil]];
 }
 
 
@@ -63,8 +64,9 @@
 {
     if (self.connected)
     {
+        NSString *sdkHeader = [APITransaction getSDKHeader];
         NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-        [dict setObject:@{@"App-Token": appToken} forKey:@"headers"];
+        [dict setObject:@{@"App-Token": appToken, @"Respoke-SDK": sdkHeader} forKey:@"headers"];
         [dict setObject:url forKey:@"url"];
 
         NSUInteger dataLen = 0;

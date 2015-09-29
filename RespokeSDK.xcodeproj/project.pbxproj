@@ -58,6 +58,7 @@
 		D47DC5AB1B82A39F0022087C /* HangupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D47DC5AA1B82A39F0022087C /* HangupTests.m */; };
 		D48B3A741B0E7B8C00F5C4CB /* libRespokeSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E942091993D46E00C8B142 /* libRespokeSDK.a */; };
 		FC72B8F11BB83B7D00548EDB /* NSString+urlencode.m in Sources */ = {isa = PBXBuildFile; fileRef = FC72B8F01BB83B7D00548EDB /* NSString+urlencode.m */; settings = {ASSET_TAGS = (); }; };
+		FCCB2D061BBA2FDF000BDC3F /* RespokeVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCB2D051BBA2FDF000BDC3F /* RespokeVersion.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -205,6 +206,8 @@
 		D4A68E211B0FEA990018307F /* SocketIOTransportXHR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOTransportXHR.h; sourceTree = "<group>"; };
 		FC72B8EF1BB83B7D00548EDB /* NSString+urlencode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+urlencode.h"; sourceTree = "<group>"; };
 		FC72B8F01BB83B7D00548EDB /* NSString+urlencode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+urlencode.m"; sourceTree = "<group>"; };
+		FCCB2D051BBA2FDF000BDC3F /* RespokeVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RespokeVersion.m; sourceTree = "<group>"; };
+		FCCB2D071BBA2FFB000BDC3F /* RespokeVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RespokeVersion.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -379,6 +382,8 @@
 				18E9444D1993EBF800C8B142 /* RespokeGroup+private.h */,
 				18E942461993D61000C8B142 /* RespokeSignalingChannel.h */,
 				18E942471993D61000C8B142 /* RespokeSignalingChannel.m */,
+				FCCB2D071BBA2FFB000BDC3F /* RespokeVersion.h */,
+				FCCB2D051BBA2FDF000BDC3F /* RespokeVersion.m */,
 				18E942481993D61000C8B142 /* RestAPI */,
 				D4A68E1B1B0FEA990018307F /* Socket.IO */,
 				18E9420F1993D46E00C8B142 /* Supporting Files */,
@@ -668,6 +673,7 @@
 				18E942541993D61000C8B142 /* RespokeSignalingChannel.m in Sources */,
 				18E942521993D61000C8B142 /* RespokeEndpoint.m in Sources */,
 				18E942571993D61000C8B142 /* APITransaction.m in Sources */,
+				FCCB2D061BBA2FDF000BDC3F /* RespokeVersion.m in Sources */,
 				18E942531993D61000C8B142 /* RespokeGroup.m in Sources */,
 				D452EDB11A68A8EE0080D954 /* RespokeMediaStats.m in Sources */,
 				FC72B8F11BB83B7D00548EDB /* NSString+urlencode.m in Sources */,

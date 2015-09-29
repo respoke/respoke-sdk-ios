@@ -13,6 +13,7 @@
 
 #import <UIKit/UIKit.h>
 #import "APITransaction.h"
+#import "RespokeVersion.h"
 
 #define HTTP_TIMEOUT 10.0f
 
@@ -21,9 +22,10 @@
 
 + (NSString*)getSDKHeader
 {
-    NSString *osName = [UIDevice currentDevice].systemName;
-    NSString *osVersion = [UIDevice currentDevice].systemVersion;
-    return [NSString stringWithFormat:@"Respoke-iOS (%@ %@)", osName, osVersion];
+    const NSString *osName = [UIDevice currentDevice].systemName;
+    const NSString *osVersion = [UIDevice currentDevice].systemVersion;
+    const NSString *sdkVersion = getSDKVersion();
+    return [NSString stringWithFormat:@"Respoke-iOS/%@ (%@ %@)", sdkVersion, osName, osVersion];
 }
 
 - (instancetype)initWithBaseUrl:(NSString*)newBaseURL

@@ -530,6 +530,17 @@ static RTCPeerConnectionFactory* peerConnectionFactory = nil;  ///< The WebRTC p
             {
                 NSString *username = [response objectForKey:@"username"];
                 NSString *password = [response objectForKey:@"password"];
+
+                if (username == nil)
+                {
+                    username = @"";
+                }
+
+                if (password == nil)
+                {
+                    password = @"";
+                }
+
                 NSArray *uris = [response objectForKey:@"uris"];
 
                 for (NSString *eachUri in uris)

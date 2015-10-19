@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "RespokeSDK"
-  s.version          = "1.2.0"
+  s.version          = "1.2.1"
   s.summary          = "Add live voice, video, text and data features to your mobile app."
   s.homepage         = "https://www.respoke.io"
   s.license          = 'MIT'

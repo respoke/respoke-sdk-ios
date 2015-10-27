@@ -359,28 +359,29 @@
         pushTokenStatus = TOKEN_STATUS_RENEWED;
     }
     else
-    {   // nothing to do here
+    {   // You might think "nothing to do here", but if the app changes its endpointId, failing to update here
+        // will cause the app to stop receiving push notifications, as the token will forever be associated with 
+        // the old endpointId.  
+        httpMethod = @"put";
+        httpURI = [NSString stringWithFormat:@"/v1/connections/%@/push-token/%@", localConnectionID, lastKnownPushTokenId];
         pushTokenStatus = TOKEN_STATUS_REUSED;
     }
 
     NSLog(@"Push token: %@ (%@)", tokenHexString, pushTokenStatus);
 
-    if (![pushTokenStatus isEqualToString:TOKEN_STATUS_REUSED])
-    {
-        NSDictionary *data = @{@"token": tokenHexString, @"service": @"apple"};
-        [signalingChannel sendRESTMessage:httpMethod url:httpURI data:data responseHandler:^(id response, NSString *errorMessage) {
-            if (errorMessage)
-            {
-                NSLog(@"Error registering for push notifications: %@", errorMessage);
-            }
-            else if ([response isKindOfClass:[NSDictionary class]])
-            {
-                [[NSUserDefaults standardUserDefaults] setObject:tokenHexString forKey:LAST_VALID_PUSH_TOKEN_KEY];
-                [[NSUserDefaults standardUserDefaults] setObject:[response objectForKey:@"id"] forKey:LAST_VALID_PUSH_TOKEN_ID_KEY];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-            }
-        }];
-    }
+    NSDictionary *data = @{@"token": tokenHexString, @"service": @"apple"};
+    [signalingChannel sendRESTMessage:httpMethod url:httpURI data:data responseHandler:^(id response, NSString *errorMessage) {
+        if (errorMessage)
+        {
+            NSLog(@"Error registering for push notifications: %@", errorMessage);
+        }
+        else if ([response isKindOfClass:[NSDictionary class]])
+        {
+            [[NSUserDefaults standardUserDefaults] setObject:tokenHexString forKey:LAST_VALID_PUSH_TOKEN_KEY];
+            [[NSUserDefaults standardUserDefaults] setObject:[response objectForKey:@"id"] forKey:LAST_VALID_PUSH_TOKEN_ID_KEY];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+    }];
 }
 
 

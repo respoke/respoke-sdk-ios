@@ -347,24 +347,23 @@
     NSString *pushTokenStatus;
 
     if (!lastKnownPushTokenId)
-    {   // create a new pushToken
+    {   // register a new pushToken
         httpMethod = @"post";
         httpURI = [NSString stringWithFormat:@"/v1/connections/%@/push-token", localConnectionID];
         pushTokenStatus = TOKEN_STATUS_CREATED;
     }
-    else if (lastKnownPushToken && ![lastKnownPushToken isEqualToString:tokenHexString])
-    {   // create the existing pushToken
-        httpMethod = @"put";
-        httpURI = [NSString stringWithFormat:@"/v1/connections/%@/push-token/%@", localConnectionID, lastKnownPushTokenId];
-        pushTokenStatus = TOKEN_STATUS_RENEWED;
-    }
-    else
-    {   // You might think "nothing to do here", but if the app changes its endpointId, failing to update here
-        // will cause the app to stop receiving push notifications, as the token will forever be associated with 
-        // the old endpointId.  
+    else 
+    {   // reregister the pushToken
+        // You might think "nothing to do here" if the token hasn't changed, but if the app changes 
+        // its endpointId, failing to update here will cause the app to stop receiving push notifications, 
+        // as the token will forever be associated with the old endpointId.  
         httpMethod = @"put";
         httpURI = [NSString stringWithFormat:@"/v1/connections/%@/push-token/%@", localConnectionID, lastKnownPushTokenId];
         pushTokenStatus = TOKEN_STATUS_REUSED;
+        if (![lastKnownPushToken isEqualToString:tokenHexString]) 
+        {
+            pushTokenStatus = TOKEN_STATUS_RENEWED;
+        }
     }
 
     NSLog(@"Push token: %@ (%@)", tokenHexString, pushTokenStatus);

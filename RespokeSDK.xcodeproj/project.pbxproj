@@ -57,8 +57,8 @@
 		D452EDB11A68A8EE0080D954 /* RespokeMediaStats.m in Sources */ = {isa = PBXBuildFile; fileRef = D452EDB01A68A8EE0080D954 /* RespokeMediaStats.m */; };
 		D47DC5AB1B82A39F0022087C /* HangupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D47DC5AA1B82A39F0022087C /* HangupTests.m */; };
 		D48B3A741B0E7B8C00F5C4CB /* libRespokeSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E942091993D46E00C8B142 /* libRespokeSDK.a */; };
-		FC72B8F11BB83B7D00548EDB /* NSString+urlencode.m in Sources */ = {isa = PBXBuildFile; fileRef = FC72B8F01BB83B7D00548EDB /* NSString+urlencode.m */; settings = {ASSET_TAGS = (); }; };
-		FCCB2D061BBA2FDF000BDC3F /* RespokeVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCB2D051BBA2FDF000BDC3F /* RespokeVersion.m */; settings = {ASSET_TAGS = (); }; };
+		FC72B8F11BB83B7D00548EDB /* NSString+urlencode.m in Sources */ = {isa = PBXBuildFile; fileRef = FC72B8F01BB83B7D00548EDB /* NSString+urlencode.m */; };
+		FCCB2D061BBA2FDF000BDC3F /* RespokeVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCB2D051BBA2FDF000BDC3F /* RespokeVersion.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -546,6 +546,7 @@
 				18E942161993D46E00C8B142 /* Frameworks */,
 				18E942171993D46E00C8B142 /* Resources */,
 				D399C8BF603E88C73AA2082E /* Copy Pods Resources */,
+				EF1334B9E38538BD6E7CD663 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -631,6 +632,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RespokeSDKTests/Pods-RespokeSDKTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EF1334B9E38538BD6E7CD663 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RespokeSDKTests/Pods-RespokeSDKTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FF43DE892210B769565DE945 /* Check Pods Manifest.lock */ = {

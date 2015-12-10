@@ -1,15 +1,15 @@
 PODS:
-  - libjingle_peerconnection (9208.2.0)
+  - libjingle_peerconnection (10842.2.0)
   - RespokeSocket.IO (0.5.3):
     - RespokeSocketRocket (~> 0.3.2)
   - RespokeSocketRocket (0.3.2)
 
 DEPENDENCIES:
-  - libjingle_peerconnection (= 9208.2.0)
+  - libjingle_peerconnection (= 10842.2.0)
   - RespokeSocket.IO (~> 0.5.3)
 
 SPEC CHECKSUMS:
-  libjingle_peerconnection: 5255854c93932eafc15d4250a138798d2519a1f5
+  libjingle_peerconnection: 176c8d3e12d9437abc0e1f08a924947444e97b69
   RespokeSocket.IO: 11d06f1309e18f497a0c4871875e1ffb66a9c290
   RespokeSocketRocket: 310662b5569cbf78bceaa039aeb89101b8135357
 

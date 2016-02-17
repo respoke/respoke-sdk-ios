@@ -44,13 +44,13 @@
 {
     RespokeClient *client = [[Respoke sharedInstance] createClient];
     XCTAssertNotNil(client);
-    
+
     NSString *testGroupID = @"myGroupID";
-    RespokeGroup *group = [[RespokeGroup alloc] initWithGroupID:testGroupID appToken:@"dummyTOKEN" signalingChannel:nil client:client];
-    
+    RespokeGroup *group = [[RespokeGroup alloc] initWithGroupID:testGroupID signalingChannel:nil client:client];
+
     XCTAssertNotNil(group, @"Group should not be nil");
     XCTAssertTrue(![group isJoined], @"Should indicate group is not joined");
-    
+
     callbackSucceeded = NO;
     [group sendMessage:@"A message" push:NO successHandler:^{
         XCTAssertTrue(NO, @"Should not send a message to a group that is not joined");
@@ -58,9 +58,9 @@
         XCTAssertTrue([errorMessage isEqualToString:@"Not a member of this group anymore."]);
         callbackSucceeded = YES;
     }];
-    
+
     XCTAssertTrue(callbackSucceeded, @"Should have called the error handler");
-    
+
     callbackSucceeded = NO;
     [group leaveWithSuccessHandler:^{
         XCTAssertTrue(NO, @"Leaving an unjoined group should fail");
@@ -68,9 +68,9 @@
         XCTAssertTrue([errorMessage isEqualToString:@"Not a member of this group anymore."]);
         callbackSucceeded = YES;
     }];
-    
+
     XCTAssertTrue(callbackSucceeded, @"Should have called the error handler");
-    
+
     callbackSucceeded = NO;
     [group getMembersWithSuccessHandler:^(NSArray *members){
         XCTAssertTrue(NO, @"Getting members of an unjoined group should fail");
@@ -78,7 +78,7 @@
         XCTAssertTrue([errorMessage isEqualToString:@"Not a member of this group anymore."]);
         callbackSucceeded = YES;
     }];
-    
+
     XCTAssertTrue(callbackSucceeded, @"Should have called the error handler");
 }
 

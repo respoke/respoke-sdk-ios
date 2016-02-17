@@ -40,4 +40,19 @@
 - (void)registerPushServices;
 
 
+/**
+ * Percent-escape a single component of a url
+ *
+ * @return The escaped component
+ */
+- (NSString*)encodeURIComponent:(NSString*)component;
+
+
+/**
+ * Create the query string portion of a url. Values should be either
+ * (NSString*) or (NSArray*) of (NSString*).
+ *
+ * @return the query string, including the "?" prefix
+ */
+- (NSString*)buildQueryWithComponents:(NSDictionary*)components;
 @end

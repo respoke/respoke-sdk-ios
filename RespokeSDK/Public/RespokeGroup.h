@@ -48,6 +48,13 @@
  */
 - (void)leaveWithSuccessHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler;
 
+/**
+ *  Join this group
+ *
+ *  @param successHandler A block called when the action is successful
+ *  @param errorHandler   A block called when an error occurs, passing a string describing the error
+ */
+- (void)joinWithSuccessHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler;
 
 /**
  *  Return true if the logged-in user is a member of this group and false if not.
@@ -66,15 +73,31 @@
 
 
 /**
- *  Send a message to the entire group.
+ *  Send a message to the entire group. To specify that you wish to persist the message
+ *  to the Respoke group message history, use the other method signature that allows
+ *  `persist` to be specified.
+ *
  *
  *  @param message        The message to send
  *  @param push           A flag indicating if a push notification should be sent for this message
  *  @param successHandler A block called when the action is successful
  *  @param errorHandler   A block called when an error occurs, passing a string describing the error
  */
-- (void)sendMessage:(NSString*)message push:(BOOL)push successHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler;
+- (void)sendMessage:(NSString*)message push:(BOOL)push
+     successHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler;
 
+/**
+ *  Send a message to the entire group.
+ *
+ *  @param message        The message to send
+ *  @param push           A flag indicating if a push notification should be sent for this message
+ *  @param persist        A flag indicating that this message should be persisted to the group's
+ *                        message history
+ *  @param successHandler A block called when the action is successful
+ *  @param errorHandler   A block called when an error occurs, passing a string describing the error
+ */
+- (void)sendMessage:(NSString*)message push:(BOOL)push persist:(BOOL)persist
+     successHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler;
 
 @end
 

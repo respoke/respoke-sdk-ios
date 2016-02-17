@@ -15,11 +15,12 @@
 #import "RespokeEndpoint+private.h"
 #import "RespokeClient+private.h"
 #import "RespokeConnection+private.h"
+#import "Respoke.h"
+#import "Respoke+private.h"
 
 
 @interface RespokeGroup () {
     NSString *groupID;  ///< The ID of this group
-    NSString *appToken;  ///< The application token to use
     RespokeClient __weak *client;  ///< The client managing this group
     RespokeSignalingChannel *signalingChannel;  ///< The signaling channel to use
     NSMutableArray *members;  ///< An array of the members of this group
@@ -32,18 +33,25 @@
 @implementation RespokeGroup
 
 
-- (instancetype)initWithGroupID:(NSString*)newGroupID appToken:(NSString*)token signalingChannel:(RespokeSignalingChannel*)channel client:(RespokeClient*)newClient
+- (instancetype)initWithGroupID:(NSString*)newGroupID signalingChannel:(RespokeSignalingChannel*)channel
+                         client:(RespokeClient*)newClient
+{
+    return [self initWithGroupID:newGroupID signalingChannel:channel client:newClient isJoined:YES];
+}
+
+
+- (instancetype)initWithGroupID:(NSString *)newGroupID signalingChannel:(RespokeSignalingChannel *)channel
+                         client:(RespokeClient *)newClient isJoined:(BOOL)isJoined
 {
     if (self = [super init])
     {
         groupID = newGroupID;
-        appToken = token;
         signalingChannel = channel;
         client = newClient;
         members = [[NSMutableArray alloc] init];
-        joined = YES;
+        joined = isJoined;
     }
-    
+
     return self;
 }
 
@@ -54,8 +62,9 @@
     {
         if ([groupID length])
         {
-            NSString *urlEndpoint = [NSString stringWithFormat:@"/v1/channels/%@/subscribers/", groupID];
-            
+            NSString* encodedGroupID = [[Respoke sharedInstance] encodeURIComponent:groupID];
+            NSString *urlEndpoint = [NSString stringWithFormat:@"/v1/groups/%@", encodedGroupID];
+
             [signalingChannel sendRESTMessage:@"get" url:urlEndpoint data:nil responseHandler:^(id response, NSString *errorMessage) {
                 if (errorMessage)
                 {
@@ -71,7 +80,7 @@
                         {
                             NSString *newEndpointID = [eachEntry objectForKey:@"endpointId"];
                             NSString *newConnectionID = [eachEntry objectForKey:@"connectionId"];
-                            
+
                             // Do not include ourselves in this list
                             if (![newEndpointID isEqualToString:[client getEndpointID]])
                             {
@@ -142,10 +151,41 @@
     }
 }
 
+- (void)joinWithSuccessHandler:(void (^)(void))successHandler
+                  errorHandler:(void (^)(NSString *))errorHandler
+{
+    if (![self isConnected]) {
+        errorHandler(@"Can't complete request when not connected. Please reconnect!");
+        return;
+    }
+
+    if (![groupID length]) {
+        errorHandler(@"Group name must be specified");
+        return;
+    }
+
+    NSString* urlEndpoint = [NSString stringWithFormat:@"/v1/groups/%@", groupID];
+    [signalingChannel sendRESTMessage:@"post" url:urlEndpoint data:nil
+                      responseHandler:^(id response, NSString *errorMessage) {
+        if (errorMessage) {
+            errorHandler(errorMessage);
+            return;
+        }
+
+        joined = YES;
+        successHandler();
+    }];
+}
+
 
 - (BOOL)isJoined
 {
-    return joined && signalingChannel && signalingChannel.connected;
+    return joined && [self isConnected];
+}
+
+
+- (BOOL)isConnected {
+    return signalingChannel && signalingChannel.connected;
 }
 
 
@@ -155,37 +195,47 @@
 }
 
 
-- (void)sendMessage:(NSString*)message push:(BOOL)push successHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler
+- (void)sendMessage:(NSString*)message push:(BOOL)push
+     successHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler
 {
-    if ([self isJoined])
-    {
-        if ([groupID length])
-        {
-            NSNumber *pushFlag = [NSNumber numberWithBool:push];
-            NSDictionary *data = @{@"endpointId": [client getEndpointID], @"message": message, @"push": pushFlag};
+    [self sendMessage:message push:push persist:NO
+       successHandler:successHandler errorHandler:errorHandler];
+}
 
-            NSString *urlEndpoint = [NSString stringWithFormat:@"/v1/channels/%@/publish/", groupID];
-            
-            [signalingChannel sendRESTMessage:@"post" url:urlEndpoint data:data responseHandler:^(id response, NSString *errorMessage) {
-                if (errorMessage)
-                {
-                    errorHandler(errorMessage);
-                }
-                else
-                {
-                    successHandler();
-                }
-            }];
-        }
-        else
-        {
-            errorHandler(@"Group name must be specified");
-        }
-    }
-    else
-    {
+- (void)sendMessage:(NSString *)message push:(BOOL)push persist:(BOOL)persist
+     successHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString *))errorHandler
+{
+    if (![self isJoined]) {
         errorHandler(@"Not a member of this group anymore.");
-    }   
+        return;
+    }
+
+    if (![groupID length]) {
+        errorHandler(@"Group name must be specified");
+        return;
+    }
+
+    NSNumber *pushFlag = @(push);
+    NSNumber *persistFlag = @(persist);
+
+    NSDictionary *data = @{
+        @"endpointId": [client getEndpointID],
+        @"message": message,
+        @"push": pushFlag,
+        @"persist": persistFlag
+    };
+
+    NSString *urlEndpoint = [NSString stringWithFormat:@"/v1/groups/%@/publish/", groupID];
+
+    [signalingChannel sendRESTMessage:@"post" url:urlEndpoint data:data
+                      responseHandler:^(id response, NSString *errorMessage) {
+        if (errorMessage) {
+            errorHandler(errorMessage);
+            return;
+        }
+
+        successHandler();
+    }];
 }
 
 

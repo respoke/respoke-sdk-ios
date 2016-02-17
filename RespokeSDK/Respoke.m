@@ -26,7 +26,7 @@
 @end
 
 
-@implementation Respoke 
+@implementation Respoke
 
 
 + (Respoke *)sharedInstance
@@ -34,11 +34,11 @@
     // The Respoke SDK class is a singleton that should be accessed through this share instance method
     static Respoke *sharedInstance = nil;
     static dispatch_once_t onceToken;
-    
+
     dispatch_once(&onceToken, ^{
         sharedInstance = [[Respoke alloc] init];
     });
-    
+
     return sharedInstance;
 }
 
@@ -50,19 +50,19 @@
     NSInteger rnd = 0;
     NSInteger r;
 
-    for (NSInteger i = 0; i < GUID_STRING_LENGTH; i += 1) 
+    for (NSInteger i = 0; i < GUID_STRING_LENGTH; i += 1)
     {
-        if (i == 8 || i == 13 ||  i == 18 || i == 23) 
+        if (i == 8 || i == 13 ||  i == 18 || i == 23)
         {
             uuid = [uuid stringByAppendingString:@"-"];
-        } 
-        else if (i == 14) 
+        }
+        else if (i == 14)
         {
             uuid = [uuid stringByAppendingString:@"4"];
-        } 
-        else 
+        }
+        else
         {
-            if (rnd <= 0x02) 
+            if (rnd <= 0x02)
             {
                 rnd = 0x2000000 + (arc4random() % 0x1000000) | 0;
             }
@@ -84,7 +84,7 @@
 }
 
 
-- (instancetype)init 
+- (instancetype)init
 {
     if (self = [super init])
     {
@@ -139,7 +139,7 @@
     if ([instances count] && pushToken)
     {
         RespokeClient *activeClient = nil;
-        
+
         for (RespokeClient *eachInstance in instances)
         {
             if ([eachInstance isConnected])
@@ -149,7 +149,7 @@
                 break;
             }
         }
-        
+
         [activeClient registerPushServicesWithToken:pushToken];
     }
 }
@@ -158,7 +158,7 @@
 - (void)unregisterPushServicesWithSuccessHandler:(void (^)(void))successHandler errorHandler:(void (^)(NSString*))errorHandler
 {
     RespokeClient *activeClient = nil;
-    
+
     for (RespokeClient *eachInstance in instances)
     {
         if ([eachInstance isConnected])
@@ -168,7 +168,7 @@
             break;
         }
     }
-    
+
     if (activeClient)
     {
         [activeClient unregisterFromPushServicesWithSuccessHandler:^(){
@@ -193,4 +193,36 @@
 }
 
 
+- (NSString *)encodeURIComponent:(NSString*)component
+{
+    return [component stringByAddingPercentEncodingWithAllowedCharacters:
+        [[NSCharacterSet characterSetWithCharactersInString:@"!*'();:@&=+$,/?%#[]"] invertedSet]];
+}
+
+
+- (NSString *)buildQueryWithComponents:(NSDictionary*)components
+{
+    NSMutableArray* encodedComponents = [[NSMutableArray alloc]
+        initWithCapacity:[components count]];
+
+    // encode components
+    for (id key in components) {
+        id values = [components valueForKey:key];
+
+        // support arrays in the query
+        if (![values isKindOfClass:[NSArray class]]) {
+            values = @[ values ];
+        }
+
+        for (id value in values) {
+            NSString* encodedKey = [self encodeURIComponent:[key description]];
+            NSString* encodedValue = [self encodeURIComponent:[value description]];
+
+            [encodedComponents addObject:
+                [encodedKey stringByAppendingFormat:@"=%@", encodedValue ]];
+        }
+    }
+
+    return [@"?" stringByAppendingString:[encodedComponents componentsJoinedByString:@"&"]];
+}
 @end

@@ -15,7 +15,7 @@
 #import "RespokeClient+private.h"
 
 #define TEST_RESPOKE_BASE_URL @"https://api.respoke.io"
-#define TEST_APP_ID @"REPLACE_ME"
+#define TEST_APP_ID @"7d002039-508a-4e7f-a567-65b358e23a94"
 #define TEST_TIMEOUT 30 // timeout in seconds
 #define CALL_TEST_TIMEOUT 60 // timeout in seconds for calling tests (which take longer to setup)
 #define TEST_BOT_ENDPOINT_ID [NSString stringWithFormat:@"testbot-%@", [[NSProcessInfo processInfo] environment][@"TEST_BOT_SUFFIX"]]

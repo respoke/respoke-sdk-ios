@@ -37,9 +37,9 @@ To run the test cases, do the following:
 
 4) Start the web TestBot in either Chrome or Firefox as described in the section "Starting the Web TestBot" below, passing your Respoke application ID as a parameter on the URL.
 
-5) Open the the RespokeSDK workspace in XCode and choose Product -> Test
+5) Open the the RespokeSDK workspace in Xcode and choose Product -> Test
 
-6) The test cases will run, displaying the results inside of XCode. You will also see debug messages and video displayed in the web browser running the TestBot.
+6) The test cases will run, displaying the results inside of Xcode. You will also see debug messages and video displayed in the web browser running the TestBot.
 
 ** Please note that since the test cases do functional testing with audio and video, it is necessary to use a physical iOS device. The iOS simulator will not be able to pass all of the tests.
 
@@ -48,7 +48,7 @@ Starting the Web TestBot
 
 The functional test cases that use RespokeCall require a specific Web application based on Respoke.js that is set up to automatically respond to certain actions that the SDK test cases perform. Because the web application will use audio and video, it requires special user permissions from browsers that support WebRTC and typically requires user interaction. Therefore it must run from either the context of a web server, or by loading the html file from the file system with specific command line parameters for Chrome. 
 
-Additionally, the XCode test project has been set up to expect that the web application will connect to Respoke with a specific endpoint ID in the following format:
+Additionally, the Xcode test project has been set up to expect that the web application will connect to Respoke with a specific endpoint ID in the following format:
 
 testbot-username
 
@@ -67,7 +67,7 @@ To set up your system to perform these tests, do one of the following:
     --allow-file-access-from-files \
     ./RespokeSDKTests/WebTestBot/index.html &
 
-2) Once the file has loaded, append your local username and Respoke application ID to the URL to match what XCode will search for as the tests run:
+2) Once the file has loaded, append your local username and Respoke application ID to the URL to match what Xcode will search for as the tests run:
 
     file:///respoke-sdk-ios/RespokeSDKTests/WebTestBot/index.html#?un=mymacusername&app_id=my-respoke-app-id
 

@@ -22,17 +22,33 @@
 
 
 /**
- *  Initialize a new group instance
+ *  Initialize a new group instance. Defaults to setting the group's isJoined to `true`.
+ *  To manually specify the `isJoined` param, use the other method signature.
  *
  *  @param groupID  The ID of the group
- *  @param token    The application token
  *  @param channel  The signaling channel to use
  *  @param client   The client managing this group
  *
  *  @return The newly initialized instance
  */
-- (instancetype)initWithGroupID:(NSString*)groupID appToken:(NSString*)token signalingChannel:(RespokeSignalingChannel*)channel client:(RespokeClient*)newClient;
+- (instancetype)initWithGroupID:(NSString*)groupID signalingChannel:(RespokeSignalingChannel*)channel
+                         client:(RespokeClient*)newClient;
 
+/**
+ *  Initialize a new group instance
+ *
+ *  @param groupID  The ID of the group
+ *  @param channel  The signaling channel to use
+ *  @param client   The client managing this group
+ *  @param isJoined Whether the group has already been joined
+ *
+ *  @return The newly initialized instance
+ */
+- (instancetype)initWithGroupID:(NSString*)groupID signalingChannel:(RespokeSignalingChannel*)channel
+                         client:(RespokeClient*)newClient isJoined:(BOOL)isJoined;
+
+
+- (BOOL)isConnected;
 
 /**
  *  Notify the group that a connection has joined

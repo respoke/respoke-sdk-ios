@@ -20,6 +20,8 @@
 #import "RespokeEndpoint+private.h"
 #import "RespokeConnection+private.h"
 #import "Respoke+private.h"
+#import "RespokeGroupMessage.h"
+#import "RespokeGroupMessage+private.h"
 
 #define RECONNECT_INTERVAL 0.5 ///< The exponential step interval between automatic reconnect attempts, in seconds
 
@@ -71,7 +73,7 @@
         connectionInProgress = YES;
         reconnect = shouldReconnect;
         applicationID = appID;
-        
+
         APIGetToken *getToken = [[APIGetToken alloc] initWithBaseUrl:baseURL];
         getToken.appID = appID;
         getToken.endpointID = endpoint;
@@ -79,7 +81,7 @@
         [getToken goWithSuccessHandler:^{
             [self connectWithTokenID:getToken.token initialPresence:newPresence errorHandler:^(NSString *errorMessage){
                 connectionInProgress = NO;
-                
+
                 if (errorHandler)
                 {
                     errorHandler(errorMessage);
@@ -87,7 +89,7 @@
             }];
         } errorHandler:^(NSString *errorMessage){
             connectionInProgress = NO;
-            
+
             if (errorHandler)
             {
                 errorHandler(errorMessage);
@@ -112,13 +114,13 @@
         [doOpen goWithSuccessHandler:^{
             // Remember the presence value to set once connected
             presence = newPresence;
-            
+
             signalingChannel = [[RespokeSignalingChannel alloc] initWithAppToken:doOpen.appToken baseURL:baseURL];
             signalingChannel.delegate = self;
             [signalingChannel authenticate];
         } errorHandler:^(NSString *errorMessage){
             connectionInProgress = NO;
-            
+
             if (errorHandler)
             {
                 errorHandler(errorMessage);
@@ -140,15 +142,15 @@
 - (RespokeCall*)joinConferenceWithDelegate:(id <RespokeCallDelegate>)delegate conferenceID:(NSString*)conferenceID
 {
     RespokeCall *call = nil;
-    
+
     if (signalingChannel && signalingChannel.connected)
     {
         call = [[RespokeCall alloc] initWithSignalingChannel:signalingChannel endpointID:conferenceID type:@"conference" audioOnly:YES];
         call.delegate = delegate;
-        
+
         [call startCall];
     }
-    
+
     return call;
 }
 
@@ -186,11 +188,11 @@
                     NSMutableArray *newGroups = [[NSMutableArray alloc] initWithCapacity:groupNames.count];
                     for (NSString *groupName in groupNames)
                     {
-                        RespokeGroup *newGroup = [[RespokeGroup alloc] initWithGroupID:groupName appToken:applicationToken signalingChannel:signalingChannel client:self];
+                        RespokeGroup *newGroup = [[RespokeGroup alloc] initWithGroupID:groupName signalingChannel:signalingChannel client:self];
                         [groups setObject:newGroup forKey:groupName];
                         [newGroups addObject:newGroup];
                     }
-                    
+
                     if (successHandler)
                     {
                         successHandler(newGroups);
@@ -286,9 +288,9 @@
         {
             presenceToSet = @"available";
         }
-        
+
         NSDictionary *data = @{@"presence": @{@"type": presenceToSet}};
-        
+
         [signalingChannel sendRESTMessage:@"post" url:@"/v1/presence" data:data responseHandler:^(id response, NSString *errorMessage) {
             if (errorMessage)
             {
@@ -300,7 +302,7 @@
             else
             {
                 presence = presenceToSet;
-                
+
                 if (successHandler)
                 {
                     successHandler();
@@ -318,6 +320,135 @@
 - (RespokeGroup*)getGroupWithID:(NSString*)groupID
 {
     return [groups objectForKey:groupID];
+}
+
+- (void)getGroupHistoriesForGroupIDs:(NSArray *)groupIDs
+                      successHandler:(void (^)(NSDictionary *))successHandler
+                        errorHandler:(void (^)(NSString *))errorHandler
+{
+    [self getGroupHistoriesForGroupIDs:groupIDs maxMessages:1 successHandler:successHandler
+                          errorHandler:errorHandler];
+}
+
+- (void)getGroupHistoriesForGroupIDs:(NSArray *)groupIDs maxMessages:(NSInteger)maxMessages
+                      successHandler:(void (^)(NSDictionary *))successHandler
+                        errorHandler:(void (^)(NSString *))errorHandler
+{
+    if (![self isConnected]) {
+        errorHandler(@"Can't complete request when not connected. Please reconnect!");
+        return;
+    }
+
+    if (maxMessages < 1) {
+        errorHandler(@"maxMessages must be at least 1");
+        return;
+    }
+
+    if (![groupIDs count]) {
+        errorHandler(@"At least 1 group must be specified");
+        return;
+    }
+
+    NSString* query = [[Respoke sharedInstance] buildQueryWithComponents:@{
+        @"limit": @(maxMessages),
+        @"groupIds": groupIDs
+    }];
+
+    NSString* urlEndpoint = [NSString stringWithFormat:@"/v1/group-histories%@", query];
+
+    [signalingChannel sendRESTMessage:@"get" url:urlEndpoint data:nil
+                      responseHandler:^(NSDictionary* groupHistories, NSString* errorMessage) {
+        if (errorMessage) {
+            NSLog(@"Error retrieving group histories: %@", errorMessage);
+            return;
+        }
+
+        NSMutableDictionary* results = [[NSMutableDictionary alloc] init];
+
+        for (id key in groupHistories) {
+            NSString* groupID = (NSString*) key;
+            NSArray* messages = groupHistories[key];
+
+            NSMutableArray* groupMessageList = [[NSMutableArray alloc]
+                initWithCapacity:[messages count]];
+
+            for (NSDictionary* message in messages) {
+                RespokeGroupMessage* groupMessage = [self buildGroupMessageWithValues:message];
+                [groupMessageList addObject: groupMessage];
+            }
+
+            results[groupID] = groupMessageList;
+        }
+
+        successHandler(results);
+    }];
+
+}
+
+- (void)getGroupHistoryForGroupID:(NSString *)groupID
+                   successHandler:(void (^)(NSArray *))successHandler
+                     errorHandler:(void (^)(NSString *))errorHandler
+{
+    [self getGroupHistoryForGroupID:groupID maxMessages:50 before:[NSDate date]
+                     successHandler:successHandler errorHandler:errorHandler];
+}
+
+- (void)getGroupHistoryForGroupID:(NSString *)groupID maxMessages:(NSInteger)maxMessages
+                   successHandler:(void (^)(NSArray *))successHandler
+                     errorHandler:(void (^)(NSString *))errorHandler
+{
+    [self getGroupHistoryForGroupID:groupID maxMessages:maxMessages before:[NSDate date]
+                     successHandler:successHandler errorHandler:errorHandler];
+}
+
+- (void)getGroupHistoryForGroupID:(NSString *)groupID maxMessages:(NSInteger)maxMessages
+                           before:(NSDate *)before successHandler:(void (^)(NSArray *))successHandler
+                     errorHandler:(void (^)(NSString *))errorHandler
+{
+    if (![self isConnected]) {
+        errorHandler(@"Can't complete request when not connected. Please reconnect!");
+        return;
+    }
+
+    if (maxMessages < 1) {
+        errorHandler(@"maxMessages must be at least 1");
+        return;
+    }
+
+    if (![groupID length]) {
+        errorHandler(@"groupID cannot be blank");
+        return;
+    }
+
+    NSMutableDictionary* components = [[NSMutableDictionary alloc]
+        initWithDictionary:@{ @"limit": @(maxMessages) }];
+
+    if (before) {
+        NSNumber* timestamp = @([before timeIntervalSince1970] * 1000);
+        components[@"before"] = timestamp;
+    }
+
+    NSString* query = [[Respoke sharedInstance] buildQueryWithComponents:components];
+    NSString* encodedGroupID = [[Respoke sharedInstance] encodeURIComponent:groupID];
+    NSString* urlEndpoint = [NSString stringWithFormat:@"/v1/groups/%@/history%@", encodedGroupID, query];
+
+    [signalingChannel sendRESTMessage:@"get" url:urlEndpoint data:nil
+                      responseHandler:^(NSArray* messages, NSString* errorMessage)
+    {
+        if (errorMessage) {
+            NSLog(@"Error retrieving group history: %@", errorMessage);
+            return;
+        }
+
+        NSMutableArray* results = [[NSMutableArray alloc] initWithCapacity:[messages count]];
+
+        for (NSDictionary* message in messages) {
+            RespokeGroupMessage* groupMessage = [self buildGroupMessageWithValues:message];
+            [results addObject: groupMessage];
+        }
+
+        successHandler(results);
+    }];
 }
 
 
@@ -338,7 +469,7 @@
 - (void)registerPushServicesWithToken:(NSData*)token
 {
     NSString *tokenHexString = [self hexifyData:token];
-    
+
     NSString *lastKnownPushTokenId = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_VALID_PUSH_TOKEN_ID_KEY];
     NSString *lastKnownPushToken = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_VALID_PUSH_TOKEN_KEY];
 
@@ -352,15 +483,15 @@
         httpURI = [NSString stringWithFormat:@"/v1/connections/%@/push-token", localConnectionID];
         pushTokenStatus = TOKEN_STATUS_CREATED;
     }
-    else 
+    else
     {   // reregister the pushToken
-        // You might think "nothing to do here" if the token hasn't changed, but if the app changes 
-        // its endpointId, failing to update here will cause the app to stop receiving push notifications, 
-        // as the token will forever be associated with the old endpointId.  
+        // You might think "nothing to do here" if the token hasn't changed, but if the app changes
+        // its endpointId, failing to update here will cause the app to stop receiving push notifications,
+        // as the token will forever be associated with the old endpointId.
         httpMethod = @"put";
         httpURI = [NSString stringWithFormat:@"/v1/connections/%@/push-token/%@", localConnectionID, lastKnownPushTokenId];
         pushTokenStatus = TOKEN_STATUS_REUSED;
-        if (![lastKnownPushToken isEqualToString:tokenHexString]) 
+        if (![lastKnownPushToken isEqualToString:tokenHexString])
         {
             pushTokenStatus = TOKEN_STATUS_RENEWED;
         }
@@ -407,7 +538,7 @@
                     [[NSUserDefaults standardUserDefaults] removeObjectForKey:LAST_VALID_PUSH_TOKEN_KEY];
                     [[NSUserDefaults standardUserDefaults] removeObjectForKey:LAST_VALID_PUSH_TOKEN_ID_KEY];
                     [[NSUserDefaults standardUserDefaults] synchronize];
-                    
+
                     if (successHandler)
                     {
                         successHandler();
@@ -481,10 +612,10 @@
     localConnectionID = connectionID;
 
     [[Respoke sharedInstance] client:self connectedWithEndpoint:endpointID];
-    
+
     // Try to set the presence to the initial or last set state
     [self setPresence:presence successHandler:nil errorHandler:nil];
-    
+
     [self.delegate onConnect:self];
 }
 
@@ -515,16 +646,16 @@
 {
     RespokeEndpoint *endpoint = nil;
     RespokeCall *call;
-    
+
     if ([fromType isEqualToString:@"web"]) {
         endpoint = [self getEndpointWithID:endpointID skipCreate:NO];
-    
+
         if (endpoint == nil) {
             NSLog(@"------Error: Could not create Endpoint for incoming call");
             return;
         }
     }
-    
+
     call = [[RespokeCall alloc] initWithSignalingChannel:signalingChannel incomingCallSDP:sdp sessionID:sessionID connectionID:connectionID endpointID:endpointID fromType:fromType endpoint:endpoint directConnectionOnly:NO timestamp:timestamp];
     [self.delegate onCall:call sender:self];
 }
@@ -534,7 +665,7 @@
 - (void)onIncomingDirectConnectionWithSDP:(NSDictionary*)sdp sessionID:(NSString*)sessionID connectionID:(NSString*)connectionID endpointID:(NSString*)endpointID sender:(RespokeSignalingChannel*)sender timestamp:(NSDate *)timestamp
 {
     RespokeEndpoint *endpoint = [self getEndpointWithID:endpointID skipCreate:NO];
-    
+
     if (endpoint)
     {
         // A remote device is trying to create a direct connection with us, so create a call instance to deal with it
@@ -601,7 +732,7 @@
                 [group connectionDidLeave:connection];
             }
         }
-    }   
+    }
 }
 
 
@@ -652,7 +783,7 @@
 
         RespokeEndpoint *endpoint = [connection getEndpoint];
         [endpoint resolvePresence];
-    }   
+    }
 }
 
 
@@ -671,7 +802,7 @@
 - (RespokeCall*)callWithID:(NSString*)sessionID
 {
     RespokeCall *call = nil;
-    
+
     for (RespokeCall *eachCall in calls)
     {
         if ([[eachCall getSessionID] isEqualToString:sessionID])
@@ -680,7 +811,7 @@
             break;
         }
     }
-    
+
     return call;
 }
 
@@ -698,16 +829,48 @@
     {
         return [NSString string];
     }
-    
+
     NSUInteger dataLength = [data length];
     NSMutableString *hex = [NSMutableString stringWithCapacity:(dataLength * 2)];
     for (int i = 0; i < dataLength; ++i)
     {
         [hex appendString:[NSString stringWithFormat:@"%02lx", (unsigned long)dataBuffer[i]]];
     }
-    
+
     return [NSString stringWithString:hex];
 }
 
+- (RespokeGroupMessage*)buildGroupMessageWithValues:(NSDictionary*)values
+{
+    if (!values) {
+        return nil;
+    }
+
+    NSDate* timestamp;
+    NSString* endpointID = [values valueForKeyPath:@"header.from"];
+    NSString* groupID = [values valueForKeyPath:@"header.channel"];
+    NSNumber* timestampNumber = [values valueForKeyPath:@"header.timestamp"];
+    NSString* message = values[@"message"];
+
+    RespokeEndpoint* endpoint = [self getEndpointWithID:endpointID skipCreate:NO];
+    RespokeGroup* group = [self getGroupWithID:groupID];
+
+    if (!group) {
+        group = [[RespokeGroup alloc] initWithGroupID:groupID signalingChannel:signalingChannel
+                                               client:self isJoined:NO];
+        groups[groupID] = group;
+    }
+
+    if (timestampNumber) {
+        NSTimeInterval timestampInterval =
+            (NSTimeInterval) ([timestampNumber longLongValue] / 1000.0);
+        timestamp = [NSDate dateWithTimeIntervalSince1970:timestampInterval];
+    } else {
+        timestamp = [NSDate date];
+    }
+
+    return [[RespokeGroupMessage alloc] initWithMessage:message group:group endpoint:endpoint
+                                              timestamp:timestamp];
+}
 
 @end

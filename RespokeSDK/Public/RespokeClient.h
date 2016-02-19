@@ -49,7 +49,7 @@
 
 /**
  *  Connect to the Respoke infrastructure and authenticate in development mode using the specified endpoint ID and app ID.
- *  Attempt to obtain an authentication token automatically from the Respoke infrastructure. Get the first set of TURN 
+ *  Attempt to obtain an authentication token automatically from the Respoke infrastructure. Get the first set of TURN
  *  credentials and store them internally for later use.
  *
  *  @param endpoint       The endpoint ID to use when connecting
@@ -188,6 +188,84 @@
  *  @return The group with specified ID
  */
 - (RespokeGroup*)getGroupWithID:(NSString*)groupID;
+
+
+/**
+ * Retrieve the history of messages that have been persisted for 1 or more groups. Only those
+ * messages that have been marked to be persisted when sent will show up in the history. Only
+ * the most recent message in each group will be retrieved - to pull more messages, use the
+ * other method signature that allows `maxMessages` to be specified.
+ *
+ * @param groupIDs The groups to pull history for
+ * @param successHandler The block called when this async operation has completed successfully
+ * @param errorHandler The block called when this async operation has completed with an error
+ */
+- (void)getGroupHistoriesForGroupIDs:(NSArray*)groupIDs
+                      successHandler:(void (^)(NSDictionary*))successHandler
+                        errorHandler:(void (^)(NSString*))errorHandler;
+
+
+/**
+ * Retrieve the history of messages that have been persisted for 1 or more groups. Only those
+ * messages that have been marked to be persisted when sent will show up in the history.
+ *
+ * @param groupIDs The groups to pull history for
+ * @param maxMessages The maximum number of messages per group to pull. Must be >= 1
+ * @param successHandler The block called when this async operation has completed successfully
+ * @param errorHandler The block called when this async operation has completed with an error
+ */
+- (void)getGroupHistoriesForGroupIDs:(NSArray*)groupIDs maxMessages:(NSInteger)maxMessages
+                      successHandler:(void (^)(NSDictionary*))successHandler
+                        errorHandler:(void (^)(NSString*))errorHandler;
+
+
+/**
+ * Retrieve the history of messages that have been persisted for a specific group. Only those
+ * messages that have been marked to be persisted when sent will show up in the history. Only
+ * the 50 most recent messages in each group will be retrieved - to change the maximum number of
+ * messages pulled, use the other method signature that allows `maxMessages` to be specified. To
+ * retrieve messages further back in the history than right now, use the other method signature
+ * that allows `before` to be specified.
+ *
+ * @param groupID The groups to pull history for
+ * @param successHandler The block called when this async operation has completed successfully
+ * @param errorHandler The block called when this async operation has completed with an error
+ */
+- (void)getGroupHistoryForGroupID:(NSString*)groupID
+                   successHandler:(void (^)(NSArray*))successHandler
+                     errorHandler:(void (^)(NSString*))errorHandler;
+
+
+/**
+ * Retrieve the history of messages that have been persisted for a specific group. Only those
+ * messages that have been marked to be persisted when sent will show up in the history. To
+ * retrieve messages further back in the history than right now, use the other method signature
+ * that allows `before` to be specified.
+ *
+ * @param groupID The groups to pull history for
+ * @param maxMessages The maximum number of messages per group to pull. Must be >= 1
+ * @param successHandler The block called when this async operation has completed successfully
+ * @param errorHandler The block called when this async operation has completed with an error
+ */
+- (void)getGroupHistoryForGroupID:(NSString*)groupID maxMessages:(NSInteger)maxMessages
+                   successHandler:(void (^)(NSArray*))successHandler
+                     errorHandler:(void (^)(NSString*))errorHandler;
+
+
+/**
+ * Retrieve the history of messages that have been persisted for a specific group. Only those
+ * messages that have been marked to be persisted when sent will show up in the history.
+ *
+ * @param groupID The groups to pull history for
+ * @param maxMessages The maximum number of messages per group to pull. Must be >= 1
+ * @param before Limit messages to those with a timestamp before this value
+ * @param successHandler The block called when this async operation has completed successfully
+ * @param errorHandler The block called when this async operation has completed with an error
+ */
+- (void)getGroupHistoryForGroupID:(NSString*)groupID maxMessages:(NSInteger)maxMessages
+                           before:(NSDate*)before successHandler:(void (^)(NSArray*))successHandler
+                     errorHandler:(void (^)(NSString*))errorHandler;
+
 
 /**
  *  Convenience method for setting presence to "available".

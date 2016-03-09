@@ -77,7 +77,8 @@
     
     // diconnect and immediately reconnect
     [senderClient disconnect];
-    
+    [self createTestClientWithEndpointID:senderEndpointID delegate:self];
+
     // message should error out
     asyncTaskDone = NO;
     callbackDidSucceed = NO;
@@ -92,7 +93,7 @@
     }];
     
     [self waitForCompletion:TEST_TIMEOUT];
-    XCTAssertTrue(callbackDidSucceed, @"sendMessage should call successHandler");
+    XCTAssertTrue(callbackDidSucceed, @"sendMessage should call errorHandler");
 }
 
 /**
@@ -138,7 +139,7 @@
     }];
     
     [self waitForCompletion:TEST_TIMEOUT];
-    XCTAssertTrue(callbackDidSucceed, @"sendMessage should call successHandler");
+    XCTAssertTrue(callbackDidSucceed, @"sendMessage should call errorHandler");
 }
 
 /**
@@ -190,7 +191,7 @@
 
 - (void)onError:(NSError *)error fromClient:(RespokeClient*)sender
 {
-    XCTAssertTrue(NO, @"Should not produce any client errors during endpoint testing");
+    XCTAssertTrue(NO, @"Should not produce any client errors during testing");
     asyncTaskDone = YES;
 }
 

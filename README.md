@@ -84,7 +84,7 @@ To set up your system to perform these tests, do one of the following:
 
 2) Start http-server from the testbot directory:
 
-    $ cd respokeSDK/WebTestBot/
+    $ cd RespokeSDKTests/WebTestBot/
     $ http-server
 
 3) Start Chrome using command line parameters to use fake audio/video and auto accept media permissions so that no human interaction is required:

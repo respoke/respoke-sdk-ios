@@ -53,7 +53,8 @@
 		18E942571993D61000C8B142 /* APITransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E9424E1993D61000C8B142 /* APITransaction.m */; };
 		18FB22451A72AD2100057C1B /* GroupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FB22441A72AD2100057C1B /* GroupTests.m */; };
 		18FB22471A72C0CA00057C1B /* RespokeGroupTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FB22461A72C0CA00057C1B /* RespokeGroupTests.m */; };
-		AABC19C35425CBE815BD57F1 /* libPods-RespokeSDKTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A1455727790901A9D481A068 /* libPods-RespokeSDKTests.a */; };
+		1FA34A871C8F6E1A002F26DC /* ConnectionDisconnectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA34A861C8F6E1A002F26DC /* ConnectionDisconnectTests.m */; };
+		A3478390332AB0FF008AB73A /* libPods-RespokeSDKTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 471928E8B5D61AA702C7F85F /* libPods-RespokeSDKTests.a */; };
 		B69C623268028C01B8E9E403 /* RespokeGroupMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B69C627D5DEB0A1DF7DA29E6 /* RespokeGroupMessage.m */; };
 		B69C67B1A259F1AB6BF942B9 /* RespokeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B69C636C808FB4E61B874732 /* RespokeTests.m */; };
 		D452EDB11A68A8EE0080D954 /* RespokeMediaStats.m in Sources */ = {isa = PBXBuildFile; fileRef = D452EDB01A68A8EE0080D954 /* RespokeMediaStats.m */; };
@@ -159,12 +160,14 @@
 		18E9444D1993EBF800C8B142 /* RespokeGroup+private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RespokeGroup+private.h"; sourceTree = "<group>"; };
 		18FB22441A72AD2100057C1B /* GroupTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupTests.m; sourceTree = "<group>"; };
 		18FB22461A72C0CA00057C1B /* RespokeGroupTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RespokeGroupTests.m; path = RespokeSDKTests/unit/RespokeGroupTests.m; sourceTree = SOURCE_ROOT; };
-		A1455727790901A9D481A068 /* libPods-RespokeSDKTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RespokeSDKTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B1686A172CC682632CA266A5 /* Pods-RespokeSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RespokeSDKTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RespokeSDKTests/Pods-RespokeSDKTests.release.xcconfig"; sourceTree = "<group>"; };
+		1FA34A861C8F6E1A002F26DC /* ConnectionDisconnectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionDisconnectTests.m; sourceTree = "<group>"; };
+		471928E8B5D61AA702C7F85F /* libPods-RespokeSDKTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RespokeSDKTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE3EE569ACCF72B9ED298A1F /* Pods-RespokeSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RespokeSDKTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RespokeSDKTests/Pods-RespokeSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B69C61B0E4DF241201CF7ABF /* RespokeGroupMessage+private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RespokeGroupMessage+private.h"; sourceTree = "<group>"; };
 		B69C627D5DEB0A1DF7DA29E6 /* RespokeGroupMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RespokeGroupMessage.m; sourceTree = "<group>"; };
 		B69C636C808FB4E61B874732 /* RespokeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RespokeTests.m; path = RespokeSDKTests/unit/RespokeTests.m; sourceTree = SOURCE_ROOT; };
 		B69C6AB33B024006CE8213E7 /* RespokeGroupMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RespokeGroupMessage.h; sourceTree = "<group>"; };
+		CF751BC22A3C10B3E73BC1CC /* Pods-RespokeSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RespokeSDKTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RespokeSDKTests/Pods-RespokeSDKTests.release.xcconfig"; sourceTree = "<group>"; };
 		D42AE9E71A38DB8D00B1C9A1 /* Respoke.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Respoke.h; path = Public/Respoke.h; sourceTree = "<group>"; };
 		D42AE9E81A38DB8D00B1C9A1 /* RespokeCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RespokeCall.h; path = Public/RespokeCall.h; sourceTree = "<group>"; };
 		D42AE9E91A38DB8D00B1C9A1 /* RespokeClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RespokeClient.h; path = Public/RespokeClient.h; sourceTree = "<group>"; };
@@ -209,7 +212,6 @@
 		D4A68E1F1B0FEA990018307F /* SocketIOTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOTransport.h; sourceTree = "<group>"; };
 		D4A68E201B0FEA990018307F /* SocketIOTransportWebsocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOTransportWebsocket.h; sourceTree = "<group>"; };
 		D4A68E211B0FEA990018307F /* SocketIOTransportXHR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOTransportXHR.h; sourceTree = "<group>"; };
-		EB6EC214E1387CC056A5EEE1 /* Pods-RespokeSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RespokeSDKTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RespokeSDKTests/Pods-RespokeSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
 		FC72B8EF1BB83B7D00548EDB /* NSString+urlencode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+urlencode.h"; sourceTree = "<group>"; };
 		FC72B8F01BB83B7D00548EDB /* NSString+urlencode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+urlencode.m"; sourceTree = "<group>"; };
 		FCCB2D051BBA2FDF000BDC3F /* RespokeVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RespokeVersion.m; sourceTree = "<group>"; };
@@ -254,7 +256,7 @@
 				18E9421B1993D46E00C8B142 /* XCTest.framework in Frameworks */,
 				18E9421E1993D46E00C8B142 /* UIKit.framework in Frameworks */,
 				18E9421C1993D46E00C8B142 /* Foundation.framework in Frameworks */,
-				AABC19C35425CBE815BD57F1 /* libPods-RespokeSDKTests.a in Frameworks */,
+				A3478390332AB0FF008AB73A /* libPods-RespokeSDKTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,6 +291,7 @@
 			isa = PBXGroup;
 			children = (
 				189CAB781A783451006E24E5 /* CallingTests.m */,
+				1FA34A861C8F6E1A002F26DC /* ConnectionDisconnectTests.m */,
 				182A2EFC1A86564A009148A1 /* DirectConnectionTests.m */,
 				18FB22441A72AD2100057C1B /* GroupTests.m */,
 				D47DC5AA1B82A39F0022087C /* HangupTests.m */,
@@ -317,7 +320,7 @@
 				18E942221993D46E00C8B142 /* RespokeSDKTests */,
 				18E9420B1993D46E00C8B142 /* Frameworks */,
 				18E9420A1993D46E00C8B142 /* Products */,
-				A321402555888EF0F0B5E481 /* Pods */,
+				C1B7F8BB77D0D9B0CE6FA797 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -351,7 +354,7 @@
 				18E9420C1993D46E00C8B142 /* Foundation.framework */,
 				18E9421A1993D46E00C8B142 /* XCTest.framework */,
 				18E9421D1993D46E00C8B142 /* UIKit.framework */,
-				A1455727790901A9D481A068 /* libPods-RespokeSDKTests.a */,
+				471928E8B5D61AA702C7F85F /* libPods-RespokeSDKTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -452,11 +455,11 @@
 			name = PublicHeaders;
 			sourceTree = "<group>";
 		};
-		A321402555888EF0F0B5E481 /* Pods */ = {
+		C1B7F8BB77D0D9B0CE6FA797 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				EB6EC214E1387CC056A5EEE1 /* Pods-RespokeSDKTests.debug.xcconfig */,
-				B1686A172CC682632CA266A5 /* Pods-RespokeSDKTests.release.xcconfig */,
+				AE3EE569ACCF72B9ED298A1F /* Pods-RespokeSDKTests.debug.xcconfig */,
+				CF751BC22A3C10B3E73BC1CC /* Pods-RespokeSDKTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -551,12 +554,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18E9422F1993D46E00C8B142 /* Build configuration list for PBXNativeTarget "RespokeSDKTests" */;
 			buildPhases = (
-				930917AF9C2EBB8992526AC8 /* Check Pods Manifest.lock */,
+				930917AF9C2EBB8992526AC8 /* 📦 Check Pods Manifest.lock */,
 				18E942151993D46E00C8B142 /* Sources */,
 				18E942161993D46E00C8B142 /* Frameworks */,
 				18E942171993D46E00C8B142 /* Resources */,
-				A247B4F49A87CCF3B37D7999 /* Embed Pods Frameworks */,
-				CC492A9AAAD27D3D9CB33774 /* Copy Pods Resources */,
+				A247B4F49A87CCF3B37D7999 /* 📦 Embed Pods Frameworks */,
+				CC492A9AAAD27D3D9CB33774 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -629,14 +632,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		930917AF9C2EBB8992526AC8 /* Check Pods Manifest.lock */ = {
+		930917AF9C2EBB8992526AC8 /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -644,14 +647,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		A247B4F49A87CCF3B37D7999 /* Embed Pods Frameworks */ = {
+		A247B4F49A87CCF3B37D7999 /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -659,14 +662,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RespokeSDKTests/Pods-RespokeSDKTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CC492A9AAAD27D3D9CB33774 /* Copy Pods Resources */ = {
+		CC492A9AAAD27D3D9CB33774 /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "📦 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -722,6 +725,7 @@
 				18C7DAB61A70514300D60F0A /* MessagingTests.m in Sources */,
 				182A2EFD1A86564A009148A1 /* DirectConnectionTests.m in Sources */,
 				18FB22451A72AD2100057C1B /* GroupTests.m in Sources */,
+				1FA34A871C8F6E1A002F26DC /* ConnectionDisconnectTests.m in Sources */,
 				18C7DAB71A70514300D60F0A /* RespokeClientTests.m in Sources */,
 				18C7DAB91A70514300D60F0A /* RespokeSDKTests.m in Sources */,
 				B69C67B1A259F1AB6BF942B9 /* RespokeTests.m in Sources */,
@@ -912,7 +916,7 @@
 		};
 		18E942301993D46E00C8B142 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EB6EC214E1387CC056A5EEE1 /* Pods-RespokeSDKTests.debug.xcconfig */;
+			baseConfigurationReference = AE3EE569ACCF72B9ED298A1F /* Pods-RespokeSDKTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -938,7 +942,7 @@
 		};
 		18E942311993D46E00C8B142 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B1686A172CC682632CA266A5 /* Pods-RespokeSDKTests.release.xcconfig */;
+			baseConfigurationReference = CF751BC22A3C10B3E73BC1CC /* Pods-RespokeSDKTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_WARN_UNREACHABLE_CODE = YES;

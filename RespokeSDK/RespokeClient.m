@@ -1,3 +1,4 @@
+
 //
 //  RespokeClient.m
 //  Respoke SDK
@@ -22,6 +23,10 @@
 #import "Respoke+private.h"
 #import "RespokeGroupMessage.h"
 #import "RespokeGroupMessage+private.h"
+#import "RespokeConversation.h"
+#import "RespokeConversation+private.h"
+#import "RespokeConversationReadStatus.h"
+#import "RespokeConversationReadStatus.h"
 
 #define RECONNECT_INTERVAL 0.5 ///< The exponential step interval between automatic reconnect attempts, in seconds
 
@@ -349,17 +354,15 @@
         return;
     }
 
-    NSString* query = [[Respoke sharedInstance] buildQueryWithComponents:@{
-        @"limit": @(maxMessages),
-        @"groupIds": groupIDs
-    }];
-
-    NSString* urlEndpoint = [NSString stringWithFormat:@"/v1/group-histories%@", query];
-
-    [signalingChannel sendRESTMessage:@"get" url:urlEndpoint data:nil
+    NSDictionary *body = @{
+        @"groupIds": groupIDs,
+        @"limit": @(maxMessages)
+    };
+    
+    [signalingChannel sendRESTMessage:@"post" url:@"/v1/group-history-search" data:body
                       responseHandler:^(NSDictionary* groupHistories, NSString* errorMessage) {
         if (errorMessage) {
-            NSLog(@"Error retrieving group histories: %@", errorMessage);
+            errorHandler(errorMessage);
             return;
         }
 
@@ -383,6 +386,112 @@
         successHandler(results);
     }];
 
+}
+
+/**
+ * Retrieve a list of conversations that this endpoint has
+ * message history with. Only group messages that have been marked to be
+ * persisted will show up in history (and thus create a conversation).
+ *
+ * The success handler is passed a list of EndpointConversationInfo records.
+ */
+- (void)getConversations:(void (^)(NSDictionary *))successHandler
+                        errorHandler:(void (^)(NSString *))errorHandler
+{
+    if (![self isConnected]) {
+        errorHandler(@"Can't complete request when not connected. Please reconnect!");
+        return;
+    }
+
+    NSString* urlEndpoint = [NSString stringWithFormat:@"/v1/endpoints/%@/conversations", localEndpointID];
+    
+    [signalingChannel sendRESTMessage:@"get" url:urlEndpoint data:nil
+                      responseHandler:^(NSArray* conversations, NSString* errorMessage) {
+                          if (errorMessage) {
+                              errorHandler(errorMessage);
+                              return;
+                          }
+                          
+                          NSMutableDictionary* results = [[NSMutableDictionary alloc] init];
+                          
+                          for (id conv in conversations) {
+                              
+                              NSObject *msg = conv[@"latestMsg"];
+                              NSDictionary *latestMsg;
+                              
+                              // If API returned a string, parse it.
+                              if([msg isKindOfClass:[NSString class]]) {
+                                  NSString *strMessage = (NSString *)msg;
+                                  NSData *jsonData = [strMessage dataUsingEncoding:NSUTF8StringEncoding];
+                                  NSError *error = [[NSError alloc] init];
+                                  latestMsg = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
+                                
+                                  if (!latestMsg) {
+                                      latestMsg = @{ @"message": strMessage };
+                                  }
+                              } else if([msg isKindOfClass:[NSDictionary class]]) {
+                                  latestMsg = (NSDictionary *)msg;
+                              }
+
+                              NSNumber *timestampNumber = conv[@"timestamp"];
+                              NSTimeInterval timestampInterval =
+                              (NSTimeInterval) ([timestampNumber longLongValue] / 1000.0);
+                              NSDate *timestamp = [NSDate dateWithTimeIntervalSince1970:timestampInterval];
+    
+                              NSInteger unread = [conv[@"unreadCount"] integerValue];
+                              NSString *groupId = conv[@"groupId"];
+                              NSString *sourceId = conv[@"sourceId"];
+                              
+                              RespokeConversation* conversation = [[RespokeConversation alloc] init:latestMsg
+                                                                                            groupID:groupId
+                                                                                           sourceID:sourceId
+                                                                                        unreadCount:unread
+                                                                                          timestamp:timestamp];
+                    
+                              results[groupId] = conversation;
+                          }
+                          
+                          successHandler(results);
+                      }];
+    
+}
+
+
+- (void)setConversationsRead:(NSArray *)conversationStatuses
+              successHandler:(void (^)(NSDictionary *))successHandler
+                errorHandler:(void (^)(NSString *))errorHandler
+{
+    if (![self isConnected]) {
+        errorHandler(@"Can't complete request when not connected. Please reconnect!");
+        return;
+    }
+    
+    NSMutableDictionary* body = [[NSMutableDictionary alloc] init];
+    NSMutableArray* groupStatuses = [[NSMutableArray alloc] init];
+    
+    for (id s in conversationStatuses) {
+        RespokeConversationReadStatus *status = (RespokeConversationReadStatus *)s;
+        NSNumber* milliseconds = @([status.timestamp timeIntervalSince1970] * 1000);
+        NSDictionary *group = @{ @"groupId": status.groupID, @"timestamp": milliseconds};
+        
+        [groupStatuses addObject:group];
+    }
+    
+    [body setObject:groupStatuses forKey:@"groups"];
+    
+    NSString* urlEndpoint = [NSString stringWithFormat:@"/v1/endpoints/%@/conversations", localEndpointID];
+    
+    [signalingChannel sendRESTMessage:@"post" url:urlEndpoint data:body
+                      responseHandler:^(NSArray* conversations, NSString* errorMessage) {
+                          if (errorMessage) {
+                              errorHandler(errorMessage);
+                              return;
+                          }
+                          
+                          NSMutableDictionary* results = [[NSMutableDictionary alloc] init];
+                          successHandler(results);
+                      }];
+    
 }
 
 - (void)getGroupHistoryForGroupID:(NSString *)groupID

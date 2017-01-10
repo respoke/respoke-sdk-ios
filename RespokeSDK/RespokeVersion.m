@@ -13,7 +13,7 @@
 
 #import "RespokeVersion.h"
 
-static NSString* const sdk_version = @"1.3.0";
+static NSString* const sdk_version = @"1.3.1";
 
 const NSString *getSDKVersion(void)
 {

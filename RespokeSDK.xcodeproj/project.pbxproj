@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D09B16C1DFA2D860056580F /* RespokeConversation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D09B16B1DFA2D860056580F /* RespokeConversation.m */; };
+		0DF3BE221E0078DB005BF8A0 /* RespokeConversationReadStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF3BE211E0078DB005BF8A0 /* RespokeConversationReadStatus.m */; };
 		180BE48D19F9A8DF005BA3A1 /* RespokeDirectConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 180BE48C19F9A8DF005BA3A1 /* RespokeDirectConnection.m */; };
 		182A2EFD1A86564A009148A1 /* DirectConnectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 182A2EFC1A86564A009148A1 /* DirectConnectionTests.m */; };
 		1832F5051A7140A50096B5B6 /* PresenceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1832F5041A7140A50096B5B6 /* PresenceTests.m */; };
@@ -94,6 +96,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0D09B16A1DFA28AF0056580F /* RespokeConversation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RespokeConversation.h; path = Public/RespokeConversation.h; sourceTree = "<group>"; };
+		0D09B16B1DFA2D860056580F /* RespokeConversation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RespokeConversation.m; sourceTree = "<group>"; };
+		0D09B16D1DFA2DB00056580F /* RespokeConversation+private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RespokeConversation+private.h"; sourceTree = "<group>"; };
+		0DF3BE201E005D9C005BF8A0 /* RespokeConversationReadStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RespokeConversationReadStatus.h; path = Public/RespokeConversationReadStatus.h; sourceTree = "<group>"; };
+		0DF3BE211E0078DB005BF8A0 /* RespokeConversationReadStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RespokeConversationReadStatus.m; sourceTree = "<group>"; };
 		180BE48C19F9A8DF005BA3A1 /* RespokeDirectConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RespokeDirectConnection.m; sourceTree = "<group>"; };
 		180BE49219F9A990005BA3A1 /* RespokeDirectConnection+private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RespokeDirectConnection+private.h"; sourceTree = "<group>"; };
 		182A2EFC1A86564A009148A1 /* DirectConnectionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectConnectionTests.m; sourceTree = "<group>"; };
@@ -363,24 +370,29 @@
 			isa = PBXGroup;
 			children = (
 				18E947121995329E00C8B142 /* PublicHeaders */,
+				FC72B8EF1BB83B7D00548EDB /* NSString+urlencode.h */,
+				FC72B8F01BB83B7D00548EDB /* NSString+urlencode.m */,
 				18E9423C1993D61000C8B142 /* Respoke.m */,
 				18AFCBCE199A5E8600818468 /* Respoke+private.h */,
 				18E9423E1993D61000C8B142 /* RespokeCall.m */,
 				18E9444A1993EBF800C8B142 /* RespokeCall+private.h */,
-				D452EDB01A68A8EE0080D954 /* RespokeMediaStats.m */,
-				FC72B8EF1BB83B7D00548EDB /* NSString+urlencode.h */,
-				FC72B8F01BB83B7D00548EDB /* NSString+urlencode.m */,
-				D452EDB31A69C01D0080D954 /* RespokeMediaStats+private.h */,
 				18E942401993D61000C8B142 /* RespokeClient.m */,
 				18E9444B1993EBF800C8B142 /* RespokeClient+private.h */,
 				18AFCCA3199BDB0D00818468 /* RespokeConnection.m */,
 				18AFCCA5199BDB9000818468 /* RespokeConnection+private.h */,
+				0D09B16B1DFA2D860056580F /* RespokeConversation.m */,
+				0D09B16D1DFA2DB00056580F /* RespokeConversation+private.h */,
+				0DF3BE211E0078DB005BF8A0 /* RespokeConversationReadStatus.m */,
 				180BE48C19F9A8DF005BA3A1 /* RespokeDirectConnection.m */,
 				180BE49219F9A990005BA3A1 /* RespokeDirectConnection+private.h */,
 				18E942421993D61000C8B142 /* RespokeEndpoint.m */,
 				18E9444C1993EBF800C8B142 /* RespokeEndpoint+private.h */,
 				18E942441993D61000C8B142 /* RespokeGroup.m */,
 				18E9444D1993EBF800C8B142 /* RespokeGroup+private.h */,
+				B69C627D5DEB0A1DF7DA29E6 /* RespokeGroupMessage.m */,
+				B69C61B0E4DF241201CF7ABF /* RespokeGroupMessage+private.h */,
+				D452EDB01A68A8EE0080D954 /* RespokeMediaStats.m */,
+				D452EDB31A69C01D0080D954 /* RespokeMediaStats+private.h */,
 				18E942461993D61000C8B142 /* RespokeSignalingChannel.h */,
 				18E942471993D61000C8B142 /* RespokeSignalingChannel.m */,
 				FCCB2D071BBA2FFB000BDC3F /* RespokeVersion.h */,
@@ -389,8 +401,6 @@
 				D4A68E1B1B0FEA990018307F /* Socket.IO */,
 				18E9420F1993D46E00C8B142 /* Supporting Files */,
 				D4A68DFF1B0FEA990018307F /* WebRTC */,
-				B69C627D5DEB0A1DF7DA29E6 /* RespokeGroupMessage.m */,
-				B69C61B0E4DF241201CF7ABF /* RespokeGroupMessage+private.h */,
 			);
 			path = RespokeSDK;
 			sourceTree = "<group>";
@@ -444,13 +454,15 @@
 			children = (
 				D42AE9E71A38DB8D00B1C9A1 /* Respoke.h */,
 				D42AE9E81A38DB8D00B1C9A1 /* RespokeCall.h */,
-				D452EDB21A68A9250080D954 /* RespokeMediaStats.h */,
 				D42AE9E91A38DB8D00B1C9A1 /* RespokeClient.h */,
 				D42AE9EA1A38DB8D00B1C9A1 /* RespokeConnection.h */,
+				0D09B16A1DFA28AF0056580F /* RespokeConversation.h */,
+				0DF3BE201E005D9C005BF8A0 /* RespokeConversationReadStatus.h */,
 				D42AE9EB1A38DB8D00B1C9A1 /* RespokeDirectConnection.h */,
 				D42AE9EC1A38DB8D00B1C9A1 /* RespokeEndpoint.h */,
 				D42AE9ED1A38DB8D00B1C9A1 /* RespokeGroup.h */,
 				B69C6AB33B024006CE8213E7 /* RespokeGroupMessage.h */,
+				D452EDB21A68A9250080D954 /* RespokeMediaStats.h */,
 			);
 			name = PublicHeaders;
 			sourceTree = "<group>";
@@ -554,12 +566,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18E9422F1993D46E00C8B142 /* Build configuration list for PBXNativeTarget "RespokeSDKTests" */;
 			buildPhases = (
-				930917AF9C2EBB8992526AC8 /* 📦 Check Pods Manifest.lock */,
+				930917AF9C2EBB8992526AC8 /* [CP] Check Pods Manifest.lock */,
 				18E942151993D46E00C8B142 /* Sources */,
 				18E942161993D46E00C8B142 /* Frameworks */,
 				18E942171993D46E00C8B142 /* Resources */,
-				A247B4F49A87CCF3B37D7999 /* 📦 Embed Pods Frameworks */,
-				CC492A9AAAD27D3D9CB33774 /* 📦 Copy Pods Resources */,
+				A247B4F49A87CCF3B37D7999 /* [CP] Embed Pods Frameworks */,
+				CC492A9AAAD27D3D9CB33774 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -632,29 +644,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		930917AF9C2EBB8992526AC8 /* 📦 Check Pods Manifest.lock */ = {
+		930917AF9C2EBB8992526AC8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		A247B4F49A87CCF3B37D7999 /* 📦 Embed Pods Frameworks */ = {
+		A247B4F49A87CCF3B37D7999 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -662,14 +674,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RespokeSDKTests/Pods-RespokeSDKTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CC492A9AAAD27D3D9CB33774 /* 📦 Copy Pods Resources */ = {
+		CC492A9AAAD27D3D9CB33774 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -698,6 +710,7 @@
 				18AFCCA4199BDB0D00818468 /* RespokeConnection.m in Sources */,
 				18E942511993D61000C8B142 /* RespokeClient.m in Sources */,
 				18E9424F1993D61000C8B142 /* Respoke.m in Sources */,
+				0D09B16C1DFA2D860056580F /* RespokeConversation.m in Sources */,
 				18E942561993D61000C8B142 /* APIGetToken.m in Sources */,
 				18E942541993D61000C8B142 /* RespokeSignalingChannel.m in Sources */,
 				18E942521993D61000C8B142 /* RespokeEndpoint.m in Sources */,
@@ -709,6 +722,7 @@
 				18E942501993D61000C8B142 /* RespokeCall.m in Sources */,
 				180BE48D19F9A8DF005BA3A1 /* RespokeDirectConnection.m in Sources */,
 				B69C623268028C01B8E9E403 /* RespokeGroupMessage.m in Sources */,
+				0DF3BE221E0078DB005BF8A0 /* RespokeConversationReadStatus.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

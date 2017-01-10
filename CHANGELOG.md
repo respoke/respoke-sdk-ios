@@ -4,9 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [1.4.0] - 2017-01-10
 ### Added
-- ** Added support for conversation read and update for server-side history. **
+- **Added support for conversation read and update for server-side history.**
 ### Changed
-- ** Migrated a history operation to use newer route. (Older route is deprecated). **
+- **Migrated a history operation to use newer route. (Older route is deprecated).**
 - **Upgraded cocoapods podspec to v1.x.**
 
 

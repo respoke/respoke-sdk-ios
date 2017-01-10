@@ -414,7 +414,7 @@
                           
                           NSMutableDictionary* results = [[NSMutableDictionary alloc] init];
                           
-                          for (id conv in conversations) {
+                          for (NSDictionary *conv in conversations) {
                               
                               NSObject *msg = conv[@"latestMsg"];
                               NSDictionary *latestMsg;

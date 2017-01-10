@@ -204,6 +204,29 @@
                       successHandler:(void (^)(NSDictionary*))successHandler
                         errorHandler:(void (^)(NSString*))errorHandler;
 
+/**
+ * For the connected endpoint, fetch a record that describes every conversation 
+ * that the server has history on. 
+ *
+ * @param successHandler The block called when this async operation has completed successfully.
+ * @param errorHandler The block called when this async operation has completed with an error
+ */
+- (void)getConversations:(void (^)(NSDictionary *))successHandler
+            errorHandler:(void (^)(NSString *))errorHandler;
+
+/**
+ * For each specified conversations, updates the "read" status up to the given
+ *  timestamp. Messages older than the given timestamp will be considered "read" 
+ *  for this endpoint.
+ *
+ * @param conversationStatuses An array of RespokeConversationReadStatus object 
+ *      references.
+ * @param successHandler The block called when this async operation has completed successfully.
+ * @param errorHandler The block called when this async operation has completed with an error
+ */
+- (void)setConversationsRead:(NSArray *)conversationStatuses
+              successHandler:(void (^)(NSDictionary *))successHandler
+                errorHandler:(void (^)(NSString *))errorHandler;
 
 /**
  * Retrieve the history of messages that have been persisted for 1 or more groups. Only those
